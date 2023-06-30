@@ -11,6 +11,8 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"esModuleInterop": true
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"declaration": true
 	}
 }

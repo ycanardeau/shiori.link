@@ -1,3 +1,4 @@
+import config from '@/mikro-orm.config';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { MikroORM } from '@mikro-orm/core';
 import {
@@ -9,6 +10,7 @@ import {
 	addHttpLogging,
 	addRouting,
 	addScopedFactory,
+	addSingletonFactory,
 	addStaticFiles,
 	addTransientCtor,
 	createWebAppBuilder,
@@ -42,11 +44,11 @@ async function main(): Promise<void> {
 	addHttpLogging(services);
 	addRouting(services);
 
-	/*// TODO: move
+	// TODO: move
 	const orm = await MikroORM.init(config);
 	addSingletonFactory(services, Symbol.for('MikroORM'), () => {
 		return orm;
-	});*/
+	});
 
 	addScopedFactory(
 		services,
