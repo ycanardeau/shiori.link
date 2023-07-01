@@ -1,4 +1,5 @@
 import { NoteCreateHandler } from '@/request-handlers/NoteCreateHandler';
+import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { Ctor } from 'yohira';
@@ -17,6 +18,11 @@ export const requestHandlerDescriptors: Record<
 		method: 'POST',
 		serviceType: Symbol.for('NoteCreateHandler'),
 		implType: NoteCreateHandler,
+	},
+	'/api/note/get': {
+		method: 'GET',
+		serviceType: Symbol.for('NoteGetHandler'),
+		implType: NoteGetHandler,
 	},
 	'/api/note/list': {
 		method: 'GET',
