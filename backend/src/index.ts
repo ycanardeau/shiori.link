@@ -1,8 +1,12 @@
 import config from '@/mikro-orm.config';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
+import { requestHandlerDescriptors } from '@/requestHandlerDescriptors';
+import {
+	CurrentUserService,
+	ICurrentUserService,
+} from '@/services/CurrentUserService';
 import { MikroORM } from '@mikro-orm/core';
 import {
-	Ctor,
 	Envs,
 	IHttpContext,
 	StatusCodes,
@@ -23,14 +27,6 @@ import {
 	useStaticFiles,
 	write,
 } from 'yohira';
-
-interface RequestHandlerDescriptor {
-	method: 'GET' | 'POST';
-	serviceType: symbol;
-	implType: Ctor<RequestHandler<unknown, unknown>>;
-}
-
-const requestHandlerDescriptors: Record<string, RequestHandlerDescriptor> = {};
 
 async function main(): Promise<void> {
 	// TODO: remove
@@ -61,6 +57,8 @@ async function main(): Promise<void> {
 			return orm.em.fork();
 		},
 	);
+
+	addTransientCtor(services, ICurrentUserService, CurrentUserService);
 
 	for (const { serviceType, implType } of Object.values(
 		requestHandlerDescriptors,
