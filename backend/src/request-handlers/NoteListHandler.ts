@@ -37,6 +37,8 @@ export class NoteListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NoteListRequest,
 	): Promise<Result<NoteListResponse, Error>> {
+		// TODO: check permissions
+
 		const [notes, totalCount] = await this.em.findAndCount(
 			Note,
 			{},

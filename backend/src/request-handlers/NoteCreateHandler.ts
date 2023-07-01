@@ -33,6 +33,8 @@ export class NoteCreateHandler extends RequestHandler<
 			return new Err(new UnauthorizedError());
 		}
 
+		// TODO: check permissions
+
 		const result = await this.em.transactional(async (em) => {
 			const note = new Note(currentUser, request.text);
 			em.persist(note);
