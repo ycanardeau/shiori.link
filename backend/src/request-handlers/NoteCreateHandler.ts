@@ -16,7 +16,8 @@ export class NoteCreateHandler extends RequestHandler<
 	NoteCreateResponse
 > {
 	constructor(
-		@inject(Symbol.for('EntityManager')) private readonly em: EntityManager,
+		@inject(Symbol.for('EntityManager'))
+		private readonly em: EntityManager,
 		@inject(ICurrentUserService)
 		private readonly currentUserService: ICurrentUserService,
 	) {
