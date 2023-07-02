@@ -8,5 +8,6 @@ export function toUserDto(user: User): Result<UserDto, Error> {
 		id: user.id,
 		createdAt: user.createdAt.toISOString(),
 		userName: user.userName,
+		avatarUrl: user.avatarUrl,
 	});
 }

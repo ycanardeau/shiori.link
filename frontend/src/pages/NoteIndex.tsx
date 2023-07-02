@@ -1,13 +1,13 @@
 import { NoteCreateModal } from '@/components/NoteCreateModal';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
+	EuiAvatar,
 	EuiButton,
 	EuiComment,
 	EuiCommentList,
 	EuiPageTemplate,
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
-import { range } from 'lodash-es';
 import React from 'react';
 
 import { noteApi } from '../api/NoteApi';
@@ -21,6 +21,12 @@ const NoteComment = React.memo(
 		return (
 			<EuiComment
 				username={note.user.userName}
+				timelineAvatar={
+					<EuiAvatar
+						name={note.user.userName}
+						imageUrl={note.user.avatarUrl}
+					/>
+				}
 				timestamp={note.createdAt}
 			>
 				{note.text}

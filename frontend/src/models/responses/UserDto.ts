@@ -3,4 +3,5 @@ export interface UserDto {
 	id: number;
 	createdAt: string /* TODO: Date */;
 	userName: string;
+	avatarUrl: string;
 }
