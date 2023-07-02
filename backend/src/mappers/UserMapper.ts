@@ -6,7 +6,7 @@ export function toUserDto(user: User): Result<UserDto, Error> {
 	return new Ok({
 		_UserDtoBrand: undefined,
 		id: user.id,
-		createdAt: user.createdAt,
+		createdAt: user.createdAt.toISOString(),
 		userName: user.userName,
 	});
 }

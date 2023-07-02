@@ -12,7 +12,7 @@ export function toNoteDto(note: Note): Result<NoteDto, Error> {
 	return new Ok({
 		_NoteDtoBrand: undefined,
 		id: note.id,
-		createdAt: note.createdAt,
+		createdAt: note.createdAt.toISOString(),
 		user: toUserDtoResult.val,
 		text: note.text,
 	});
