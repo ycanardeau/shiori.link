@@ -1,3 +1,4 @@
+import { NoteCreateModal } from '@/components/NoteCreateModal';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
 	EuiButton,
@@ -42,8 +43,46 @@ const NoteCommentList = React.memo(
 	},
 );
 
+interface NoteCreateButtonProps {
+	onSave: (note: NoteDto) => void;
+}
+
+const NoteCreateButton = React.memo(({ onSave }: NoteCreateButtonProps) => {
+	const [isModalVisible, setIsModalVisible] = React.useState(false);
+	const closeModal = (): void => setIsModalVisible(false);
+	const showModal = (): void => setIsModalVisible(true);
+
+	const handleSave = React.useCallback(
+		(note: NoteDto) => {
+			closeModal();
+
+			onSave(note);
+		},
+		[onSave],
+	);
+
+	return (
+		<>
+			<EuiButton iconType={AddRegular} onClick={showModal}>
+				Add note{/* LOC */}
+			</EuiButton>
+
+			{isModalVisible && (
+				<NoteCreateModal onCancel={closeModal} onSave={handleSave} />
+			)}
+		</>
+	);
+});
+
 const NoteIndex = (): React.ReactElement => {
 	const [notes, setNotes] = React.useState<NoteDto[]>([]);
+
+	const handleSave = React.useCallback(
+		(note: NoteDto): void => {
+			setNotes([note, ...notes]);
+		},
+		[notes],
+	);
 
 	React.useEffect(() => {
 		setNotes(
@@ -68,12 +107,9 @@ const NoteIndex = (): React.ReactElement => {
 		<EuiPageTemplate>
 			<EuiPageTemplate.Header
 				pageTitle="Notes" /* LOC */
-				rightSideItems={[
-					<EuiButton iconType={AddRegular}>
-						Add note{/* LOC */}
-					</EuiButton>,
-				]}
+				rightSideItems={[<NoteCreateButton onSave={handleSave} />]}
 			/>
+
 			<EuiPageTemplate.Section>
 				<NoteCommentList notes={notes} />
 			</EuiPageTemplate.Section>
