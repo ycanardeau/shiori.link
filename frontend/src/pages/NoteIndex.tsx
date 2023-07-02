@@ -10,6 +10,8 @@ import { AddRegular } from '@fluentui/react-icons';
 import { range } from 'lodash-es';
 import React from 'react';
 
+import { noteApi } from '../api/NoteApi';
+
 interface NoteCommentProps {
 	note: NoteDto;
 }
@@ -28,7 +30,7 @@ const NoteComment = React.memo(
 );
 
 interface NoteCommentListProps {
-	notes: NoteDto[];
+	notes: readonly NoteDto[];
 }
 
 const NoteCommentList = React.memo(
@@ -75,7 +77,7 @@ const NoteCreateButton = React.memo(({ onSave }: NoteCreateButtonProps) => {
 });
 
 const NoteIndex = (): React.ReactElement => {
-	const [notes, setNotes] = React.useState<NoteDto[]>([]);
+	const [notes, setNotes] = React.useState<readonly NoteDto[]>([]);
 
 	const handleSave = React.useCallback(
 		(note: NoteDto): void => {
@@ -85,22 +87,11 @@ const NoteIndex = (): React.ReactElement => {
 	);
 
 	React.useEffect(() => {
-		setNotes(
-			range(0, 100)
-				.reverse()
-				.map((id) => ({
-					_NoteDtoBrand: undefined,
-					id: id,
-					createdAt: new Date().toISOString(),
-					user: {
-						_UserDtoBrand: undefined,
-						id: 1,
-						createdAt: new Date().toISOString(),
-						userName: 'aigamo',
-					},
-					text: `Note ${id + 1}`,
-				})),
-		);
+		noteApi.list({}).then((result) => {
+			if (result.ok) {
+				setNotes(result.val.items);
+			}
+		});
 	}, []);
 
 	return (

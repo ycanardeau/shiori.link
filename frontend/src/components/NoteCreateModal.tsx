@@ -1,3 +1,4 @@
+import { noteApi } from '@/api/NoteApi';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
 	EuiButton,
@@ -62,27 +63,12 @@ export const NoteCreateModal = ({
 				<EuiButton
 					type="submit"
 					onClick={async (): Promise<void> => {
-						try {
-							setIsLoading(true);
+						setIsLoading(true);
 
-							// TODO
-							await new Promise((resolve) =>
-								setTimeout(resolve, 1000),
-							);
-
-							onSave({
-								_NoteDtoBrand: undefined,
-								id: 1,
-								createdAt: new Date().toISOString(),
-								user: {
-									_UserDtoBrand: undefined,
-									id: 1,
-									createdAt: new Date().toISOString(),
-									userName: 'aigamo',
-								},
-								text: text.trim(),
-							});
-						} finally {
+						const result = await noteApi.create({ text: text });
+						if (result.ok) {
+							onSave(result.val);
+						} else {
 							setIsLoading(false);
 						}
 					}}
