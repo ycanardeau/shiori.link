@@ -2,6 +2,7 @@ import { NoteCreateHandler } from '@/request-handlers/NoteCreateHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
+import { UrlFetchHandler } from '@/request-handlers/UrlFetchHandler';
 import { Ctor } from 'yohira';
 
 interface RequestHandlerDescriptor {
@@ -28,5 +29,10 @@ export const requestHandlerDescriptors: Record<
 		method: 'GET',
 		serviceType: Symbol.for('NoteListHandler'),
 		implType: NoteListHandler,
+	},
+	'/api/url/fetch': {
+		method: 'POST',
+		serviceType: Symbol.for('UrlFetchHandler'),
+		implType: UrlFetchHandler,
 	},
 };

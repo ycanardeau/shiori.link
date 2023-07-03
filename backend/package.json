@@ -6,6 +6,7 @@
 		"@mikro-orm/cli": "^5.7.12",
 		"@mikro-orm/migrations": "^5.7.12",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
+		"@types/jsdom": "^21.1.1",
 		"@types/lodash-es": "^4.17.6",
 		"@types/qs": "^6.9.7",
 		"@typescript-eslint/eslint-plugin": "^5.60.1",
@@ -29,6 +30,7 @@
 		"@mikro-orm/reflection": "^5.7.12",
 		"@mikro-orm/sql-highlighter": "^1.0.1",
 		"ajv": "^8.12.0",
+		"jsdom": "^22.1.0",
 		"lodash-es": "^4.17.21",
 		"qs": "^6.11.2",
 		"yohira": "^0.0.0-alpha.13"
