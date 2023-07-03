@@ -9,16 +9,17 @@ import {
 	ref,
 } from '@mikro-orm/core';
 
-@Entity({ tableName: 'external_links' })
-export class ExternalLink {
+@Entity({
+	tableName: 'external_links',
+	abstract: true,
+	discriminatorColumn: 'discr',
+})
+export abstract class ExternalLink {
 	@PrimaryKey()
 	id!: number;
 
 	@ManyToOne()
 	user: Ref<User>;
-
-	@ManyToOne()
-	note: Ref<Note>;
 
 	@Property({ columnType: 'text' })
 	url: string;
@@ -47,9 +48,8 @@ export class ExternalLink {
 	@Property({ columnType: 'text' })
 	fragment: string;
 
-	constructor(note: Note, url: URL) {
-		this.user = note.user;
-		this.note = ref(note);
+	protected constructor(user: User, url: URL) {
+		this.user = ref(user);
 		this.url = url.href;
 		this.scheme = url.protocol.split(':')[0];
 		this.host = url.hostname;
@@ -58,5 +58,17 @@ export class ExternalLink {
 		this.path = url.pathname;
 		this.query = url.search;
 		this.fragment = url.hash;
+	}
+}
+
+@Entity({ tableName: 'external_links', discriminatorValue: 'Note' })
+export class NoteExternalLink extends ExternalLink {
+	@ManyToOne()
+	note: Ref<Note>;
+
+	constructor(note: Note, url: URL) {
+		super(note.user.getEntity(), url);
+
+		this.note = ref(note);
 	}
 }

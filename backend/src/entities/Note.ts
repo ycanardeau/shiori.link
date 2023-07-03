@@ -1,4 +1,4 @@
-import { ExternalLink } from '@/entities/ExternalLink';
+import { NoteExternalLink } from '@/entities/ExternalLink';
 import { User } from '@/entities/User';
 import {
 	Collection,
@@ -25,8 +25,8 @@ export class Note {
 	@Property({ columnType: 'text' })
 	text: string;
 
-	@OneToMany(() => ExternalLink, (externalLink) => externalLink.note)
-	externalLinks = new Collection<ExternalLink>(this);
+	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
+	externalLinks = new Collection<NoteExternalLink>(this);
 
 	constructor(user: User, text: string) {
 		this.user = ref(user);

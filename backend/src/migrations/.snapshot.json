@@ -144,8 +144,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "note_id": {
-          "name": "note_id",
+        "user_id": {
+          "name": "user_id",
           "type": "int",
           "unsigned": true,
           "autoincrement": false,
@@ -225,13 +225,25 @@
           "nullable": false,
           "mappedType": "text"
         },
-        "user_id": {
-          "name": "user_id",
+        "discr": {
+          "name": "discr",
+          "type": "enum('Note')",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "Note"
+          ],
+          "mappedType": "enum"
+        },
+        "note_id": {
+          "name": "note_id",
           "type": "int",
           "unsigned": true,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         }
       },
@@ -239,19 +251,28 @@
       "indexes": [
         {
           "columnNames": [
-            "note_id"
+            "user_id"
           ],
           "composite": false,
-          "keyName": "external_links_note_id_index",
+          "keyName": "external_links_user_id_index",
           "primary": false,
           "unique": false
         },
         {
           "columnNames": [
-            "user_id"
+            "discr"
           ],
           "composite": false,
-          "keyName": "external_links_user_id_index",
+          "keyName": "external_links_discr_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "note_id"
+          ],
+          "composite": false,
+          "keyName": "external_links_note_id_index",
           "primary": false,
           "unique": false
         },
@@ -267,18 +288,6 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "external_links_note_id_foreign": {
-          "constraintName": "external_links_note_id_foreign",
-          "columnNames": [
-            "note_id"
-          ],
-          "localTableName": "external_links",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "notes",
-          "updateRule": "cascade"
-        },
         "external_links_user_id_foreign": {
           "constraintName": "external_links_user_id_foreign",
           "columnNames": [
@@ -289,6 +298,19 @@
             "id"
           ],
           "referencedTableName": "users",
+          "updateRule": "cascade"
+        },
+        "external_links_note_id_foreign": {
+          "constraintName": "external_links_note_id_foreign",
+          "columnNames": [
+            "note_id"
+          ],
+          "localTableName": "external_links",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "notes",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
