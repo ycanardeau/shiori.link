@@ -1,7 +1,8 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface NoteCreateRequest {
-	readonly text: string;
+	text: string;
+	urls: string[];
 }
 
 export const NoteCreateRequestSchema: JSONSchemaType<NoteCreateRequest> = {
@@ -10,6 +11,12 @@ export const NoteCreateRequestSchema: JSONSchemaType<NoteCreateRequest> = {
 		text: {
 			type: 'string',
 		},
+		urls: {
+			type: 'array',
+			items: {
+				type: 'string',
+			},
+		},
 	},
-	required: ['text'],
+	required: ['text', 'urls'],
 };

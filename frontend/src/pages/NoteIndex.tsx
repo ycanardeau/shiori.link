@@ -5,6 +5,7 @@ import {
 	EuiButton,
 	EuiComment,
 	EuiCommentList,
+	EuiMarkdownFormat,
 	EuiPageTemplate,
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
@@ -29,7 +30,7 @@ const NoteComment = React.memo(
 				}
 				timestamp={note.createdAt}
 			>
-				{note.text}
+				<EuiMarkdownFormat>{note.text}</EuiMarkdownFormat>
 			</EuiComment>
 		);
 	},

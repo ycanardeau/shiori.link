@@ -29,6 +29,9 @@ export class ExternalLink {
 	@Property()
 	host: string;
 
+	/**
+	 * https://www.mediawiki.org/wiki/Manual:Externallinks_table
+	 */
 	@Property()
 	reversedHost: string;
 

@@ -1,3 +1,4 @@
+import { ExternalLink } from '@/entities/ExternalLink';
 import { Note } from '@/entities/Note';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
@@ -38,6 +39,12 @@ export class NoteCreateHandler extends RequestHandler<
 		const result = await this.em.transactional(async (em) => {
 			const note = new Note(currentUser, request.text);
 			em.persist(note);
+
+			// TODO: validate and restrict URLs
+			for (const url of request.urls) {
+				const externalLink = new ExternalLink(note, new URL(url));
+				em.persist(externalLink);
+			}
 
 			return new Ok(note);
 		});

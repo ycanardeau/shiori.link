@@ -11,9 +11,33 @@ import {
 	EuiModalHeader,
 	EuiModalHeaderTitle,
 	EuiTextArea,
+	getDefaultEuiMarkdownParsingPlugins,
+	getDefaultEuiMarkdownProcessingPlugins,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
 import React from 'react';
+import rehypeStringify from 'rehype-stringify';
+import unified from 'unified';
+import { VFileContents } from 'vfile';
+
+const parsingPluginList = getDefaultEuiMarkdownParsingPlugins();
+const processingPluginList = getDefaultEuiMarkdownProcessingPlugins();
+const processor = unified()
+	.use(parsingPluginList)
+	.use([processingPluginList[0], rehypeStringify]);
+
+function extractUrlsFromMarkdown(text: string): string[] {
+	const processed = processor.processSync(text);
+	const result = (processed.result as VFileContents) ?? processed.contents;
+	const html =
+		typeof result === 'string' ? result : new TextDecoder().decode(result);
+
+	const parser = new DOMParser();
+	const document = parser.parseFromString(html, 'text/html');
+	const anchors = document.getElementsByTagName('a');
+	const urls = Array.from(anchors).map((anchor) => anchor.href);
+	return urls;
+}
 
 interface NoteCreateModalProps {
 	onCancel: () => void;
@@ -65,7 +89,12 @@ export const NoteCreateModal = ({
 					onClick={async (): Promise<void> => {
 						setIsLoading(true);
 
-						const result = await noteApi.create({ text: text });
+						const trimmedText = text.trim();
+						const urls = extractUrlsFromMarkdown(trimmedText);
+						const result = await noteApi.create({
+							text: trimmedText,
+							urls: urls,
+						});
 						if (result.ok) {
 							onSave(result.val);
 						} else {
