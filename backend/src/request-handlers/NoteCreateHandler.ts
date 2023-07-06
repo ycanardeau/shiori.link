@@ -37,7 +37,16 @@ export class NoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const note = new Note(currentUser, request.text);
+			const parent =
+				request.parentId !== undefined
+					? await em.findOne(Note, { id: request.parentId })
+					: undefined;
+
+			const note = new Note(
+				currentUser,
+				request.text,
+				parent ?? undefined,
+			);
 			em.persist(note);
 
 			// TODO: validate and restrict URLs
