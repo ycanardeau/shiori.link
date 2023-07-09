@@ -19,6 +19,7 @@ import { icon as editorUnorderedList } from '@elastic/eui/es/components/icon/ass
 import { icon as empty } from '@elastic/eui/es/components/icon/assets/empty';
 import { icon as eye } from '@elastic/eui/es/components/icon/assets/eye';
 import { icon as logoGithub } from '@elastic/eui/es/components/icon/assets/logo_github';
+import { icon as popout } from '@elastic/eui/es/components/icon/assets/popout';
 import { icon as questionInCircle } from '@elastic/eui/es/components/icon/assets/question_in_circle';
 import { icon as quote } from '@elastic/eui/es/components/icon/assets/quote';
 import { icon as returnKey } from '@elastic/eui/es/components/icon/assets/return_key';
@@ -52,6 +53,7 @@ const cachedIcons: IconComponentCacheType = {
 	empty,
 	eye,
 	logoGithub,
+	popout,
 	questionInCircle,
 	quote,
 	returnKey,

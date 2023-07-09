@@ -1,3 +1,4 @@
+import { BookmarkCreateModal } from '@/components/BookmarkCreateModal';
 import { NoteCreateModal } from '@/components/NoteCreateModal';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
@@ -52,41 +53,89 @@ const NoteCommentList = React.memo(
 	},
 );
 
+interface BookmarkCreateButtonProps {
+	onSave: (note: NoteDto) => void;
+}
+
+const BookmarkCreateButton = React.memo(
+	({ onSave }: BookmarkCreateButtonProps): React.ReactElement => {
+		const [isModalVisible, setIsModalVisible] = React.useState(false);
+		const closeModal = (): void => setIsModalVisible(false);
+		const showModal = (): void => setIsModalVisible(true);
+
+		const handleSave = React.useCallback(
+			(note: NoteDto) => {
+				closeModal();
+
+				onSave(note);
+			},
+			[onSave],
+		);
+
+		return (
+			<>
+				<EuiButton iconType={AddRegular} onClick={showModal}>
+					Add bookmark{/* LOC */}
+				</EuiButton>
+
+				{isModalVisible && (
+					<BookmarkCreateModal
+						onCancel={closeModal}
+						onSave={handleSave}
+					/>
+				)}
+			</>
+		);
+	},
+);
+
 interface NoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const NoteCreateButton = React.memo(({ onSave }: NoteCreateButtonProps) => {
-	const [isModalVisible, setIsModalVisible] = React.useState(false);
-	const closeModal = (): void => setIsModalVisible(false);
-	const showModal = (): void => setIsModalVisible(true);
+const NoteCreateButton = React.memo(
+	({ onSave }: NoteCreateButtonProps): React.ReactElement => {
+		const [isModalVisible, setIsModalVisible] = React.useState(false);
+		const closeModal = (): void => setIsModalVisible(false);
+		const showModal = (): void => setIsModalVisible(true);
 
-	const handleSave = React.useCallback(
-		(note: NoteDto) => {
-			closeModal();
+		const handleSave = React.useCallback(
+			(note: NoteDto) => {
+				closeModal();
 
-			onSave(note);
-		},
-		[onSave],
-	);
+				onSave(note);
+			},
+			[onSave],
+		);
 
-	return (
-		<>
-			<EuiButton iconType={AddRegular} onClick={showModal}>
-				Add note{/* LOC */}
-			</EuiButton>
+		return (
+			<>
+				<EuiButton iconType={AddRegular} onClick={showModal}>
+					Add note{/* LOC */}
+				</EuiButton>
 
-			{isModalVisible && (
-				<NoteCreateModal onCancel={closeModal} onSave={handleSave} />
-			)}
-		</>
-	);
-});
+				{isModalVisible && (
+					<NoteCreateModal
+						onCancel={closeModal}
+						onSave={handleSave}
+					/>
+				)}
+			</>
+		);
+	},
+);
 
 const NoteIndex = (): React.ReactElement => {
 	const [notes, setNotes] = React.useState<readonly NoteDto[]>([]);
 
-	const handleSave = React.useCallback(
+	const handleSaveNote = React.useCallback(
+		(note: NoteDto): void => {
+			setNotes([note, ...notes]);
+		},
+		[notes],
+	);
+
+	const handleSaveBookmark = React.useCallback(
 		(note: NoteDto): void => {
 			setNotes([note, ...notes]);
 		},
@@ -105,7 +154,10 @@ const NoteIndex = (): React.ReactElement => {
 		<EuiPageTemplate>
 			<EuiPageTemplate.Header
 				pageTitle="Notes" /* LOC */
-				rightSideItems={[<NoteCreateButton onSave={handleSave} />]}
+				rightSideItems={[
+					<NoteCreateButton onSave={handleSaveNote} />,
+					<BookmarkCreateButton onSave={handleSaveBookmark} />,
+				]}
 			/>
 
 			<EuiPageTemplate.Section>

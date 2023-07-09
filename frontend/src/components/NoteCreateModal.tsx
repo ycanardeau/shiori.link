@@ -53,7 +53,8 @@ export const NoteCreateModal = ({
 	const [text, setText] = React.useState('');
 	const [isLoading, setIsLoading] = React.useState(false);
 
-	const canSave = text.trim().length > 0;
+	const trimmedText = text.trim();
+	const canSave = trimmedText.length > 0;
 
 	return (
 		<EuiModal
@@ -89,17 +90,17 @@ export const NoteCreateModal = ({
 					onClick={async (): Promise<void> => {
 						setIsLoading(true);
 
-						const trimmedText = text.trim();
 						const urls = extractUrlsFromMarkdown(trimmedText);
 						const result = await noteApi.create({
 							text: trimmedText,
 							urls: urls,
 						});
-						if (result.ok) {
-							onSave(result.val);
-						} else {
+						if (!result.ok) {
 							setIsLoading(false);
+							return;
 						}
+
+						onSave(result.val);
 					}}
 					fill
 					disabled={!canSave}
