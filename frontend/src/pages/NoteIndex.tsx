@@ -1,41 +1,11 @@
+import { noteApi } from '@/api/NoteApi';
 import { BookmarkCreateModal } from '@/components/BookmarkCreateModal';
+import { NoteComment } from '@/components/NoteComment';
 import { NoteCreateModal } from '@/components/NoteCreateModal';
-import { NoteMarkdownFormat } from '@/components/NoteMarkdownFormat';
 import { NoteDto } from '@/models/responses/NoteDto';
-import {
-	EuiAvatar,
-	EuiButton,
-	EuiComment,
-	EuiCommentList,
-	EuiPageTemplate,
-} from '@elastic/eui';
+import { EuiButton, EuiCommentList, EuiPageTemplate } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import React from 'react';
-
-import { noteApi } from '../api/NoteApi';
-
-interface NoteCommentProps {
-	note: NoteDto;
-}
-
-const NoteComment = React.memo(
-	({ note }: NoteCommentProps): React.ReactElement => {
-		return (
-			<EuiComment
-				username={note.user.userName}
-				timelineAvatar={
-					<EuiAvatar
-						name={note.user.userName}
-						imageUrl={note.user.avatarUrl}
-					/>
-				}
-				timestamp={note.createdAt}
-			>
-				<NoteMarkdownFormat>{note.text}</NoteMarkdownFormat>
-			</EuiComment>
-		);
-	},
-);
 
 interface NoteCommentListProps {
 	notes: readonly NoteDto[];
@@ -157,6 +127,11 @@ const NoteIndex = (): React.ReactElement => {
 				rightSideItems={[
 					<NoteCreateButton onSave={handleSaveNote} />,
 					<BookmarkCreateButton onSave={handleSaveBookmark} />,
+				]}
+				breadcrumbs={[
+					{
+						text: 'Notes' /* LOC */,
+					},
 				]}
 			/>
 
