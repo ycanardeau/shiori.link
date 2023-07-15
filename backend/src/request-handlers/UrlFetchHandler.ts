@@ -25,8 +25,9 @@ export class UrlFetchHandler extends RequestHandler<
 			const dom = new JSDOM(text);
 			return new Ok({
 				title:
-					dom.window.document.querySelector('title')?.textContent ??
-					undefined,
+					dom.window.document
+						.querySelector('title')
+						?.textContent?.trim() ?? undefined,
 				canonical:
 					dom.window.document
 						.querySelector("link[rel='canonical']")
