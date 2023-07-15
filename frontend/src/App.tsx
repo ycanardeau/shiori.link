@@ -1,10 +1,10 @@
+import { AppRoutes } from '@/AppRoutes';
 import '@/icons';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
 import createCache from '@emotion/cache';
 import React from 'react';
-
-const NoteIndex = React.lazy(() => import('@/pages/NoteIndex'));
+import { BrowserRouter } from 'react-router-dom';
 
 // https://elastic.github.io/eui/#/utilities/provider
 const euiCache = createCache({
@@ -15,11 +15,13 @@ euiCache.compat = true;
 
 const App = (): React.ReactElement => {
 	return (
-		<EuiProvider colorMode="dark" cache={euiCache}>
-			<React.Suspense fallback={null}>
-				<NoteIndex />
-			</React.Suspense>
-		</EuiProvider>
+		<BrowserRouter>
+			<EuiProvider colorMode="dark" cache={euiCache}>
+				<React.Suspense fallback={null}>
+					<AppRoutes />
+				</React.Suspense>
+			</EuiProvider>
+		</BrowserRouter>
 	);
 };
 
