@@ -3,7 +3,6 @@ import { JSONSchemaType } from 'ajv';
 export interface NoteCreateRequest {
 	text: string;
 	urls: string[];
-	parentId: number | undefined;
 }
 
 export const NoteCreateRequestSchema: JSONSchemaType<NoteCreateRequest> = {
@@ -17,10 +16,6 @@ export const NoteCreateRequestSchema: JSONSchemaType<NoteCreateRequest> = {
 			items: {
 				type: 'string',
 			},
-		},
-		parentId: {
-			type: 'number',
-			nullable: true,
 		},
 	},
 	required: ['text', 'urls'],

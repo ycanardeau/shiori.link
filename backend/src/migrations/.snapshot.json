@@ -94,24 +94,6 @@
           "primary": false,
           "nullable": false,
           "mappedType": "text"
-        },
-        "root_id": {
-          "name": "root_id",
-          "type": "int",
-          "unsigned": true,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "integer"
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "int",
-          "unsigned": true,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "integer"
         }
       },
       "name": "notes",
@@ -122,24 +104,6 @@
           ],
           "composite": false,
           "keyName": "notes_user_id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "columnNames": [
-            "root_id"
-          ],
-          "composite": false,
-          "keyName": "notes_root_id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "columnNames": [
-            "parent_id"
-          ],
-          "composite": false,
-          "keyName": "notes_parent_id_index",
           "primary": false,
           "unique": false
         },
@@ -165,32 +129,6 @@
             "id"
           ],
           "referencedTableName": "users",
-          "updateRule": "cascade"
-        },
-        "notes_root_id_foreign": {
-          "constraintName": "notes_root_id_foreign",
-          "columnNames": [
-            "root_id"
-          ],
-          "localTableName": "notes",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "notes",
-          "deleteRule": "set null",
-          "updateRule": "cascade"
-        },
-        "notes_parent_id_foreign": {
-          "constraintName": "notes_parent_id_foreign",
-          "columnNames": [
-            "parent_id"
-          ],
-          "localTableName": "notes",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "notes",
-          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
