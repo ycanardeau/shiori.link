@@ -1,4 +1,8 @@
 import { noteApi } from '@/api/NoteApi';
+import {
+	parsingPluginList,
+	processingPluginList,
+} from '@/components/NoteMarkdownFormat';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
 	EuiButton,
@@ -11,8 +15,6 @@ import {
 	EuiModalHeader,
 	EuiModalHeaderTitle,
 	EuiTextArea,
-	getDefaultEuiMarkdownParsingPlugins,
-	getDefaultEuiMarkdownProcessingPlugins,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
 import React from 'react';
@@ -20,8 +22,6 @@ import rehypeStringify from 'rehype-stringify';
 import unified from 'unified';
 import { VFileContents } from 'vfile';
 
-const parsingPluginList = getDefaultEuiMarkdownParsingPlugins();
-const processingPluginList = getDefaultEuiMarkdownProcessingPlugins();
 const processor = unified()
 	.use(parsingPluginList)
 	.use([processingPluginList[0], rehypeStringify]);

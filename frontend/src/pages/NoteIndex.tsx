@@ -1,12 +1,12 @@
 import { BookmarkCreateModal } from '@/components/BookmarkCreateModal';
 import { NoteCreateModal } from '@/components/NoteCreateModal';
+import { NoteMarkdownFormat } from '@/components/NoteMarkdownFormat';
 import { NoteDto } from '@/models/responses/NoteDto';
 import {
 	EuiAvatar,
 	EuiButton,
 	EuiComment,
 	EuiCommentList,
-	EuiMarkdownFormat,
 	EuiPageTemplate,
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
@@ -31,7 +31,7 @@ const NoteComment = React.memo(
 				}
 				timestamp={note.createdAt}
 			>
-				<EuiMarkdownFormat>{note.text}</EuiMarkdownFormat>
+				<NoteMarkdownFormat>{note.text}</NoteMarkdownFormat>
 			</EuiComment>
 		);
 	},
