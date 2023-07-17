@@ -1,4 +1,5 @@
 import { ContactCreateHandler } from '@/request-handlers/ContactCreateHandler';
+import { ContactGetHandler } from '@/request-handlers/ContactGetHandler';
 import { NoteCreateHandler } from '@/request-handlers/NoteCreateHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
@@ -20,6 +21,11 @@ export const requestHandlerDescriptors: Record<
 		method: 'POST',
 		serviceType: Symbol.for('ContactCreateHandler'),
 		implType: ContactCreateHandler,
+	},
+	'api/contact/get': {
+		method: 'GET',
+		serviceType: Symbol.for('ContactGetHandler'),
+		implType: ContactGetHandler,
 	},
 	'/api/note/create': {
 		method: 'POST',
