@@ -1,12 +1,12 @@
 import { Contact } from '@/entities/Contact';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toContactDto } from '@/mappers/ContactMapper';
+import { ContactDto } from '@/models/dto/ContactDto';
 import {
 	ContactCreateRequest,
 	ContactCreateRequestSchema,
 } from '@/models/requests/ContactCreateRequest';
 import { ContactCreateResponse } from '@/models/responses/ContactCreateResponse';
-import { ContactDto } from '@/models/responses/ContactDto';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/core';

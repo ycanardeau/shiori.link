@@ -1,6 +1,6 @@
 import { Contact } from '@/entities/Contact';
 import { toUserDto } from '@/mappers/UserMapper';
-import { ContactDto } from '@/models/responses/ContactDto';
+import { ContactDto } from '@/models/dto/ContactDto';
 import { Ok, Result } from 'yohira';
 
 export function toContactDto(contact: Contact): Result<ContactDto, Error> {
