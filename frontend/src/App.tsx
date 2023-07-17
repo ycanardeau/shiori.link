@@ -1,4 +1,5 @@
 import { AppRoutes } from '@/AppRoutes';
+import { Header } from '@/components/Header';
 import '@/icons';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
@@ -17,6 +18,7 @@ const App = (): React.ReactElement => {
 	return (
 		<BrowserRouter>
 			<EuiProvider colorMode="dark" cache={euiCache}>
+				<Header />
 				<React.Suspense fallback={null}>
 					<AppRoutes />
 				</React.Suspense>
