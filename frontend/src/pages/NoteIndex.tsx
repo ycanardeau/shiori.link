@@ -96,7 +96,7 @@ const NoteCreateButton = React.memo(
 );
 
 const NoteIndex = (): React.ReactElement => {
-	const [notes, setNotes] = React.useState<readonly NoteDto[]>([]);
+	const [notes, setNotes] = React.useState<NoteDto[]>([]);
 
 	const handleSaveNote = React.useCallback(
 		(note: NoteDto): void => {
