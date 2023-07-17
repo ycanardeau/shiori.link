@@ -1,6 +1,7 @@
 import { BookmarkNoteCreateHandler } from '@/request-handlers/BookmarkNoteCreateHandler';
 import { ContactCreateHandler } from '@/request-handlers/ContactCreateHandler';
 import { ContactGetHandler } from '@/request-handlers/ContactGetHandler';
+import { ContactListHandler } from '@/request-handlers/ContactListHandler';
 import { MarkdownNoteCreateHandler } from '@/request-handlers/MarkdownNoteCreateHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
@@ -27,6 +28,11 @@ export const requestHandlerDescriptors: Record<
 		method: 'GET',
 		serviceType: Symbol.for('ContactGetHandler'),
 		implType: ContactGetHandler,
+	},
+	'api/contact/list': {
+		method: 'GET',
+		serviceType: Symbol.for('ContactListHandler'),
+		implType: ContactListHandler,
 	},
 	'/api/note/create-bookmark': {
 		method: 'POST',
