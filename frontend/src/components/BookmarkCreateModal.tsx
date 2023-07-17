@@ -19,29 +19,6 @@ import { OpenRegular } from '@fluentui/react-icons';
 import React from 'react';
 
 const normalizedHosts: Record<string, string> = {
-	// https://en.wikipedia.org/wiki/Amazon_(company)#Products_and_services
-	'amazon.ae': 'amazon.com',
-	'amazon.ca': 'amazon.com',
-	'amazon.cn': 'amazon.com',
-	'amazon.co.jp': 'amazon.com',
-	'amazon.co.uk': 'amazon.com',
-	'amazon.com.au': 'amazon.com',
-	'amazon.com.be': 'amazon.com',
-	'amazon.com.br': 'amazon.com',
-	'amazon.com.mx': 'amazon.com',
-	'amazon.com.tr': 'amazon.com',
-	'amazon.de': 'amazon.com',
-	'amazon.eg': 'amazon.com',
-	'amazon.es': 'amazon.com',
-	'amazon.fr': 'amazon.com',
-	'amazon.in': 'amazon.com',
-	'amazon.it': 'amazon.com',
-	'amazon.nl': 'amazon.com',
-	'amazon.pl': 'amazon.com',
-	'amazon.sa': 'amazon.com',
-	'amazon.se': 'amazon.com',
-	'amazon.sg': 'amazon.com',
-
 	'music.youtube.com': 'youtube.com',
 };
 
