@@ -1,19 +1,19 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
-import { Note } from '@/entities/Note';
+import { BookmarkNote } from '@/entities/Note';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import {
-	NoteCreateRequest,
-	NoteCreateRequestSchema,
-} from '@/models/requests/NoteCreateRequest';
+	BookmarkNoteCreateRequest,
+	BookmarkNoteCreateRequestSchema,
+} from '@/models/requests/BookmarkNoteCreateRequest';
 import { NoteCreateResponse } from '@/models/responses/NoteCreateResponse';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/mariadb';
 import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
 
-export class NoteCreateHandler extends RequestHandler<
-	NoteCreateRequest,
+export class BookmarkNoteCreateHandler extends RequestHandler<
+	BookmarkNoteCreateRequest,
 	NoteCreateResponse
 > {
 	constructor(
@@ -22,12 +22,12 @@ export class NoteCreateHandler extends RequestHandler<
 		@inject(ICurrentUserService)
 		private readonly currentUserService: ICurrentUserService,
 	) {
-		super(NoteCreateRequestSchema);
+		super(BookmarkNoteCreateRequestSchema);
 	}
 
 	async handle(
 		httpContext: IHttpContext,
-		request: NoteCreateRequest,
+		request: BookmarkNoteCreateRequest,
 	): Promise<Result<NoteCreateResponse, Error>> {
 		const currentUser = await this.currentUserService.getCurrentUser();
 		if (currentUser === undefined) {
@@ -37,14 +37,15 @@ export class NoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const note = new Note(currentUser, request.text);
+			const note = new BookmarkNote(currentUser, JSON.stringify(request));
 			em.persist(note);
 
 			// TODO: validate and restrict URLs
-			for (const url of request.urls) {
-				const externalLink = new NoteExternalLink(note, new URL(url));
-				em.persist(externalLink);
-			}
+			const externalLink = new NoteExternalLink(
+				note,
+				new URL(request.url),
+			);
+			em.persist(externalLink);
 
 			return new Ok(note);
 		});

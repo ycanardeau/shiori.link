@@ -13,6 +13,7 @@ export function toNoteDto(note: Note): Result<NoteDto, Error> {
 		_NoteDtoBrand: undefined,
 		id: note.id,
 		createdAt: note.createdAt.toISOString(),
+		type: note.type,
 		user: toUserDtoResult.val,
 		text: note.text,
 	});

@@ -1,7 +1,7 @@
 import { noteApi } from '@/api/NoteApi';
-import { BookmarkCreateModal } from '@/components/BookmarkCreateModal';
+import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
+import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
-import { NoteCreateModal } from '@/components/NoteCreateModal';
 import { NoteDto } from '@/models/responses/NoteDto';
 import { EuiButton, EuiCommentList, EuiPageTemplate } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
@@ -49,7 +49,7 @@ const BookmarkCreateButton = React.memo(
 				</EuiButton>
 
 				{isModalVisible && (
-					<BookmarkCreateModal
+					<BookmarkNoteCreateModal
 						onCancel={closeModal}
 						onSave={handleSave}
 					/>
@@ -81,11 +81,11 @@ const NoteCreateButton = React.memo(
 		return (
 			<>
 				<EuiButton iconType={AddRegular} onClick={showModal}>
-					Add note{/* LOC */}
+					Add markdown{/* LOC */}
 				</EuiButton>
 
 				{isModalVisible && (
-					<NoteCreateModal
+					<MarkdownNoteCreateModal
 						onCancel={closeModal}
 						onSave={handleSave}
 					/>

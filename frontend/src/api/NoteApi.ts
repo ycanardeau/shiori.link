@@ -1,4 +1,5 @@
-import { NoteCreateRequest } from '@/models/requests/NoteCreateRequest';
+import { BookmarkNoteCreateRequest } from '@/models/requests/BookmarkNoteCreateRequest';
+import { MarkdownNoteCreateRequest } from '@/models/requests/MarkdownNoteCreateRequest';
 import { NoteGetRequest } from '@/models/requests/NoteGetRequest';
 import { NoteListRequest } from '@/models/requests/NoteListRequest';
 import { NoteCreateResponse } from '@/models/responses/NoteCreateResponse';
@@ -8,11 +9,30 @@ import { stringify } from 'qs';
 import { Err, Ok, Result } from 'ts-results';
 
 class NoteApi {
-	async create(
-		request: NoteCreateRequest,
+	async createBookmark(
+		request: BookmarkNoteCreateRequest,
 	): Promise<Result<NoteCreateResponse, Error>> {
 		try {
-			const response = await fetch('/api/note/create', {
+			const response = await fetch('/api/note/create-bookmark', {
+				method: 'POST',
+				body: JSON.stringify(request),
+			});
+			const json = await response.json();
+			return new Ok(json);
+		} catch (error) {
+			if (error instanceof Error) {
+				return new Err(error);
+			} else {
+				throw error;
+			}
+		}
+	}
+
+	async createMarkdown(
+		request: MarkdownNoteCreateRequest,
+	): Promise<Result<NoteCreateResponse, Error>> {
+		try {
+			const response = await fetch('/api/note/create-markdown', {
 				method: 'POST',
 				body: JSON.stringify(request),
 			});

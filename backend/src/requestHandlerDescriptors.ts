@@ -1,4 +1,5 @@
-import { NoteCreateHandler } from '@/request-handlers/NoteCreateHandler';
+import { BookmarkNoteCreateHandler } from '@/request-handlers/BookmarkNoteCreateHandler';
+import { MarkdownNoteCreateHandler } from '@/request-handlers/MarkdownNoteCreateHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
@@ -15,10 +16,15 @@ export const requestHandlerDescriptors: Record<
 	string,
 	RequestHandlerDescriptor
 > = {
-	'/api/note/create': {
+	'/api/note/create-bookmark': {
 		method: 'POST',
-		serviceType: Symbol.for('NoteCreateHandler'),
-		implType: NoteCreateHandler,
+		serviceType: Symbol.for('BookmarkNoteCreateHandler'),
+		implType: BookmarkNoteCreateHandler,
+	},
+	'/api/note/create-markdown': {
+		method: 'POST',
+		serviceType: Symbol.for('MarkdownNoteCreateHandler'),
+		implType: MarkdownNoteCreateHandler,
 	},
 	'/api/note/get': {
 		method: 'GET',

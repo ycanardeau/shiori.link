@@ -39,15 +39,15 @@ function extractUrlsFromMarkdown(text: string): string[] {
 	return urls;
 }
 
-interface NoteCreateModalProps {
+interface MarkdownNoteCreateModalProps {
 	onCancel: () => void;
 	onSave: (note: NoteDto) => void;
 }
 
-export const NoteCreateModal = ({
+export const MarkdownNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: NoteCreateModalProps): React.ReactElement => {
+}: MarkdownNoteCreateModalProps): React.ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
 	const [text, setText] = React.useState('');
@@ -63,7 +63,9 @@ export const NoteCreateModal = ({
 			initialFocus="[name=text]"
 		>
 			<EuiModalHeader>
-				<EuiModalHeaderTitle>Add note{/* LOC */}</EuiModalHeaderTitle>
+				<EuiModalHeaderTitle>
+					Add markdown{/* LOC */}
+				</EuiModalHeaderTitle>
 			</EuiModalHeader>
 
 			<EuiModalBody>
@@ -91,7 +93,7 @@ export const NoteCreateModal = ({
 						setIsLoading(true);
 
 						const urls = extractUrlsFromMarkdown(trimmedText);
-						const result = await noteApi.create({
+						const result = await noteApi.createMarkdown({
 							text: trimmedText,
 							urls: urls,
 						});

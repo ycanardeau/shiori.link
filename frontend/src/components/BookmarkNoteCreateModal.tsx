@@ -48,15 +48,15 @@ function replaceHostname(url: URL): URL {
 	return newUrl;
 }
 
-interface BookmarkCreateModalProps {
+interface BookmarkNoteCreateModalProps {
 	onCancel: () => void;
 	onSave: (note: NoteDto) => void;
 }
 
-export const BookmarkCreateModal = ({
+export const BookmarkNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: BookmarkCreateModalProps): React.ReactElement => {
+}: BookmarkNoteCreateModalProps): React.ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
 	const [url, setUrl] = React.useState('');
@@ -121,11 +121,9 @@ export const BookmarkCreateModal = ({
 							new URL(canonical || replacedUrl),
 						).href;
 
-						const noteCreateResult = await noteApi.create({
-							text: title
-								? `[${title}](${normalizedUrl})`
-								: normalizedUrl,
-							urls: [normalizedUrl],
+						const noteCreateResult = await noteApi.createBookmark({
+							url: normalizedUrl,
+							title: title,
 						});
 						if (!noteCreateResult.ok) {
 							setIsLoading(false);

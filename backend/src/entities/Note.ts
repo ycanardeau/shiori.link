@@ -1,8 +1,10 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { User } from '@/entities/User';
+import { NoteType } from '@/models/enums/NoteType';
 import {
 	Collection,
 	Entity,
+	Enum,
 	ManyToOne,
 	OneToMany,
 	PrimaryKey,
@@ -11,13 +13,20 @@ import {
 	ref,
 } from '@mikro-orm/core';
 
-@Entity({ tableName: 'notes' })
-export class Note {
+@Entity({
+	tableName: 'notes',
+	abstract: true,
+	discriminatorColumn: 'type',
+})
+export abstract class Note {
 	@PrimaryKey()
 	id!: number;
 
 	@Property()
 	createdAt = new Date();
+
+	@Enum(() => NoteType)
+	type!: NoteType;
 
 	@ManyToOne()
 	user: Ref<User>;
@@ -33,3 +42,15 @@ export class Note {
 		this.text = text;
 	}
 }
+
+@Entity({
+	tableName: 'notes',
+	discriminatorValue: NoteType.Bookmark,
+})
+export class BookmarkNote extends Note {}
+
+@Entity({
+	tableName: 'notes',
+	discriminatorValue: NoteType.Markdown,
+})
+export class MarkdownNote extends Note {}
