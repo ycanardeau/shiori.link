@@ -1,6 +1,6 @@
 import { noteApi } from '@/api/NoteApi';
 import { urlApi } from '@/api/UrlApi';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import {
 	EuiButton,
 	EuiButtonEmpty,

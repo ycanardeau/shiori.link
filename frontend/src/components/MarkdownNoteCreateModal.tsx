@@ -3,7 +3,7 @@ import {
 	parsingPluginList,
 	processingPluginList,
 } from '@/components/NoteMarkdownFormat';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import {
 	EuiButton,
 	EuiButtonEmpty,

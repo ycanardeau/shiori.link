@@ -1,4 +1,4 @@
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiLink, EuiLinkAnchorProps } from '@elastic/eui';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

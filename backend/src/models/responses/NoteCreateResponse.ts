@@ -1,3 +1,3 @@
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 
 export type NoteCreateResponse = NoteDto;

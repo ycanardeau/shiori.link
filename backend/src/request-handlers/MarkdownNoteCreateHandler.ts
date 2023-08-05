@@ -37,7 +37,9 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const note = new MarkdownNote(currentUser, request.text);
+			const note = new MarkdownNote(currentUser, {
+				text: request.text,
+			});
 			em.persist(note);
 
 			// TODO: validate and restrict URLs

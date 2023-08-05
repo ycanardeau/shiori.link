@@ -1,6 +1,6 @@
 import { Note } from '@/entities/Note';
 import { toUserDto } from '@/mappers/UserMapper';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDataDto, NoteDto } from '@/models/dto/NoteDto';
 import { Ok, Result } from 'yohira';
 
 export function toNoteDto(note: Note): Result<NoteDto, Error> {
@@ -15,6 +15,9 @@ export function toNoteDto(note: Note): Result<NoteDto, Error> {
 		createdAt: note.createdAt.toISOString(),
 		type: note.type,
 		user: toUserDtoResult.val,
-		text: note.text,
+		data: {
+			...note.data,
+			type: note.type,
+		} as NoteDataDto,
 	});
 }

@@ -13,12 +13,23 @@ import {
 	ref,
 } from '@mikro-orm/core';
 
+interface BookmarkNoteData {
+	url: string;
+	title: string | undefined;
+}
+
+interface MarkdownNoteData {
+	text: string;
+}
+
+type NoteData = BookmarkNoteData | MarkdownNoteData;
+
 @Entity({
 	tableName: 'notes',
 	abstract: true,
 	discriminatorColumn: 'type',
 })
-export abstract class Note {
+export abstract class Note<TData extends NoteData = NoteData> {
 	@PrimaryKey()
 	id!: number;
 
@@ -37,9 +48,13 @@ export abstract class Note {
 	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
 	externalLinks = new Collection<NoteExternalLink>(this);
 
-	constructor(user: User, text: string) {
+	constructor(user: User, data: TData) {
 		this.user = ref(user);
-		this.text = text;
+		this.text = JSON.stringify(data);
+	}
+
+	get data(): TData {
+		return JSON.parse(this.text);
 	}
 }
 
@@ -47,10 +62,10 @@ export abstract class Note {
 	tableName: 'notes',
 	discriminatorValue: NoteType.Bookmark,
 })
-export class BookmarkNote extends Note {}
+export class BookmarkNote extends Note<BookmarkNoteData> {}
 
 @Entity({
 	tableName: 'notes',
 	discriminatorValue: NoteType.Markdown,
 })
-export class MarkdownNote extends Note {}
+export class MarkdownNote extends Note<MarkdownNoteData> {}

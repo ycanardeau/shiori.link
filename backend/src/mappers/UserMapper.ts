@@ -1,5 +1,5 @@
 import { User } from '@/entities/User';
-import { UserDto } from '@/models/responses/UserDto';
+import { UserDto } from '@/models/dto/UserDto';
 import { Ok, Result } from 'yohira';
 
 export function toUserDto(user: User): Result<UserDto, Error> {

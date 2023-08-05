@@ -1,6 +1,6 @@
 import { noteApi } from '@/api/NoteApi';
 import { NoteComment } from '@/components/NoteComment';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiPageTemplate } from '@elastic/eui';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

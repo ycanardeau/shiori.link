@@ -1,6 +1,6 @@
 import { NoteLink } from '@/components/NoteLink';
 import { NoteMarkdownFormat } from '@/components/NoteMarkdownFormat';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiAvatar, EuiComment } from '@elastic/eui';
 import React from 'react';
 
@@ -29,7 +29,9 @@ export const NoteComment = React.memo(
 					</NoteLink>
 				}
 			>
-				<NoteMarkdownFormat>{note.text}</NoteMarkdownFormat>
+				<NoteMarkdownFormat>
+					{JSON.stringify(note.data)}
+				</NoteMarkdownFormat>
 			</EuiComment>
 		);
 	},

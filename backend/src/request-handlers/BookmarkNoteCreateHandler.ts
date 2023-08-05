@@ -37,7 +37,10 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const note = new BookmarkNote(currentUser, JSON.stringify(request));
+			const note = new BookmarkNote(currentUser, {
+				url: request.url,
+				title: request.title,
+			});
 			em.persist(note);
 
 			// TODO: validate and restrict URLs

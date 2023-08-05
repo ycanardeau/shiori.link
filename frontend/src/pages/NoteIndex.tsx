@@ -2,7 +2,7 @@ import { noteApi } from '@/api/NoteApi';
 import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
 import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
-import { NoteDto } from '@/models/responses/NoteDto';
+import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiButton, EuiCommentList, EuiPageTemplate } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import React from 'react';
