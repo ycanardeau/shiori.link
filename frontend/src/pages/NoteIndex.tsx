@@ -3,8 +3,17 @@ import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
 import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
 import { NoteDto } from '@/models/dto/NoteDto';
-import { EuiButton, EuiCommentList, EuiPageTemplate } from '@elastic/eui';
+import { PaginatedResponse } from '@/models/responses/PaginatedResponse';
+import { PaginationStore } from '@/stores/PaginationStore';
+import {
+	EuiButton,
+	EuiCommentList,
+	EuiPageTemplate,
+	EuiSpacer,
+	EuiTablePagination,
+} from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 interface NoteCommentListProps {
@@ -95,27 +104,21 @@ const NoteCreateButton = React.memo(
 	},
 );
 
-const NoteIndex = (): React.ReactElement => {
-	const [notes, setNotes] = React.useState<NoteDto[]>([]);
+const NoteIndex = observer((): React.ReactElement => {
+	const [response, setResponse] =
+		React.useState<PaginatedResponse<NoteDto>>();
 
-	const handleSaveNote = React.useCallback(
-		(note: NoteDto): void => {
-			setNotes([note, ...notes]);
-		},
-		[notes],
-	);
+	const [paginationStore] = React.useState(() => new PaginationStore());
 
-	const handleSaveBookmark = React.useCallback(
-		(note: NoteDto): void => {
-			setNotes([note, ...notes]);
-		},
-		[notes],
-	);
+	const handleSaveNote = React.useCallback((note: NoteDto): void => {}, []);
+
+	const handleSaveBookmark = React.useCallback((note: NoteDto): void => {},
+	[]);
 
 	React.useEffect(() => {
 		noteApi.list({}).then((result) => {
 			if (result.ok) {
-				setNotes(result.val.items);
+				setResponse(result.val);
 			}
 		});
 	}, []);
@@ -136,10 +139,28 @@ const NoteIndex = (): React.ReactElement => {
 			/>
 
 			<EuiPageTemplate.Section>
-				<NoteCommentList notes={notes} />
+				{response && (
+					<>
+						<NoteCommentList notes={response.items} />
+
+						<EuiSpacer />
+
+						<EuiTablePagination
+							pageCount={response.totalCount}
+							activePage={paginationStore.page - 1}
+							onChangePage={(pageIndex): void =>
+								paginationStore.setPage(pageIndex + 1)
+							}
+							itemsPerPage={paginationStore.perPage}
+							onChangeItemsPerPage={(pageSize): void =>
+								paginationStore.setPerPage(pageSize)
+							}
+						/>
+					</>
+				)}
 			</EuiPageTemplate.Section>
 		</EuiPageTemplate>
 	);
-};
+});
 
 export default NoteIndex;

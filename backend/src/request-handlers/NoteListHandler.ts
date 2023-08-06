@@ -39,12 +39,24 @@ export class NoteListHandler extends RequestHandler<
 	): Promise<Result<NoteListResponse, Error>> {
 		// TODO: check permissions
 
+		const page =
+			request.page !== undefined ? Math.max(request.page, 1) : undefined;
+		const perPage =
+			request.perPage !== undefined
+				? Math.min(Math.max(request.perPage, 1), 100)
+				: undefined;
+
 		const [notes, totalCount] = await this.em.findAndCount(
 			Note,
 			{},
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],
+				offset:
+					page !== undefined && perPage !== undefined
+						? (page - 1) * perPage
+						: 0,
+				limit: perPage ?? 10 /* TODO: const */,
 			},
 		);
 
