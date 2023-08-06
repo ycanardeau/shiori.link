@@ -22,7 +22,13 @@ interface MarkdownNoteData {
 	text: string;
 }
 
-type NoteData = BookmarkNoteData | MarkdownNoteData;
+interface ContactReferenceNoteData {
+	contactId: number;
+	firstName: string;
+	lastName: string;
+}
+
+type NoteData = BookmarkNoteData | MarkdownNoteData | ContactReferenceNoteData;
 
 @Entity({
 	tableName: 'notes',
@@ -72,3 +78,12 @@ export class BookmarkNote extends Note<NoteType.Bookmark, BookmarkNoteData> {}
 	discriminatorValue: NoteType.Markdown,
 })
 export class MarkdownNote extends Note<NoteType.Markdown, MarkdownNoteData> {}
+
+@Entity({
+	tableName: 'notes',
+	discriminatorValue: NoteType.ContactReference,
+})
+export class ContactReferenceNote extends Note<
+	NoteType.ContactReference,
+	ContactReferenceNoteData
+> {}

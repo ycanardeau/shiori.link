@@ -79,14 +79,15 @@
         },
         "type": {
           "name": "type",
-          "type": "enum('Bookmark', 'Markdown')",
+          "type": "enum('Bookmark', 'Markdown', 'ContactReference')",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "enumItems": [
             "Bookmark",
-            "Markdown"
+            "Markdown",
+            "ContactReference"
           ],
           "mappedType": "enum"
         },
