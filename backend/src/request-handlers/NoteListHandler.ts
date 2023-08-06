@@ -21,7 +21,7 @@ export class NoteListHandler extends RequestHandler<
 		super(NoteListRequestSchema);
 	}
 
-	private orderBy(sort: NoteListSort | undefined): QueryOrderMap<Note> {
+	private orderBy(sort: NoteListSort | undefined): QueryOrderMap<Note<any>> {
 		switch (sort) {
 			case NoteListSort.CreatedAtAsc:
 				return { createdAt: 'asc' };

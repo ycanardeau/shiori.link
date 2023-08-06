@@ -34,12 +34,12 @@ export const requestHandlerDescriptors: Record<
 		serviceType: Symbol.for('ContactListHandler'),
 		implType: ContactListHandler,
 	},
-	'/api/note/create-bookmark': {
+	'/api/note/createBookmark': {
 		method: 'POST',
 		serviceType: Symbol.for('BookmarkNoteCreateHandler'),
 		implType: BookmarkNoteCreateHandler,
 	},
-	'/api/note/create-markdown': {
+	'/api/note/createMarkdown': {
 		method: 'POST',
 		serviceType: Symbol.for('MarkdownNoteCreateHandler'),
 		implType: MarkdownNoteCreateHandler,

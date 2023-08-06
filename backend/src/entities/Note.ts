@@ -29,7 +29,10 @@ type NoteData = BookmarkNoteData | MarkdownNoteData;
 	abstract: true,
 	discriminatorColumn: 'type',
 })
-export abstract class Note<TData extends NoteData = NoteData> {
+export abstract class Note<
+	TNoteType extends NoteType = NoteType,
+	TNoteData extends NoteData = NoteData,
+> {
 	@PrimaryKey()
 	id!: number;
 
@@ -37,7 +40,7 @@ export abstract class Note<TData extends NoteData = NoteData> {
 	createdAt = new Date();
 
 	@Enum(() => NoteType)
-	type!: NoteType;
+	type!: TNoteType;
 
 	@ManyToOne()
 	user: Ref<User>;
@@ -48,12 +51,12 @@ export abstract class Note<TData extends NoteData = NoteData> {
 	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
 	externalLinks = new Collection<NoteExternalLink>(this);
 
-	constructor(user: User, data: TData) {
+	constructor(user: User, data: TNoteData) {
 		this.user = ref(user);
 		this.text = JSON.stringify(data);
 	}
 
-	get data(): TData {
+	get data(): TNoteData {
 		return JSON.parse(this.text);
 	}
 }
@@ -62,10 +65,10 @@ export abstract class Note<TData extends NoteData = NoteData> {
 	tableName: 'notes',
 	discriminatorValue: NoteType.Bookmark,
 })
-export class BookmarkNote extends Note<BookmarkNoteData> {}
+export class BookmarkNote extends Note<NoteType.Bookmark, BookmarkNoteData> {}
 
 @Entity({
 	tableName: 'notes',
 	discriminatorValue: NoteType.Markdown,
 })
-export class MarkdownNote extends Note<MarkdownNoteData> {}
+export class MarkdownNote extends Note<NoteType.Markdown, MarkdownNoteData> {}
