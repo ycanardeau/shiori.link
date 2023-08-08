@@ -143,10 +143,12 @@ const NoteIndex = observer((): React.ReactElement => {
 					<>
 						<NoteCommentList notes={response.items} />
 
-						<EuiSpacer />
+						<EuiSpacer size="m" />
 
 						<EuiTablePagination
-							pageCount={response.totalCount}
+							pageCount={Math.ceil(
+								response.totalCount / paginationStore.perPage,
+							)}
 							activePage={paginationStore.page - 1}
 							onChangePage={(pageIndex): void =>
 								paginationStore.setPage(pageIndex + 1)

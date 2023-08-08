@@ -44,7 +44,7 @@ export class NoteListHandler extends RequestHandler<
 		const perPage =
 			request.perPage !== undefined
 				? Math.min(Math.max(request.perPage, 1), 100)
-				: undefined;
+				: 10; /* TODO: const */
 
 		const [notes, totalCount] = await this.em.findAndCount(
 			Note,
@@ -52,11 +52,8 @@ export class NoteListHandler extends RequestHandler<
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],
-				offset:
-					page !== undefined && perPage !== undefined
-						? (page - 1) * perPage
-						: 0,
-				limit: perPage ?? 10 /* TODO: const */,
+				offset: page !== undefined ? (page - 1) * perPage : 0,
+				limit: perPage,
 			},
 		);
 

@@ -39,12 +39,21 @@ export class ContactListHandler extends RequestHandler<
 	): Promise<Result<ContactListResponse, Error>> {
 		// TODO: check permissions
 
+		const page =
+			request.page !== undefined ? Math.max(request.page, 1) : undefined;
+		const perPage =
+			request.perPage !== undefined
+				? Math.min(Math.max(request.perPage, 1), 100)
+				: 10; /* TODO: const */
+
 		const [contacts, totalCount] = await this.em.findAndCount(
 			Contact,
 			{},
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],
+				offset: page !== undefined ? (page - 1) * perPage : 0,
+				limit: perPage,
 			},
 		);
 
