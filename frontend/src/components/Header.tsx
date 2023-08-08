@@ -9,7 +9,12 @@ import {
 	EuiListGroupItemProps,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import { HomeRegular, NoteRegular, PersonRegular } from '@fluentui/react-icons';
+import {
+	HomeRegular,
+	NoteRegular,
+	NotebookRegular,
+	PersonRegular,
+} from '@fluentui/react-icons';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,6 +61,18 @@ export const Header = (): React.ReactElement => {
 					setNavIsOpen(false);
 
 					navigate('/contacts');
+				},
+			},
+			{
+				label: 'Notebooks' /* LOC */,
+				iconType: NotebookRegular,
+				href: 'notebooks',
+				onClick: (e): void => {
+					e.preventDefault();
+
+					setNavIsOpen(false);
+
+					navigate('/notebooks');
 				},
 			},
 		],
