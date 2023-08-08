@@ -19,7 +19,11 @@ export class Notebook {
 	@ManyToOne()
 	user: Ref<User>;
 
-	constructor(user: User) {
+	@Property()
+	name: string;
+
+	constructor(user: User, name: string) {
 		this.user = ref(user);
+		this.name = name;
 	}
 }
