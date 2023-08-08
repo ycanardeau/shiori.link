@@ -77,6 +77,74 @@
           "length": 0,
           "mappedType": "datetime"
         },
+        "user_id": {
+          "name": "user_id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "notebooks",
+      "indexes": [
+        {
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "keyName": "notebooks_user_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "PRIMARY",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "notebooks_user_id_foreign": {
+          "constraintName": "notebooks_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "notebooks",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "users",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
         "type": {
           "name": "type",
           "type": "enum('Bookmark', 'Markdown', 'ContactReference')",
@@ -93,6 +161,15 @@
         },
         "user_id": {
           "name": "user_id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "notebook_id": {
+          "name": "notebook_id",
           "type": "int",
           "unsigned": true,
           "autoincrement": false,
@@ -131,6 +208,15 @@
           "unique": false
         },
         {
+          "columnNames": [
+            "notebook_id"
+          ],
+          "composite": false,
+          "keyName": "notes_notebook_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
           "keyName": "PRIMARY",
           "columnNames": [
             "id"
@@ -152,6 +238,18 @@
             "id"
           ],
           "referencedTableName": "users",
+          "updateRule": "cascade"
+        },
+        "notes_notebook_id_foreign": {
+          "constraintName": "notes_notebook_id_foreign",
+          "columnNames": [
+            "notebook_id"
+          ],
+          "localTableName": "notes",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "notebooks",
           "updateRule": "cascade"
         }
       }

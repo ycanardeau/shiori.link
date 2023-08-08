@@ -1,4 +1,5 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
+import { Notebook } from '@/entities/Notebook';
 import { User } from '@/entities/User';
 import { NoteType } from '@/models/enums/NoteType';
 import {
@@ -51,14 +52,18 @@ export abstract class Note<
 	@ManyToOne()
 	user: Ref<User>;
 
+	@ManyToOne()
+	notebook: Ref<Notebook>;
+
 	@Property({ columnType: 'text' })
 	text: string;
 
 	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
 	externalLinks = new Collection<NoteExternalLink>(this);
 
-	constructor(user: User, data: TNoteData) {
-		this.user = ref(user);
+	constructor(notebook: Notebook, data: TNoteData) {
+		this.user = notebook.user;
+		this.notebook = ref(notebook);
 		this.text = JSON.stringify(data);
 	}
 

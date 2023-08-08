@@ -1,5 +1,6 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { BookmarkNote } from '@/entities/Note';
+import { Notebook } from '@/entities/Notebook';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import {
@@ -37,7 +38,14 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const note = new BookmarkNote(currentUser, {
+			// TODO: remove
+			const notebooks = await em.find(Notebook, {});
+			if (notebooks.length === 0) {
+				return new Err(new Error());
+			}
+			const notebook = notebooks[0];
+
+			const note = new BookmarkNote(notebook, {
 				url: request.url,
 				title: request.title,
 			});
