@@ -1,8 +1,8 @@
-import { contactApi } from '@/api/ContactApi';
 import { ContactCreateModal } from '@/components/ContactCreateModal';
 import { ContactDto } from '@/models/dto/ContactDto';
-import { PaginatedResponse } from '@/models/responses/PaginatedResponse';
-import { PaginationStore } from '@/stores/PaginationStore';
+import { TablePagination } from '@/pages/components/TablePagination';
+import { ContactSearchStore } from '@/stores/ContactSearchStore';
+import { useLocationStateStore } from '@aigamo/route-sphere';
 import {
 	EuiButton,
 	EuiLink,
@@ -12,7 +12,6 @@ import {
 	EuiTableBody,
 	EuiTableHeader,
 	EuiTableHeaderCell,
-	EuiTablePagination,
 	EuiTableRow,
 	EuiTableRowCell,
 } from '@elastic/eui';
@@ -57,95 +56,77 @@ const ContactCreateButton = React.memo(
 	},
 );
 
-const ContactIndex = observer((): React.ReactElement => {
-	const [response, setResponse] =
-		React.useState<PaginatedResponse<ContactDto>>();
-
-	const [paginationStore] = React.useState(() => new PaginationStore());
-
+const ContactIndexHeader = React.memo((): React.ReactElement => {
 	const handleSaveContact = React.useCallback(
 		(contact: ContactDto): void => {},
 		[],
 	);
 
-	React.useEffect(() => {
-		contactApi.list({}).then((result) => {
-			if (result.ok) {
-				setResponse(result.val);
-			}
-		});
-	}, []);
+	return (
+		<EuiPageTemplate.Header
+			pageTitle="Contacts" /* LOC */
+			rightSideItems={[
+				<ContactCreateButton onSave={handleSaveContact} />,
+			]}
+			breadcrumbs={[
+				{
+					text: 'Contacts' /* LOC */,
+				},
+			]}
+		/>
+	);
+});
+
+const ContactIndexBody = observer((): React.ReactElement => {
+	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
+
+	useLocationStateStore(contactSearchStore);
 
 	const navigate = useNavigate();
 
 	return (
-		<EuiPageTemplate>
-			<EuiPageTemplate.Header
-				pageTitle="Contacts" /* LOC */
-				rightSideItems={[
-					<ContactCreateButton onSave={handleSaveContact} />,
-				]}
-				breadcrumbs={[
-					{
-						text: 'Contacts' /* LOC */,
-					},
-				]}
+		<EuiPageTemplate.Section>
+			<EuiTable>
+				<EuiTableHeader>
+					<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
+				</EuiTableHeader>
+
+				<EuiTableBody>
+					{contactSearchStore.items.map((contact) => (
+						<EuiTableRow key={contact.id}>
+							<EuiTableRowCell>
+								<EuiLink
+									href={`/contacts/${contact.id}`}
+									onClick={(e: React.MouseEvent): void => {
+										e.preventDefault();
+										navigate(`/contacts/${contact.id}`);
+									}}
+								>
+									{[contact.lastName, contact.firstName].join(
+										' ',
+									)}
+								</EuiLink>
+							</EuiTableRowCell>
+						</EuiTableRow>
+					))}
+				</EuiTableBody>
+			</EuiTable>
+
+			<EuiSpacer size="m" />
+
+			<TablePagination
+				paginationStore={contactSearchStore.paginationStore}
 			/>
+		</EuiPageTemplate.Section>
+	);
+});
 
-			<EuiPageTemplate.Section>
-				{response && (
-					<>
-						<EuiTable>
-							<EuiTableHeader>
-								<EuiTableHeaderCell>
-									Name{/* LOC */}
-								</EuiTableHeaderCell>
-							</EuiTableHeader>
+const ContactIndex = React.memo((): React.ReactElement => {
+	return (
+		<EuiPageTemplate>
+			<ContactIndexHeader />
 
-							<EuiTableBody>
-								{response.items.map((contact) => (
-									<EuiTableRow key={contact.id}>
-										<EuiTableRowCell>
-											<EuiLink
-												href={`/contacts/${contact.id}`}
-												onClick={(
-													e: React.MouseEvent,
-												): void => {
-													e.preventDefault();
-													navigate(
-														`/contacts/${contact.id}`,
-													);
-												}}
-											>
-												{[
-													contact.lastName,
-													contact.firstName,
-												].join(' ')}
-											</EuiLink>
-										</EuiTableRowCell>
-									</EuiTableRow>
-								))}
-							</EuiTableBody>
-						</EuiTable>
-
-						<EuiSpacer size="m" />
-
-						<EuiTablePagination
-							pageCount={Math.ceil(
-								response.totalCount / paginationStore.perPage,
-							)}
-							activePage={paginationStore.page - 1}
-							onChangePage={(pageIndex): void =>
-								paginationStore.setPage(pageIndex + 1)
-							}
-							itemsPerPage={paginationStore.perPage}
-							onChangeItemsPerPage={(pageSize): void =>
-								paginationStore.setPerPage(pageSize)
-							}
-						/>
-					</>
-				)}
-			</EuiPageTemplate.Section>
+			<ContactIndexBody />
 		</EuiPageTemplate>
 	);
 });

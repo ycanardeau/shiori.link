@@ -1,6 +1,7 @@
 import { AppRoutes } from '@/AppRoutes';
 import { Header } from '@/components/Header';
 import '@/icons';
+import { ScrollToTop } from '@aigamo/route-sphere';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
 import createCache from '@emotion/cache';
@@ -18,7 +19,10 @@ const App = (): React.ReactElement => {
 	return (
 		<BrowserRouter>
 			<EuiProvider colorMode="dark" cache={euiCache}>
+				<ScrollToTop />
+
 				<Header />
+
 				<React.Suspense fallback={null}>
 					<AppRoutes />
 				</React.Suspense>

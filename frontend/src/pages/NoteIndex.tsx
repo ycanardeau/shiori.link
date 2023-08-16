@@ -1,16 +1,15 @@
-import { noteApi } from '@/api/NoteApi';
 import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
 import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
 import { NoteDto } from '@/models/dto/NoteDto';
-import { PaginatedResponse } from '@/models/responses/PaginatedResponse';
-import { PaginationStore } from '@/stores/PaginationStore';
+import { TablePagination } from '@/pages/components/TablePagination';
+import { NoteSearchStore } from '@/stores/NoteSearchStore';
+import { useLocationStateStore } from '@aigamo/route-sphere';
 import {
 	EuiButton,
 	EuiCommentList,
 	EuiPageTemplate,
 	EuiSpacer,
-	EuiTablePagination,
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
@@ -104,63 +103,52 @@ const NoteCreateButton = React.memo(
 	},
 );
 
-const NoteIndex = observer((): React.ReactElement => {
-	const [response, setResponse] =
-		React.useState<PaginatedResponse<NoteDto>>();
-
-	const [paginationStore] = React.useState(() => new PaginationStore());
-
+const NoteIndexHeader = React.memo((): React.ReactElement => {
 	const handleSaveNote = React.useCallback((note: NoteDto): void => {}, []);
 
 	const handleSaveBookmark = React.useCallback((note: NoteDto): void => {},
 	[]);
 
-	React.useEffect(() => {
-		noteApi.list({}).then((result) => {
-			if (result.ok) {
-				setResponse(result.val);
-			}
-		});
-	}, []);
+	return (
+		<EuiPageTemplate.Header
+			pageTitle="Notes" /* LOC */
+			rightSideItems={[
+				<NoteCreateButton onSave={handleSaveNote} />,
+				<BookmarkCreateButton onSave={handleSaveBookmark} />,
+			]}
+			breadcrumbs={[
+				{
+					text: 'Notes' /* LOC */,
+				},
+			]}
+		/>
+	);
+});
+
+const NoteIndexBody = observer((): React.ReactElement => {
+	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
+
+	useLocationStateStore(noteSearchStore);
 
 	return (
-		<EuiPageTemplate>
-			<EuiPageTemplate.Header
-				pageTitle="Notes" /* LOC */
-				rightSideItems={[
-					<NoteCreateButton onSave={handleSaveNote} />,
-					<BookmarkCreateButton onSave={handleSaveBookmark} />,
-				]}
-				breadcrumbs={[
-					{
-						text: 'Notes' /* LOC */,
-					},
-				]}
+		<EuiPageTemplate.Section>
+			<NoteCommentList notes={noteSearchStore.items} />
+
+			<EuiSpacer size="m" />
+
+			<TablePagination
+				paginationStore={noteSearchStore.paginationStore}
 			/>
+		</EuiPageTemplate.Section>
+	);
+});
 
-			<EuiPageTemplate.Section>
-				{response && (
-					<>
-						<NoteCommentList notes={response.items} />
+const NoteIndex = React.memo((): React.ReactElement => {
+	return (
+		<EuiPageTemplate>
+			<NoteIndexHeader />
 
-						<EuiSpacer size="m" />
-
-						<EuiTablePagination
-							pageCount={Math.ceil(
-								response.totalCount / paginationStore.perPage,
-							)}
-							activePage={paginationStore.page - 1}
-							onChangePage={(pageIndex): void =>
-								paginationStore.setPage(pageIndex + 1)
-							}
-							itemsPerPage={paginationStore.perPage}
-							onChangeItemsPerPage={(pageSize): void =>
-								paginationStore.setPerPage(pageSize)
-							}
-						/>
-					</>
-				)}
-			</EuiPageTemplate.Section>
+			<NoteIndexBody />
 		</EuiPageTemplate>
 	);
 });
