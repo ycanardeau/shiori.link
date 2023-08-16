@@ -1,6 +1,7 @@
 import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
 import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
+import { useProgressBar } from '@/components/useProgressBar';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { TablePagination } from '@/pages/components/TablePagination';
 import { NoteSearchStore } from '@/stores/NoteSearchStore';
@@ -127,6 +128,12 @@ const NoteIndexHeader = React.memo((): React.ReactElement => {
 
 const NoteIndexBody = observer((): React.ReactElement => {
 	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
+
+	const [, setLoading] = useProgressBar();
+	React.useEffect(
+		() => setLoading(noteSearchStore.loading),
+		[noteSearchStore.loading, setLoading],
+	);
 
 	useLocationStateStore(noteSearchStore);
 

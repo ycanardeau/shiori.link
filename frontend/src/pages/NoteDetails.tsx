@@ -1,5 +1,6 @@
 import { noteApi } from '@/api/NoteApi';
 import { NoteComment } from '@/components/NoteComment';
+import { useProgressBar } from '@/components/useProgressBar';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiPageTemplate } from '@elastic/eui';
 import React from 'react';
@@ -47,13 +48,18 @@ const NoteDetails = (): React.ReactElement => {
 
 	const [note, setNote] = React.useState<NoteDto>();
 
+	const [, setLoading] = useProgressBar();
 	React.useEffect(() => {
+		setLoading(true);
+
 		noteApi.get({ id: Number(id) }).then((result) => {
 			if (result.ok) {
 				setNote(result.val);
+
+				setLoading(false);
 			}
 		});
-	}, [id]);
+	}, [id, setLoading]);
 
 	return note ? <NoteDetailsPageTemplate note={note} /> : <></>;
 };

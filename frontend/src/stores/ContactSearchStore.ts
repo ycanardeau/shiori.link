@@ -45,6 +45,7 @@ export class ContactSearchStore
 {
 	readonly paginationStore = new PaginationStore();
 	@observable items: ContactDto[] = [];
+	@observable loading = false;
 
 	constructor() {
 		makeObservable(this);
@@ -68,6 +69,8 @@ export class ContactSearchStore
 	}
 
 	@action.bound async updateResults(clearResults: boolean): Promise<void> {
+		this.loading = true;
+
 		const result = await contactApi.list({
 			page: this.paginationStore.page,
 			perPage: this.paginationStore.perPage,
@@ -80,6 +83,10 @@ export class ContactSearchStore
 				this.paginationStore.setTotalCount(result.val.totalCount);
 			});
 		}
+
+		runInAction(() => {
+			this.loading = false;
+		});
 	}
 
 	onLocationStateChange = (

@@ -43,6 +43,7 @@ export class NoteSearchStore
 {
 	readonly paginationStore = new PaginationStore();
 	@observable items: NoteDto[] = [];
+	@observable loading = false;
 
 	constructor() {
 		makeObservable(this);
@@ -66,6 +67,8 @@ export class NoteSearchStore
 	}
 
 	@action.bound async updateResults(clearResults: boolean): Promise<void> {
+		this.loading = true;
+
 		const result = await noteApi.list({
 			page: this.paginationStore.page,
 			perPage: this.paginationStore.perPage,
@@ -78,6 +81,10 @@ export class NoteSearchStore
 				this.paginationStore.setTotalCount(result.val.totalCount);
 			});
 		}
+
+		runInAction(() => {
+			this.loading = false;
+		});
 	}
 
 	onLocationStateChange = (

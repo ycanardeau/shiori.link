@@ -1,4 +1,5 @@
 import { ContactCreateModal } from '@/components/ContactCreateModal';
+import { useProgressBar } from '@/components/useProgressBar';
 import { ContactDto } from '@/models/dto/ContactDto';
 import { TablePagination } from '@/pages/components/TablePagination';
 import { ContactSearchStore } from '@/stores/ContactSearchStore';
@@ -79,6 +80,12 @@ const ContactIndexHeader = React.memo((): React.ReactElement => {
 
 const ContactIndexBody = observer((): React.ReactElement => {
 	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
+
+	const [, setLoading] = useProgressBar();
+	React.useEffect(
+		() => setLoading(contactSearchStore.loading),
+		[contactSearchStore.loading, setLoading],
+	);
 
 	useLocationStateStore(contactSearchStore);
 
