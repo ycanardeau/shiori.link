@@ -1,8 +1,8 @@
+import { notebookApi } from '@/api/NotebookApi';
 import { NotebookDto } from '@/models/dto/NotebookDto';
 import {
 	EuiButton,
 	EuiButtonEmpty,
-	EuiButtonIcon,
 	EuiFieldText,
 	EuiForm,
 	EuiFormRow,
@@ -13,12 +13,11 @@ import {
 	EuiModalHeaderTitle,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import { OpenRegular } from '@fluentui/react-icons';
 import React from 'react';
 
 interface NotebookCreateModalProps {
 	onCancel: () => void;
-	onSave: (note: NotebookDto) => void;
+	onSave: (notebook: NotebookDto) => void;
 }
 
 export const NotebookCreateModal = ({
@@ -34,7 +33,7 @@ export const NotebookCreateModal = ({
 	const canSave = trimmedName.length > 0;
 
 	return (
-		<EuiModal onClose={onCancel} initialFocus="[name=url]">
+		<EuiModal onClose={onCancel} initialFocus="[name=name]">
 			<EuiModalHeader>
 				<EuiModalHeaderTitle>
 					Add notebook{/* LOC */}
@@ -45,19 +44,10 @@ export const NotebookCreateModal = ({
 				<EuiForm id={modalFormId} component="form">
 					<EuiFormRow label="Name" /* LOC */>
 						<EuiFieldText
-							name="url"
+							name="name"
 							value={name}
 							onChange={(e): void => setName(e.target.value)}
 							disabled={isLoading}
-							append={
-								<EuiButtonIcon
-									iconType={OpenRegular}
-									href={trimmedName}
-									target="_blank"
-									isDisabled={trimmedName.length === 0}
-									tabIndex={-1}
-								/>
-							}
 						/>
 					</EuiFormRow>
 				</EuiForm>
@@ -73,7 +63,15 @@ export const NotebookCreateModal = ({
 					onClick={async (): Promise<void> => {
 						setIsLoading(true);
 
-						//onSave(noteCreateResult.val);
+						const result = await notebookApi.create({
+							name: trimmedName,
+						});
+						if (!result.ok) {
+							setIsLoading(false);
+							return;
+						}
+
+						onSave(result.val);
 					}}
 					fill
 					disabled={!canSave}

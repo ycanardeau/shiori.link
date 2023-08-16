@@ -1,8 +1,25 @@
 import { NotebookCreateModal } from '@/components/NotebookCreateModal';
+import { useProgressBar } from '@/components/useProgressBar';
 import { NotebookDto } from '@/models/dto/NotebookDto';
-import { EuiButton, EuiPageTemplate } from '@elastic/eui';
+import { TablePagination } from '@/pages/components/TablePagination';
+import { NotebookSearchStore } from '@/stores/NotebookSearchStore';
+import { useLocationStateStore } from '@aigamo/route-sphere';
+import {
+	EuiButton,
+	EuiLink,
+	EuiPageTemplate,
+	EuiSpacer,
+	EuiTable,
+	EuiTableBody,
+	EuiTableHeader,
+	EuiTableHeaderCell,
+	EuiTableRow,
+	EuiTableRowCell,
+} from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface NotebookCreateButtonProps {
 	onSave: (notebook: NotebookDto) => void;
@@ -15,10 +32,10 @@ const NotebookCreateButton = React.memo(
 		const showModal = (): void => setIsModalVisible(true);
 
 		const handleSave = React.useCallback(
-			(note: NotebookDto) => {
+			(notebook: NotebookDto) => {
 				closeModal();
 
-				onSave(note);
+				onSave(notebook);
 			},
 			[onSave],
 		);
@@ -40,26 +57,85 @@ const NotebookCreateButton = React.memo(
 	},
 );
 
-const NotebookIndex = (): React.ReactElement => {
-	const handleSaveNotebook = React.useCallback(async () => {}, []);
+const NotebookIndexHeader = React.memo((): React.ReactElement => {
+	const handleSaveNotebook = React.useCallback(
+		(notebook: NotebookDto): void => {},
+		[],
+	);
 
 	return (
-		<EuiPageTemplate>
-			<EuiPageTemplate.Header
-				pageTitle="Notebooks" /* LOC */
-				rightSideItems={[
-					<NotebookCreateButton onSave={handleSaveNotebook} />,
-				]}
-				breadcrumbs={[
-					{
-						text: 'Notebooks' /* LOC */,
-					},
-				]}
-			/>
+		<EuiPageTemplate.Header
+			pageTitle="Notebooks" /* LOC */
+			rightSideItems={[
+				<NotebookCreateButton onSave={handleSaveNotebook} />,
+			]}
+			breadcrumbs={[
+				{
+					text: 'Notebooks' /* LOC */,
+				},
+			]}
+		/>
+	);
+});
 
-			<EuiPageTemplate.Section></EuiPageTemplate.Section>
+const NotebookIndexBody = observer((): React.ReactElement => {
+	const [notebookSearchStore] = React.useState(
+		() => new NotebookSearchStore(),
+	);
+
+	const [, setLoading] = useProgressBar();
+	React.useEffect(
+		() => setLoading(notebookSearchStore.loading),
+		[notebookSearchStore.loading, setLoading],
+	);
+
+	useLocationStateStore(notebookSearchStore);
+
+	const navigate = useNavigate();
+
+	return (
+		<EuiPageTemplate.Section>
+			<EuiTable>
+				<EuiTableHeader>
+					<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
+				</EuiTableHeader>
+
+				<EuiTableBody>
+					{notebookSearchStore.items.map((notebook) => (
+						<EuiTableRow key={notebook.id}>
+							<EuiTableRowCell>
+								<EuiLink
+									href={`/notebooks/${notebook.id}`}
+									onClick={(e: React.MouseEvent): void => {
+										e.preventDefault();
+										navigate(`/notebooks/${notebook.id}`);
+									}}
+								>
+									{notebook.name}
+								</EuiLink>
+							</EuiTableRowCell>
+						</EuiTableRow>
+					))}
+				</EuiTableBody>
+			</EuiTable>
+
+			<EuiSpacer size="m" />
+
+			<TablePagination
+				paginationStore={notebookSearchStore.paginationStore}
+			/>
+		</EuiPageTemplate.Section>
+	);
+});
+
+const NotebookIndex = React.memo((): React.ReactElement => {
+	return (
+		<EuiPageTemplate>
+			<NotebookIndexHeader />
+
+			<NotebookIndexBody />
 		</EuiPageTemplate>
 	);
-};
+});
 
 export default NotebookIndex;
