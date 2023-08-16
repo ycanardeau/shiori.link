@@ -5,6 +5,9 @@ import { ContactListHandler } from '@/request-handlers/ContactListHandler';
 import { MarkdownNoteCreateHandler } from '@/request-handlers/MarkdownNoteCreateHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
+import { NotebookCreateHandler } from '@/request-handlers/NotebookCreateHandler';
+import { NotebookGetHandler } from '@/request-handlers/NotebookGetHandler';
+import { NotebookListHandler } from '@/request-handlers/NotebookListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { UrlFetchHandler } from '@/request-handlers/UrlFetchHandler';
 import { Ctor } from 'yohira';
@@ -53,6 +56,21 @@ export const requestHandlerDescriptors: Record<
 		method: 'GET',
 		serviceType: Symbol.for('NoteListHandler'),
 		implType: NoteListHandler,
+	},
+	'/api/notebook/create': {
+		method: 'POST',
+		serviceType: Symbol.for('NotebookCreateHandler'),
+		implType: NotebookCreateHandler,
+	},
+	'/api/notebook/get': {
+		method: 'GET',
+		serviceType: Symbol.for('NotebookGetHandler'),
+		implType: NotebookGetHandler,
+	},
+	'/api/notebook/list': {
+		method: 'GET',
+		serviceType: Symbol.for('NotebookListHandler'),
+		implType: NotebookListHandler,
 	},
 	'/api/url/fetch': {
 		method: 'POST',
