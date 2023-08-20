@@ -57,83 +57,100 @@ const ContactCreateButton = React.memo(
 	},
 );
 
-const ContactIndexHeader = React.memo((): React.ReactElement => {
-	const handleSaveContact = React.useCallback(
-		(contact: ContactDto): void => {},
-		[],
-	);
+interface ContactIndexHeaderProps {
+	contactSearchStore: ContactSearchStore;
+}
 
-	return (
-		<EuiPageTemplate.Header
-			pageTitle="Contacts" /* LOC */
-			rightSideItems={[
-				<ContactCreateButton onSave={handleSaveContact} />,
-			]}
-			breadcrumbs={[
-				{
-					text: 'Contacts' /* LOC */,
-				},
-			]}
-		/>
-	);
-});
+const ContactIndexHeader = observer(
+	({ contactSearchStore }: ContactIndexHeaderProps): React.ReactElement => {
+		const handleSaveContact = React.useCallback(
+			async (contact: ContactDto): Promise<void> => {
+				await contactSearchStore.updateResults(true);
+			},
+			[contactSearchStore],
+		);
 
-const ContactIndexBody = observer((): React.ReactElement => {
-	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
-
-	const [, setLoading] = useProgressBar();
-	React.useEffect(
-		() => setLoading(contactSearchStore.loading),
-		[contactSearchStore.loading, setLoading],
-	);
-
-	useLocationStateStore(contactSearchStore);
-
-	const navigate = useNavigate();
-
-	return (
-		<EuiPageTemplate.Section>
-			<EuiTable>
-				<EuiTableHeader>
-					<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
-				</EuiTableHeader>
-
-				<EuiTableBody>
-					{contactSearchStore.items.map((contact) => (
-						<EuiTableRow key={contact.id}>
-							<EuiTableRowCell>
-								<EuiLink
-									href={`/contacts/${contact.id}`}
-									onClick={(e: React.MouseEvent): void => {
-										e.preventDefault();
-										navigate(`/contacts/${contact.id}`);
-									}}
-								>
-									{[contact.lastName, contact.firstName].join(
-										' ',
-									)}
-								</EuiLink>
-							</EuiTableRowCell>
-						</EuiTableRow>
-					))}
-				</EuiTableBody>
-			</EuiTable>
-
-			<EuiSpacer size="m" />
-
-			<TablePagination
-				paginationStore={contactSearchStore.paginationStore}
+		return (
+			<EuiPageTemplate.Header
+				pageTitle="Contacts" /* LOC */
+				rightSideItems={[
+					<ContactCreateButton onSave={handleSaveContact} />,
+				]}
+				breadcrumbs={[
+					{
+						text: 'Contacts' /* LOC */,
+					},
+				]}
 			/>
-		</EuiPageTemplate.Section>
-	);
-});
+		);
+	},
+);
+
+interface ContactIndexBodyProps {
+	contactSearchStore: ContactSearchStore;
+}
+
+const ContactIndexBody = observer(
+	({ contactSearchStore }: ContactIndexBodyProps): React.ReactElement => {
+		const [, setLoading] = useProgressBar();
+		React.useEffect(
+			() => setLoading(contactSearchStore.loading),
+			[contactSearchStore.loading, setLoading],
+		);
+
+		useLocationStateStore(contactSearchStore);
+
+		const navigate = useNavigate();
+
+		return (
+			<EuiPageTemplate.Section>
+				<EuiTable>
+					<EuiTableHeader>
+						<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
+					</EuiTableHeader>
+
+					<EuiTableBody>
+						{contactSearchStore.items.map((contact) => (
+							<EuiTableRow key={contact.id}>
+								<EuiTableRowCell>
+									<EuiLink
+										href={`/contacts/${contact.id}`}
+										onClick={(
+											e: React.MouseEvent,
+										): void => {
+											e.preventDefault();
+											navigate(`/contacts/${contact.id}`);
+										}}
+									>
+										{[
+											contact.lastName,
+											contact.firstName,
+										].join(' ')}
+									</EuiLink>
+								</EuiTableRowCell>
+							</EuiTableRow>
+						))}
+					</EuiTableBody>
+				</EuiTable>
+
+				<EuiSpacer size="m" />
+
+				<TablePagination
+					paginationStore={contactSearchStore.paginationStore}
+				/>
+			</EuiPageTemplate.Section>
+		);
+	},
+);
 
 const ContactIndex = React.memo((): React.ReactElement => {
+	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
+
 	return (
 		<EuiPageTemplate>
-			<ContactIndexHeader />
+			<ContactIndexHeader contactSearchStore={contactSearchStore} />
 
-			<ContactIndexBody />
+			<ContactIndexBody contactSearchStore={contactSearchStore} />
 		</EuiPageTemplate>
 	);
 });

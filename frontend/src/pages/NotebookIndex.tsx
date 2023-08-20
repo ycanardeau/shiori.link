@@ -57,83 +57,101 @@ const NotebookCreateButton = React.memo(
 	},
 );
 
-const NotebookIndexHeader = React.memo((): React.ReactElement => {
-	const handleSaveNotebook = React.useCallback(
-		(notebook: NotebookDto): void => {},
-		[],
-	);
+interface NotebookIndexHeaderProps {
+	notebookSearchStore: NotebookSearchStore;
+}
 
-	return (
-		<EuiPageTemplate.Header
-			pageTitle="Notebooks" /* LOC */
-			rightSideItems={[
-				<NotebookCreateButton onSave={handleSaveNotebook} />,
-			]}
-			breadcrumbs={[
-				{
-					text: 'Notebooks' /* LOC */,
-				},
-			]}
-		/>
-	);
-});
+const NotebookIndexHeader = observer(
+	({ notebookSearchStore }: NotebookIndexHeaderProps): React.ReactElement => {
+		const handleSaveNotebook = React.useCallback(
+			async (notebook: NotebookDto): Promise<void> => {
+				await notebookSearchStore.updateResults(true);
+			},
+			[notebookSearchStore],
+		);
 
-const NotebookIndexBody = observer((): React.ReactElement => {
+		return (
+			<EuiPageTemplate.Header
+				pageTitle="Notebooks" /* LOC */
+				rightSideItems={[
+					<NotebookCreateButton onSave={handleSaveNotebook} />,
+				]}
+				breadcrumbs={[
+					{
+						text: 'Notebooks' /* LOC */,
+					},
+				]}
+			/>
+		);
+	},
+);
+
+interface NotebookIndexBodyProps {
+	notebookSearchStore: NotebookSearchStore;
+}
+
+const NotebookIndexBody = observer(
+	({ notebookSearchStore }: NotebookIndexBodyProps): React.ReactElement => {
+		const [, setLoading] = useProgressBar();
+		React.useEffect(
+			() => setLoading(notebookSearchStore.loading),
+			[notebookSearchStore.loading, setLoading],
+		);
+
+		useLocationStateStore(notebookSearchStore);
+
+		const navigate = useNavigate();
+
+		return (
+			<EuiPageTemplate.Section>
+				<EuiTable>
+					<EuiTableHeader>
+						<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
+					</EuiTableHeader>
+
+					<EuiTableBody>
+						{notebookSearchStore.items.map((notebook) => (
+							<EuiTableRow key={notebook.id}>
+								<EuiTableRowCell>
+									<EuiLink
+										href={`/notebooks/${notebook.id}`}
+										onClick={(
+											e: React.MouseEvent,
+										): void => {
+											e.preventDefault();
+											navigate(
+												`/notebooks/${notebook.id}`,
+											);
+										}}
+									>
+										{notebook.name}
+									</EuiLink>
+								</EuiTableRowCell>
+							</EuiTableRow>
+						))}
+					</EuiTableBody>
+				</EuiTable>
+
+				<EuiSpacer size="m" />
+
+				<TablePagination
+					paginationStore={notebookSearchStore.paginationStore}
+				/>
+			</EuiPageTemplate.Section>
+		);
+	},
+);
+
+const NotebookIndex = React.memo((): React.ReactElement => {
 	const [notebookSearchStore] = React.useState(
 		() => new NotebookSearchStore(),
 	);
 
-	const [, setLoading] = useProgressBar();
-	React.useEffect(
-		() => setLoading(notebookSearchStore.loading),
-		[notebookSearchStore.loading, setLoading],
-	);
-
-	useLocationStateStore(notebookSearchStore);
-
-	const navigate = useNavigate();
-
-	return (
-		<EuiPageTemplate.Section>
-			<EuiTable>
-				<EuiTableHeader>
-					<EuiTableHeaderCell>Name{/* LOC */}</EuiTableHeaderCell>
-				</EuiTableHeader>
-
-				<EuiTableBody>
-					{notebookSearchStore.items.map((notebook) => (
-						<EuiTableRow key={notebook.id}>
-							<EuiTableRowCell>
-								<EuiLink
-									href={`/notebooks/${notebook.id}`}
-									onClick={(e: React.MouseEvent): void => {
-										e.preventDefault();
-										navigate(`/notebooks/${notebook.id}`);
-									}}
-								>
-									{notebook.name}
-								</EuiLink>
-							</EuiTableRowCell>
-						</EuiTableRow>
-					))}
-				</EuiTableBody>
-			</EuiTable>
-
-			<EuiSpacer size="m" />
-
-			<TablePagination
-				paginationStore={notebookSearchStore.paginationStore}
-			/>
-		</EuiPageTemplate.Section>
-	);
-});
-
-const NotebookIndex = React.memo((): React.ReactElement => {
 	return (
 		<EuiPageTemplate>
-			<NotebookIndexHeader />
+			<NotebookIndexHeader notebookSearchStore={notebookSearchStore} />
 
-			<NotebookIndexBody />
+			<NotebookIndexBody notebookSearchStore={notebookSearchStore} />
 		</EuiPageTemplate>
 	);
 });

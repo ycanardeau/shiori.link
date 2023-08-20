@@ -178,73 +178,74 @@ const PurchaseNoteCreateButton = React.memo(
 	},
 );
 
-const NoteIndexHeader = React.memo((): React.ReactElement => {
-	const handleSavePurchaseNote = React.useCallback(
-		(note: NoteDto): void => {},
-		[],
-	);
+interface NoteIndexHeaderProps {
+	noteSearchStore: NoteSearchStore;
+}
 
-	const handleSaveDateNote = React.useCallback((note: NoteDto): void => {},
-	[]);
+const NoteIndexHeader = observer(
+	({ noteSearchStore }: NoteIndexHeaderProps): React.ReactElement => {
+		const handleSaveNote = React.useCallback(
+			async (note: NoteDto): Promise<void> => {
+				await noteSearchStore.updateResults(true);
+			},
+			[noteSearchStore],
+		);
 
-	const handleSaveMarkdownNote = React.useCallback(
-		(note: NoteDto): void => {},
-		[],
-	);
-
-	const handleSaveBookmarkNote = React.useCallback(
-		(note: NoteDto): void => {},
-		[],
-	);
-
-	return (
-		<EuiPageTemplate.Header
-			pageTitle="Notes" /* LOC */
-			rightSideItems={[
-				<PurchaseNoteCreateButton onSave={handleSavePurchaseNote} />,
-				<DateNoteCreateButton onSave={handleSaveDateNote} />,
-				<MarkdownNoteCreateButton onSave={handleSaveMarkdownNote} />,
-				<BookmarkNoteCreateButton onSave={handleSaveBookmarkNote} />,
-			]}
-			breadcrumbs={[
-				{
-					text: 'Notes' /* LOC */,
-				},
-			]}
-		/>
-	);
-});
-
-const NoteIndexBody = observer((): React.ReactElement => {
-	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
-
-	const [, setLoading] = useProgressBar();
-	React.useEffect(
-		() => setLoading(noteSearchStore.loading),
-		[noteSearchStore.loading, setLoading],
-	);
-
-	useLocationStateStore(noteSearchStore);
-
-	return (
-		<EuiPageTemplate.Section>
-			<NoteCommentList notes={noteSearchStore.items} />
-
-			<EuiSpacer size="m" />
-
-			<TablePagination
-				paginationStore={noteSearchStore.paginationStore}
+		return (
+			<EuiPageTemplate.Header
+				pageTitle="Notes" /* LOC */
+				rightSideItems={[
+					<PurchaseNoteCreateButton onSave={handleSaveNote} />,
+					<DateNoteCreateButton onSave={handleSaveNote} />,
+					<MarkdownNoteCreateButton onSave={handleSaveNote} />,
+					<BookmarkNoteCreateButton onSave={handleSaveNote} />,
+				]}
+				breadcrumbs={[
+					{
+						text: 'Notes' /* LOC */,
+					},
+				]}
 			/>
-		</EuiPageTemplate.Section>
-	);
-});
+		);
+	},
+);
+
+interface NoteIndexBodyProps {
+	noteSearchStore: NoteSearchStore;
+}
+
+const NoteIndexBody = observer(
+	({ noteSearchStore }: NoteIndexBodyProps): React.ReactElement => {
+		const [, setLoading] = useProgressBar();
+		React.useEffect(
+			() => setLoading(noteSearchStore.loading),
+			[noteSearchStore.loading, setLoading],
+		);
+
+		useLocationStateStore(noteSearchStore);
+
+		return (
+			<EuiPageTemplate.Section>
+				<NoteCommentList notes={noteSearchStore.items} />
+
+				<EuiSpacer size="m" />
+
+				<TablePagination
+					paginationStore={noteSearchStore.paginationStore}
+				/>
+			</EuiPageTemplate.Section>
+		);
+	},
+);
 
 const NoteIndex = React.memo((): React.ReactElement => {
+	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
+
 	return (
 		<EuiPageTemplate>
-			<NoteIndexHeader />
+			<NoteIndexHeader noteSearchStore={noteSearchStore} />
 
-			<NoteIndexBody />
+			<NoteIndexBody noteSearchStore={noteSearchStore} />
 		</EuiPageTemplate>
 	);
 });
