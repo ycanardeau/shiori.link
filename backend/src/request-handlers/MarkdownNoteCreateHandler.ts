@@ -3,6 +3,7 @@ import { MarkdownNote } from '@/entities/Note';
 import { Notebook } from '@/entities/Notebook';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
+import { NoteType } from '@/models/enums/NoteType';
 import {
 	MarkdownNoteCreateRequest,
 	MarkdownNoteCreateRequestSchema,
@@ -46,6 +47,8 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 			const notebook = notebooks[0];
 
 			const note = new MarkdownNote(notebook, {
+				_NoteDataDtoBrand: undefined,
+				type: NoteType.Markdown,
 				text: request.text,
 			});
 			em.persist(note);

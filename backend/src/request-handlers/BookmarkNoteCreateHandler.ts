@@ -3,6 +3,7 @@ import { BookmarkNote } from '@/entities/Note';
 import { Notebook } from '@/entities/Notebook';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
+import { NoteType } from '@/models/enums/NoteType';
 import {
 	BookmarkNoteCreateRequest,
 	BookmarkNoteCreateRequestSchema,
@@ -46,6 +47,8 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 			const notebook = notebooks[0];
 
 			const note = new BookmarkNote(notebook, {
+				_NoteDataDtoBrand: undefined,
+				type: NoteType.Bookmark,
 				url: request.url,
 				title: request.title,
 			});

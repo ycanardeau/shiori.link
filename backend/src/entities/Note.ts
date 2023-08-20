@@ -1,6 +1,11 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { Notebook } from '@/entities/Notebook';
 import { User } from '@/entities/User';
+import {
+	BookmarkNoteDataDto,
+	MarkdownNoteDataDto,
+	NoteDataDto,
+} from '@/models/dto/NoteDto';
 import { NoteType } from '@/models/enums/NoteType';
 import {
 	Collection,
@@ -14,17 +19,6 @@ import {
 	ref,
 } from '@mikro-orm/core';
 
-interface BookmarkNoteData {
-	url: string;
-	title: string | undefined;
-}
-
-interface MarkdownNoteData {
-	text: string;
-}
-
-type NoteData = BookmarkNoteData | MarkdownNoteData;
-
 @Entity({
 	tableName: 'notes',
 	abstract: true,
@@ -32,7 +26,7 @@ type NoteData = BookmarkNoteData | MarkdownNoteData;
 })
 export abstract class Note<
 	TNoteType extends NoteType = NoteType,
-	TNoteData extends NoteData = NoteData,
+	TNoteDataDto extends NoteDataDto = NoteDataDto,
 > {
 	@PrimaryKey()
 	id!: number;
@@ -55,13 +49,13 @@ export abstract class Note<
 	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
 	externalLinks = new Collection<NoteExternalLink>(this);
 
-	constructor(notebook: Notebook, data: TNoteData) {
+	constructor(notebook: Notebook, data: TNoteDataDto) {
 		this.user = notebook.user;
 		this.notebook = ref(notebook);
 		this.text = JSON.stringify(data);
 	}
 
-	get data(): TNoteData {
+	get data(): TNoteDataDto {
 		return JSON.parse(this.text);
 	}
 }
@@ -70,10 +64,16 @@ export abstract class Note<
 	tableName: 'notes',
 	discriminatorValue: NoteType.Bookmark,
 })
-export class BookmarkNote extends Note<NoteType.Bookmark, BookmarkNoteData> {}
+export class BookmarkNote extends Note<
+	NoteType.Bookmark,
+	BookmarkNoteDataDto
+> {}
 
 @Entity({
 	tableName: 'notes',
 	discriminatorValue: NoteType.Markdown,
 })
-export class MarkdownNote extends Note<NoteType.Markdown, MarkdownNoteData> {}
+export class MarkdownNote extends Note<
+	NoteType.Markdown,
+	MarkdownNoteDataDto
+> {}
