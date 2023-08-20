@@ -1,6 +1,8 @@
 import { BookmarkNoteCreateModal } from '@/components/BookmarkNoteCreateModal';
+import { DateNoteCreateModal } from '@/components/DateNoteCreateModal';
 import { MarkdownNoteCreateModal } from '@/components/MarkdownNoteCreateModal';
 import { NoteComment } from '@/components/NoteComment';
+import { PurchaseNoteCreateModal } from '@/components/PurchaseNoteCreateModal';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { TablePagination } from '@/pages/components/TablePagination';
@@ -32,12 +34,12 @@ const NoteCommentList = React.memo(
 	},
 );
 
-interface BookmarkCreateButtonProps {
+interface BookmarkNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const BookmarkCreateButton = React.memo(
-	({ onSave }: BookmarkCreateButtonProps): React.ReactElement => {
+const BookmarkNoteCreateButton = React.memo(
+	({ onSave }: BookmarkNoteCreateButtonProps): React.ReactElement => {
 		const [isModalVisible, setIsModalVisible] = React.useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
@@ -68,12 +70,12 @@ const BookmarkCreateButton = React.memo(
 	},
 );
 
-interface NoteCreateButtonProps {
+interface MarkdownNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const NoteCreateButton = React.memo(
-	({ onSave }: NoteCreateButtonProps): React.ReactElement => {
+const MarkdownNoteCreateButton = React.memo(
+	({ onSave }: MarkdownNoteCreateButtonProps): React.ReactElement => {
 		const [isModalVisible, setIsModalVisible] = React.useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
@@ -104,18 +106,105 @@ const NoteCreateButton = React.memo(
 	},
 );
 
-const NoteIndexHeader = React.memo((): React.ReactElement => {
-	const handleSaveNote = React.useCallback((note: NoteDto): void => {}, []);
+interface DateNoteCreateButtonProps {
+	onSave: (note: NoteDto) => void;
+}
 
-	const handleSaveBookmark = React.useCallback((note: NoteDto): void => {},
+const DateNoteCreateButton = React.memo(
+	({ onSave }: DateNoteCreateButtonProps): React.ReactElement => {
+		const [isModalVisible, setIsModalVisible] = React.useState(false);
+		const closeModal = (): void => setIsModalVisible(false);
+		const showModal = (): void => setIsModalVisible(true);
+
+		const handleSave = React.useCallback(
+			(note: NoteDto) => {
+				closeModal();
+
+				onSave(note);
+			},
+			[onSave],
+		);
+
+		return (
+			<>
+				<EuiButton iconType={AddRegular} onClick={showModal}>
+					Add date{/* LOC */}
+				</EuiButton>
+
+				{isModalVisible && (
+					<DateNoteCreateModal
+						onCancel={closeModal}
+						onSave={handleSave}
+					/>
+				)}
+			</>
+		);
+	},
+);
+
+interface PurchaseNoteCreateButtonProps {
+	onSave: (note: NoteDto) => void;
+}
+
+const PurchaseNoteCreateButton = React.memo(
+	({ onSave }: PurchaseNoteCreateButtonProps): React.ReactElement => {
+		const [isModalVisible, setIsModalVisible] = React.useState(false);
+		const closeModal = (): void => setIsModalVisible(false);
+		const showModal = (): void => setIsModalVisible(true);
+
+		const handleSave = React.useCallback(
+			(note: NoteDto) => {
+				closeModal();
+
+				onSave(note);
+			},
+			[onSave],
+		);
+
+		return (
+			<>
+				<EuiButton iconType={AddRegular} onClick={showModal}>
+					Add purchase{/* LOC */}
+				</EuiButton>
+
+				{isModalVisible && (
+					<PurchaseNoteCreateModal
+						onCancel={closeModal}
+						onSave={handleSave}
+					/>
+				)}
+			</>
+		);
+	},
+);
+
+const NoteIndexHeader = React.memo((): React.ReactElement => {
+	const handleSavePurchaseNote = React.useCallback(
+		(note: NoteDto): void => {},
+		[],
+	);
+
+	const handleSaveDateNote = React.useCallback((note: NoteDto): void => {},
 	[]);
+
+	const handleSaveMarkdownNote = React.useCallback(
+		(note: NoteDto): void => {},
+		[],
+	);
+
+	const handleSaveBookmarkNote = React.useCallback(
+		(note: NoteDto): void => {},
+		[],
+	);
 
 	return (
 		<EuiPageTemplate.Header
 			pageTitle="Notes" /* LOC */
 			rightSideItems={[
-				<NoteCreateButton onSave={handleSaveNote} />,
-				<BookmarkCreateButton onSave={handleSaveBookmark} />,
+				<PurchaseNoteCreateButton onSave={handleSavePurchaseNote} />,
+				<DateNoteCreateButton onSave={handleSaveDateNote} />,
+				<MarkdownNoteCreateButton onSave={handleSaveMarkdownNote} />,
+				<BookmarkNoteCreateButton onSave={handleSaveBookmarkNote} />,
 			]}
 			breadcrumbs={[
 				{
