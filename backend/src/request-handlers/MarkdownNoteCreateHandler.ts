@@ -1,5 +1,6 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { MarkdownNote } from '@/entities/Note';
+import { NoteCreatedNoteEvent } from '@/entities/NoteEvent';
 import { Notebook } from '@/entities/Notebook';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
@@ -58,6 +59,12 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 				const externalLink = new NoteExternalLink(note, new URL(url));
 				em.persist(externalLink);
 			}
+
+			const event = new NoteCreatedNoteEvent(
+				note,
+				toNoteDto(note).unwrap().data,
+			);
+			em.persist(event);
 
 			return new Ok(note);
 		});

@@ -1,5 +1,6 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { BookmarkNote } from '@/entities/Note';
+import { NoteCreatedNoteEvent } from '@/entities/NoteEvent';
 import { Notebook } from '@/entities/Notebook';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
@@ -60,6 +61,12 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 				new URL(request.url),
 			);
 			em.persist(externalLink);
+
+			const event = new NoteCreatedNoteEvent(
+				note,
+				toNoteDto(note).unwrap().data,
+			);
+			em.persist(event);
 
 			return new Ok(note);
 		});
