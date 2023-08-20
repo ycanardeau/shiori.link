@@ -13,7 +13,7 @@ class NoteApi {
 		request: BookmarkNoteCreateRequest,
 	): Promise<Result<NoteCreateResponse, Error>> {
 		try {
-			const response = await fetch('/api/note/createBookmark', {
+			const response = await fetch('/api/note/bookmark/create', {
 				method: 'POST',
 				body: JSON.stringify(request),
 			});
@@ -32,7 +32,7 @@ class NoteApi {
 		request: MarkdownNoteCreateRequest,
 	): Promise<Result<NoteCreateResponse, Error>> {
 		try {
-			const response = await fetch('/api/note/createMarkdown', {
+			const response = await fetch('/api/note/markdown/create', {
 				method: 'POST',
 				body: JSON.stringify(request),
 			});

@@ -37,12 +37,12 @@ export const requestHandlerDescriptors: Record<
 		serviceType: Symbol.for('ContactListHandler'),
 		implType: ContactListHandler,
 	},
-	'/api/note/createBookmark': {
+	'/api/note/bookmark/create': {
 		method: 'POST',
 		serviceType: Symbol.for('BookmarkNoteCreateHandler'),
 		implType: BookmarkNoteCreateHandler,
 	},
-	'/api/note/createMarkdown': {
+	'/api/note/markdown/create': {
 		method: 'POST',
 		serviceType: Symbol.for('MarkdownNoteCreateHandler'),
 		implType: MarkdownNoteCreateHandler,
