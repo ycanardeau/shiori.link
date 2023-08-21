@@ -74,8 +74,8 @@ export class NoteCreatedNoteEvent extends NoteEvent<NoteDataDto> {
 	tableName: 'note_events',
 	discriminatorValue: NoteEventType.NoteDeleted,
 })
-export class NoteDeletedNoteEvent extends NoteEvent<NoteDataDto> {
-	constructor(note: Note, data: NoteDataDto) {
-		super(note, NoteEventType.NoteDeleted, data);
+export class NoteDeletedNoteEvent extends NoteEvent<{}> {
+	constructor(note: Note) {
+		super(note, NoteEventType.NoteDeleted, {});
 	}
 }

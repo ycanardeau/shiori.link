@@ -2,7 +2,6 @@ import { Note } from '@/entities/Note';
 import { NoteDeletedNoteEvent } from '@/entities/NoteEvent';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { toNoteDto } from '@/mappers/NoteMapper';
 import {
 	NoteDeleteRequest,
 	NoteDeleteRequestSchema,
@@ -55,10 +54,7 @@ export class NoteDeleteRequestHandler extends RequestHandler<
 
 			note.deleted = true;
 
-			const event = new NoteDeletedNoteEvent(
-				note,
-				toNoteDto(note).unwrap().data,
-			);
+			const event = new NoteDeletedNoteEvent(note);
 			em.persist(event);
 
 			return new Ok({});
