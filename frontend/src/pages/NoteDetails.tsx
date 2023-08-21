@@ -37,7 +37,7 @@ const NoteDetailsPageTemplate = ({
 			/>
 
 			<EuiPageTemplate.Section>
-				<NoteComment note={note} />
+				<NoteComment note={note} onDelete={(): void => {}} />
 			</EuiPageTemplate.Section>
 		</EuiPageTemplate>
 	);

@@ -34,6 +34,9 @@ export abstract class Note<
 	@Property()
 	createdAt = new Date();
 
+	@Property()
+	deleted = false;
+
 	@Enum(() => NoteType)
 	type!: TNoteType;
 

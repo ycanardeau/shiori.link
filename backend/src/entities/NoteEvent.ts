@@ -69,3 +69,13 @@ export class NoteCreatedNoteEvent extends NoteEvent<NoteDataDto> {
 		super(note, NoteEventType.NoteCreated, data);
 	}
 }
+
+@Entity({
+	tableName: 'note_events',
+	discriminatorValue: NoteEventType.NoteDeleted,
+})
+export class NoteDeletedNoteEvent extends NoteEvent<NoteDataDto> {
+	constructor(note: Note, data: NoteDataDto) {
+		super(note, NoteEventType.NoteDeleted, data);
+	}
+}

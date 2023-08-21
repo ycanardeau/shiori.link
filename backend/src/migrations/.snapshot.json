@@ -154,6 +154,15 @@
           "length": 0,
           "mappedType": "datetime"
         },
+        "deleted": {
+          "name": "deleted",
+          "type": "tinyint(1)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "boolean"
+        },
         "type": {
           "name": "type",
           "type": "enum('Bookmark', 'Markdown')",

@@ -20,14 +20,19 @@ import React from 'react';
 
 interface NoteCommentListProps {
 	notes: readonly NoteDto[];
+	onDelete: (note: NoteDto) => void;
 }
 
 const NoteCommentList = React.memo(
-	({ notes }: NoteCommentListProps): React.ReactElement => {
+	({ notes, onDelete }: NoteCommentListProps): React.ReactElement => {
 		return (
 			<EuiCommentList>
 				{notes.map((note) => (
-					<NoteComment key={note.id} note={note} />
+					<NoteComment
+						key={note.id}
+						note={note}
+						onDelete={onDelete}
+					/>
 				))}
 			</EuiCommentList>
 		);
@@ -226,7 +231,12 @@ const NoteIndexBody = observer(
 
 		return (
 			<EuiPageTemplate.Section>
-				<NoteCommentList notes={noteSearchStore.items} />
+				<NoteCommentList
+					notes={noteSearchStore.items}
+					onDelete={(): Promise<void> =>
+						noteSearchStore.updateResults(true)
+					}
+				/>
 
 				<EuiSpacer size="m" />
 

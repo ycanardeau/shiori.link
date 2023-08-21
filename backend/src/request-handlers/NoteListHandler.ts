@@ -48,7 +48,9 @@ export class NoteListHandler extends RequestHandler<
 
 		const [notes, totalCount] = await this.em.findAndCount(
 			Note,
-			{},
+			{
+				deleted: false,
+			},
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],

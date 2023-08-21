@@ -31,7 +31,7 @@ export class NoteGetHandler extends RequestHandler<
 			{ id: request.id },
 			{ populate: ['user'] },
 		);
-		if (!note) {
+		if (!note || note.deleted) {
 			return new Err(new NotFoundError());
 		}
 

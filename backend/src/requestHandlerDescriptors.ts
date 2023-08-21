@@ -3,6 +3,7 @@ import { ContactCreateHandler } from '@/request-handlers/ContactCreateHandler';
 import { ContactGetHandler } from '@/request-handlers/ContactGetHandler';
 import { ContactListHandler } from '@/request-handlers/ContactListHandler';
 import { MarkdownNoteCreateHandler } from '@/request-handlers/MarkdownNoteCreateHandler';
+import { NoteDeleteRequestHandler } from '@/request-handlers/NoteDeleteRequestHandler';
 import { NoteGetHandler } from '@/request-handlers/NoteGetHandler';
 import { NoteListHandler } from '@/request-handlers/NoteListHandler';
 import { NotebookCreateHandler } from '@/request-handlers/NotebookCreateHandler';
@@ -46,6 +47,11 @@ export const requestHandlerDescriptors: Record<
 		method: 'POST',
 		serviceType: Symbol.for('MarkdownNoteCreateHandler'),
 		implType: MarkdownNoteCreateHandler,
+	},
+	'/api/note/delete': {
+		method: 'POST',
+		serviceType: Symbol.for('NoteDeleteHandler'),
+		implType: NoteDeleteRequestHandler,
 	},
 	'/api/note/get': {
 		method: 'GET',

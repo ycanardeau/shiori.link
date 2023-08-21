@@ -1,8 +1,10 @@
 import { BookmarkNoteCreateRequest } from '@/models/requests/BookmarkNoteCreateRequest';
 import { MarkdownNoteCreateRequest } from '@/models/requests/MarkdownNoteCreateRequest';
+import { NoteDeleteRequest } from '@/models/requests/NoteDeleteRequest';
 import { NoteGetRequest } from '@/models/requests/NoteGetRequest';
 import { NoteListRequest } from '@/models/requests/NoteListRequest';
 import { NoteCreateResponse } from '@/models/responses/NoteCreateResponse';
+import { NoteDeleteResponse } from '@/models/responses/NoteDeleteResponse';
 import { NoteGetResponse } from '@/models/responses/NoteGetResponse';
 import { NoteListResponse } from '@/models/responses/NoteListResponse';
 import { stringify } from 'qs';
@@ -33,6 +35,25 @@ class NoteApi {
 	): Promise<Result<NoteCreateResponse, Error>> {
 		try {
 			const response = await fetch('/api/note/markdown/create', {
+				method: 'POST',
+				body: JSON.stringify(request),
+			});
+			const json = await response.json();
+			return new Ok(json);
+		} catch (error) {
+			if (error instanceof Error) {
+				return new Err(error);
+			} else {
+				throw error;
+			}
+		}
+	}
+
+	async delete(
+		request: NoteDeleteRequest,
+	): Promise<Result<NoteDeleteResponse, Error>> {
+		try {
+			const response = await fetch(`/api/note/delete`, {
 				method: 'POST',
 				body: JSON.stringify(request),
 			});
