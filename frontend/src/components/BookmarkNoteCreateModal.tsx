@@ -122,6 +122,7 @@ export const BookmarkNoteCreateModal = ({
 						).href;
 
 						const noteCreateResult = await noteApi.createBookmark({
+							notebookId: 1 /* TODO */,
 							url: normalizedUrl,
 							title: title,
 						});

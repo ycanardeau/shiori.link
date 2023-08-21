@@ -77,6 +77,16 @@
           "length": 0,
           "mappedType": "datetime"
         },
+        "deleted": {
+          "name": "deleted",
+          "type": "tinyint(1)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
         "user_id": {
           "name": "user_id",
           "type": "int",

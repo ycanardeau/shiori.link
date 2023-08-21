@@ -2,6 +2,7 @@ import { NoteExternalLink } from '@/entities/ExternalLink';
 import { MarkdownNote } from '@/entities/Note';
 import { NoteCreatedNoteEvent } from '@/entities/NoteEvent';
 import { Notebook } from '@/entities/Notebook';
+import { NotFoundError } from '@/errors/NotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import { NoteType } from '@/models/enums/NoteType';
@@ -40,12 +41,13 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			// TODO: remove
-			const notebooks = await em.find(Notebook, {});
-			if (notebooks.length === 0) {
-				return new Err(new Error());
+			const notebook = await em.findOne(Notebook, {
+				id: request.notebookId,
+				deleted: false,
+			});
+			if (!notebook || notebook.user.id !== currentUser.id) {
+				return new Err(new NotFoundError());
 			}
-			const notebook = notebooks[0];
 
 			const note = new MarkdownNote(notebook, {
 				_NoteDataDtoBrand: undefined,

@@ -1,6 +1,7 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface BookmarkNoteCreateRequest {
+	notebookId: number;
 	url: string;
 	title?: string;
 }
@@ -9,6 +10,9 @@ export const BookmarkNoteCreateRequestSchema: JSONSchemaType<BookmarkNoteCreateR
 	{
 		type: 'object',
 		properties: {
+			notebookId: {
+				type: 'integer',
+			},
 			url: {
 				type: 'string',
 			},
@@ -17,5 +21,5 @@ export const BookmarkNoteCreateRequestSchema: JSONSchemaType<BookmarkNoteCreateR
 				nullable: true,
 			},
 		},
-		required: ['url'],
+		required: ['notebookId', 'url'],
 	};

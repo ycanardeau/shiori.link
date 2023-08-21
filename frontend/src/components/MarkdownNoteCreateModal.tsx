@@ -94,6 +94,7 @@ export const MarkdownNoteCreateModal = ({
 
 						const urls = extractUrlsFromMarkdown(trimmedText);
 						const result = await noteApi.createMarkdown({
+							notebookId: 1 /* TODO */,
 							text: trimmedText,
 							urls: urls,
 						});

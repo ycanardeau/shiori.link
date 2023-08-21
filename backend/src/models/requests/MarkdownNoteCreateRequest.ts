@@ -1,6 +1,7 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface MarkdownNoteCreateRequest {
+	notebookId: number;
 	text: string;
 	urls: string[];
 }
@@ -9,6 +10,9 @@ export const MarkdownNoteCreateRequestSchema: JSONSchemaType<MarkdownNoteCreateR
 	{
 		type: 'object',
 		properties: {
+			notebookId: {
+				type: 'integer',
+			},
 			text: {
 				type: 'string',
 			},
@@ -19,5 +23,5 @@ export const MarkdownNoteCreateRequestSchema: JSONSchemaType<MarkdownNoteCreateR
 				},
 			},
 		},
-		required: ['text', 'urls'],
+		required: ['notebookId', 'text', 'urls'],
 	};

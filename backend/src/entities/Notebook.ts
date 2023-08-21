@@ -16,6 +16,9 @@ export class Notebook {
 	@Property()
 	createdAt = new Date();
 
+	@Property()
+	deleted = false;
+
 	@ManyToOne()
 	user: Ref<User>;
 
