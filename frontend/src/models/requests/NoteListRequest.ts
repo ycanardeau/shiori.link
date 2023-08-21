@@ -6,7 +6,9 @@ export enum NoteListSort {
 	CreatedAtDesc = 'CreatedAtDesc',
 }
 
-export type NoteListRequest = PageQuery<NoteListSort>;
+export interface NoteListRequest extends PageQuery<NoteListSort> {
+	notebookId?: number;
+}
 
 export const NoteListRequestSchema: JSONSchemaType<NoteListRequest> = {
 	type: 'object',
@@ -21,6 +23,10 @@ export const NoteListRequestSchema: JSONSchemaType<NoteListRequest> = {
 			nullable: true,
 		},
 		page: {
+			type: 'integer',
+			nullable: true,
+		},
+		notebookId: {
 			type: 'integer',
 			nullable: true,
 		},

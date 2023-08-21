@@ -50,6 +50,9 @@ export class NoteListHandler extends RequestHandler<
 			Note,
 			{
 				deleted: false,
+				...(request.notebookId !== undefined
+					? { notebook: request.notebookId }
+					: undefined),
 			},
 			{
 				orderBy: this.orderBy(request.sort),
