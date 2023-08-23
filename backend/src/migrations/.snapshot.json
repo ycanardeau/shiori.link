@@ -39,6 +39,36 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "password_hash_algorithm": {
+          "name": "password_hash_algorithm",
+          "type": "enum('Bcrypt')",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "Bcrypt"
+          ],
+          "mappedType": "enum"
+        },
+        "salt": {
+          "name": "salt",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
         }
       },
       "name": "users",

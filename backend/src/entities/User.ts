@@ -1,4 +1,5 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { PasswordHashAlgorithm } from '@/models/enums/PasswordHashAlgorithm';
+import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
 import { createHash } from 'node:crypto';
 
 @Entity({ tableName: 'users' })
@@ -15,9 +16,33 @@ export class User {
 	@Property()
 	email: string;
 
-	constructor(userName: string, email: string) {
+	@Enum(() => PasswordHashAlgorithm)
+	passwordHashAlgorithm: PasswordHashAlgorithm;
+
+	@Property()
+	salt: string;
+
+	@Property()
+	passwordHash: string;
+
+	constructor({
+		userName,
+		email,
+		passwordHashAlgorithm,
+		salt,
+		passwordHash,
+	}: {
+		userName: string;
+		email: string;
+		passwordHashAlgorithm: PasswordHashAlgorithm;
+		salt: string;
+		passwordHash: string;
+	}) {
 		this.userName = userName;
 		this.email = email;
+		this.passwordHashAlgorithm = passwordHashAlgorithm;
+		this.salt = salt;
+		this.passwordHash = passwordHash;
 	}
 
 	get avatarUrl(): string {
