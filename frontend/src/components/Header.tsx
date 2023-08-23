@@ -1,8 +1,12 @@
+import { SignInModal } from '@/components/SignInModal';
+import { SignUpModal } from '@/components/SignUpModal';
 import {
 	EuiCollapsibleNav,
 	EuiCollapsibleNavGroup,
 	EuiFlexItem,
 	EuiHeader,
+	EuiHeaderLink,
+	EuiHeaderLinks,
 	EuiHeaderSectionItemButton,
 	EuiIcon,
 	EuiListGroup,
@@ -17,6 +21,44 @@ import {
 } from '@fluentui/react-icons';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const SignInButton = (): React.ReactElement => {
+	const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+	return (
+		<>
+			<EuiHeaderLink
+				color="primary"
+				onClick={(): void => setIsModalVisible(true)}
+			>
+				Sign in{/* LOC */}
+			</EuiHeaderLink>
+
+			{isModalVisible && (
+				<SignInModal onCancel={(): void => setIsModalVisible(false)} />
+			)}
+		</>
+	);
+};
+
+const SignUpButton = (): React.ReactElement => {
+	const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+	return (
+		<>
+			<EuiHeaderLink
+				color="primary"
+				onClick={(): void => setIsModalVisible(true)}
+			>
+				Sign up{/* LOC */}
+			</EuiHeaderLink>
+
+			{isModalVisible && (
+				<SignUpModal onCancel={(): void => setIsModalVisible(false)} />
+			)}
+		</>
+	);
+};
 
 export const Header = (): React.ReactElement => {
 	const [navIsOpen, setNavIsOpen] = React.useState(false);
@@ -115,7 +157,19 @@ export const Header = (): React.ReactElement => {
 	return (
 		<EuiHeader
 			position="fixed"
-			sections={[{ items: leftSectionItems, borders: 'right' }]}
+			sections={[
+				{ items: leftSectionItems, borders: 'right' },
+				{
+					items: [
+						<EuiHeaderLinks
+							popoverProps={{ repositionOnScroll: true }}
+						>
+							<SignInButton />
+							<SignUpButton />
+						</EuiHeaderLinks>,
+					],
+				},
+			]}
 		/>
 	);
 };
