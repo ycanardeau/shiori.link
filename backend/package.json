@@ -5,17 +5,17 @@
 	"devDependencies": {
 		"@mikro-orm/cli": "^5.7.12",
 		"@mikro-orm/migrations": "^5.7.12",
-		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
+		"@trivago/prettier-plugin-sort-imports": "^4.2.0",
 		"@types/jsdom": "^21.1.1",
 		"@types/lodash-es": "^4.17.6",
 		"@types/qs": "^6.9.7",
-		"@typescript-eslint/eslint-plugin": "^5.60.1",
-		"@typescript-eslint/parser": "^5.60.1",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
 		"concurrently": "^8.2.0",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.43.0",
-		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-import": "^2.27.5",
+		"eslint-config-prettier": "^8.10.0",
+		"eslint-plugin-import": "^2.28.1",
 		"eslint-plugin-prettier": "^4.2.1",
 		"prettier": "^2.8.8",
 		"rimraf": "^5.0.1",
@@ -33,7 +33,7 @@
 		"jsdom": "^22.1.0",
 		"lodash-es": "^4.17.21",
 		"qs": "^6.11.2",
-		"yohira": "^0.0.0-alpha.13"
+		"yohira": "^0.0.0-alpha.24"
 	},
 	"scripts": {
 		"clean": "rimraf ./dist",
