@@ -15,6 +15,6 @@ export function toNoteDto(note: Note): Result<NoteDto, Error> {
 		createdAt: note.createdAt.toISOString(),
 		type: note.type,
 		user: toUserDtoResult.val,
-		data: note.data,
+		payload: note.payload,
 	});
 }

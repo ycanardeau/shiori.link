@@ -47,7 +47,7 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 			const notebook = notebooks[0];
 
 			const note = new MarkdownNote(notebook, {
-				_NoteDataDtoBrand: undefined,
+				_NotePayloadDtoBrand: undefined,
 				type: NoteType.Markdown,
 				text: request.text,
 			});

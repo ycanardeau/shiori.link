@@ -2,9 +2,9 @@ import { NoteExternalLink } from '@/entities/ExternalLink';
 import { Notebook } from '@/entities/Notebook';
 import { User } from '@/entities/User';
 import {
-	BookmarkNoteDataDto,
-	MarkdownNoteDataDto,
-	NoteDataDto,
+	BookmarkNotePayloadDto,
+	MarkdownNotePayloadDto,
+	NotePayloadDto,
 } from '@/models/dto/NoteDto';
 import { NoteType } from '@/models/enums/NoteType';
 import {
@@ -26,7 +26,7 @@ import {
 })
 export abstract class Note<
 	TNoteType extends NoteType = NoteType,
-	TNoteDataDto extends NoteDataDto = NoteDataDto,
+	TNotePayloadDto extends NotePayloadDto = NotePayloadDto,
 > {
 	@PrimaryKey()
 	id!: number;
@@ -49,13 +49,13 @@ export abstract class Note<
 	@OneToMany(() => NoteExternalLink, (externalLink) => externalLink.note)
 	externalLinks = new Collection<NoteExternalLink>(this);
 
-	constructor(notebook: Notebook, data: TNoteDataDto) {
+	constructor(notebook: Notebook, payload: TNotePayloadDto) {
 		this.user = notebook.user;
 		this.notebook = ref(notebook);
-		this.text = JSON.stringify(data);
+		this.text = JSON.stringify(payload);
 	}
 
-	get data(): TNoteDataDto {
+	get payload(): TNotePayloadDto {
 		return JSON.parse(this.text);
 	}
 }
@@ -66,7 +66,7 @@ export abstract class Note<
 })
 export class BookmarkNote extends Note<
 	NoteType.Bookmark,
-	BookmarkNoteDataDto
+	BookmarkNotePayloadDto
 > {}
 
 @Entity({
@@ -75,5 +75,5 @@ export class BookmarkNote extends Note<
 })
 export class MarkdownNote extends Note<
 	NoteType.Markdown,
-	MarkdownNoteDataDto
+	MarkdownNotePayloadDto
 > {}

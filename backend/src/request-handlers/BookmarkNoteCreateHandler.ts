@@ -47,7 +47,7 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 			const notebook = notebooks[0];
 
 			const note = new BookmarkNote(notebook, {
-				_NoteDataDtoBrand: undefined,
+				_NotePayloadDtoBrand: undefined,
 				type: NoteType.Bookmark,
 				url: request.url,
 				title: request.title,
