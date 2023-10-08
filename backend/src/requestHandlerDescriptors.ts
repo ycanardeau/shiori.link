@@ -10,6 +10,9 @@ import { NotebookGetHandler } from '@/request-handlers/NotebookGetHandler';
 import { NotebookListHandler } from '@/request-handlers/NotebookListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { UrlFetchHandler } from '@/request-handlers/UrlFetchHandler';
+import { UserLoginHandler } from '@/request-handlers/UserLoginHandler';
+import { UserLogoutHandler } from '@/request-handlers/UserLogoutHandler';
+import { UserSignUpHandler } from '@/request-handlers/UserSignUpHandler';
 import { Ctor } from 'yohira';
 
 interface RequestHandlerDescriptor {
@@ -76,5 +79,20 @@ export const requestHandlerDescriptors: Record<
 		method: 'POST',
 		serviceType: Symbol.for('UrlFetchHandler'),
 		implType: UrlFetchHandler,
+	},
+	'/api/user/login': {
+		method: 'POST',
+		serviceType: Symbol.for('UserLoginHandler'),
+		implType: UserLoginHandler,
+	},
+	'/api/user/logout': {
+		method: 'POST',
+		serviceType: Symbol.for('UserLogoutHandler'),
+		implType: UserLogoutHandler,
+	},
+	'/api/user/signup': {
+		method: 'POST',
+		serviceType: Symbol.for('UserSignUpHandler'),
+		implType: UserSignUpHandler,
 	},
 };

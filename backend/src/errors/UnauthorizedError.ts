@@ -1,1 +1,3 @@
-export class UnauthorizedError extends Error {}
+export class UnauthorizedError extends Error {
+	_UnauthorizedErrorBrand: undefined;
+}

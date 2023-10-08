@@ -5,15 +5,24 @@ import {
 	CurrentUserService,
 	ICurrentUserService,
 } from '@/services/CurrentUserService';
+import { EmailService, IEmailService } from '@/services/EmailService';
+import {
+	IPasswordServiceFactory,
+	PasswordServiceFactory,
+} from '@/services/PasswordServiceFactory';
 import { MikroORM } from '@mikro-orm/core';
 import {
+	CookieAuthenticationDefaults,
 	Envs,
 	IHttpContext,
 	StatusCodes,
 	WebAppOptions,
+	addAuthentication,
+	addCookie,
 	addHttpLogging,
 	addRouting,
 	addScopedFactory,
+	addSingletonCtor,
 	addSingletonFactory,
 	addStaticFiles,
 	addTransientCtor,
@@ -21,6 +30,7 @@ import {
 	getRequiredService,
 	mapGet,
 	mapPost,
+	useAuthentication,
 	useEndpoints,
 	useHttpLogging,
 	useRouting,
@@ -40,6 +50,13 @@ async function main(): Promise<void> {
 	addHttpLogging(services);
 	addRouting(services);
 
+	addCookie(
+		addAuthentication(
+			services,
+			CookieAuthenticationDefaults.authenticationScheme,
+		),
+	);
+
 	// TODO: move
 	const orm = await MikroORM.init(config);
 	addSingletonFactory(services, Symbol.for('MikroORM'), () => {
@@ -58,6 +75,9 @@ async function main(): Promise<void> {
 		},
 	);
 
+	addSingletonCtor(services, IEmailService, EmailService);
+	addSingletonCtor(services, IPasswordServiceFactory, PasswordServiceFactory);
+
 	addTransientCtor(services, ICurrentUserService, CurrentUserService);
 
 	for (const { serviceType, implType } of Object.values(
@@ -71,6 +91,8 @@ async function main(): Promise<void> {
 	useStaticFiles(app);
 
 	useHttpLogging(app);
+
+	useAuthentication(app);
 
 	useRouting(app);
 
