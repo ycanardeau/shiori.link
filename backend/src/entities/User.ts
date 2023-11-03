@@ -1,5 +1,13 @@
+import { Login } from '@/entities/Login';
 import { PasswordHashAlgorithm } from '@/models/enums/PasswordHashAlgorithm';
-import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+	Collection,
+	Entity,
+	Enum,
+	OneToMany,
+	PrimaryKey,
+	Property,
+} from '@mikro-orm/core';
 import { createHash } from 'node:crypto';
 
 @Entity({ tableName: 'users' })
@@ -27,6 +35,9 @@ export class User {
 
 	@Property()
 	passwordHash: string;
+
+	@OneToMany(() => Login, (login) => login.user)
+	logins = new Collection(this);
 
 	constructor({
 		userName,

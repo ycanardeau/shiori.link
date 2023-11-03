@@ -1,3 +1,4 @@
+import { Login } from '@/entities/Login';
 import { User } from '@/entities/User';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -42,26 +43,38 @@ export class UserLoginHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: UserLoginRequest,
 	): Promise<Result<UserLoginResponse, NotFoundError | UnauthorizedError>> {
-		const user = await this.em.findOne(User, {
-			userName: request.username,
+		const userResult = await this.em.transactional(async (em) => {
+			const user = await this.em.findOne(User, {
+				userName: request.username,
+			});
+
+			if (!user) {
+				return new Err(new NotFoundError());
+			}
+
+			const passwordService = this.passwordServiceFactory.create(
+				user.passwordHashAlgorithm,
+			);
+
+			const passwordHash = await passwordService.hashPassword(
+				request.password,
+				user.salt,
+			);
+
+			const success = passwordHash === user.passwordHash;
+
+			const login = new Login(user, '' /* TODO: ip */, success);
+
+			em.persist(login);
+
+			return success ? new Ok(user) : new Err(new UnauthorizedError());
 		});
 
-		if (!user) {
-			return new Err(new NotFoundError());
+		if (userResult.err) {
+			return userResult;
 		}
 
-		const passwordService = this.passwordServiceFactory.create(
-			user.passwordHashAlgorithm,
-		);
-
-		const passwordHash = await passwordService.hashPassword(
-			request.password,
-			user.salt,
-		);
-
-		if (passwordHash !== user.passwordHash) {
-			return new Err(new UnauthorizedError());
-		}
+		const user = userResult.val;
 
 		const userDtoResult = toUserDto(user);
 
