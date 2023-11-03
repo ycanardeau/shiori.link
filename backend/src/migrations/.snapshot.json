@@ -40,6 +40,15 @@
           "nullable": false,
           "mappedType": "string"
         },
+        "normalized_email": {
+          "name": "normalized_email",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "password_hash_algorithm": {
           "name": "password_hash_algorithm",
           "type": "enum('Bcrypt')",

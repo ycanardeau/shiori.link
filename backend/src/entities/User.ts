@@ -16,6 +16,9 @@ export class User {
 	@Property()
 	email: string;
 
+	@Property()
+	normalizedEmail: string;
+
 	@Enum(() => PasswordHashAlgorithm)
 	passwordHashAlgorithm: PasswordHashAlgorithm;
 
@@ -28,18 +31,21 @@ export class User {
 	constructor({
 		userName,
 		email,
+		normalizedEmail,
 		passwordHashAlgorithm,
 		salt,
 		passwordHash,
 	}: {
 		userName: string;
 		email: string;
+		normalizedEmail: string;
 		passwordHashAlgorithm: PasswordHashAlgorithm;
 		salt: string;
 		passwordHash: string;
 	}) {
 		this.userName = userName;
 		this.email = email;
+		this.normalizedEmail = normalizedEmail;
 		this.passwordHashAlgorithm = passwordHashAlgorithm;
 		this.salt = salt;
 		this.passwordHash = passwordHash;
