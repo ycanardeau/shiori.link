@@ -1,3 +1,4 @@
+import { userApi } from '@/api/UserApi';
 import {
 	EuiButton,
 	EuiButtonEmpty,
@@ -11,14 +12,21 @@ import {
 	EuiModalHeader,
 	EuiModalHeaderTitle,
 } from '@elastic/eui';
+import React from 'react';
 
 interface SignInModalProps {
 	onCancel: () => void;
+	onSignIn: () => void;
 }
 
 export const SignInModal = ({
 	onCancel,
+	onSignIn,
 }: SignInModalProps): React.ReactElement => {
+	const [username, setUsername] = React.useState('');
+	const [password, setPassword] = React.useState('');
+	const [isLoading, setIsLoading] = React.useState(false);
+
 	return (
 		<EuiModal onClose={onCancel} initialFocus="[name=username]">
 			<EuiModalHeader>
@@ -32,6 +40,8 @@ export const SignInModal = ({
 							type="username"
 							name="username"
 							autoComplete="username"
+							value={username}
+							onChange={(e): void => setUsername(e.target.value)}
 						/>
 					</EuiFormRow>
 
@@ -39,6 +49,8 @@ export const SignInModal = ({
 						<EuiFieldPassword
 							name="currentPassword"
 							autoComplete="currentPassword"
+							value={password}
+							onChange={(e): void => setPassword(e.target.value)}
 						/>
 					</EuiFormRow>
 				</EuiForm>
@@ -49,7 +61,25 @@ export const SignInModal = ({
 					Cancel{/* LOC */}
 				</EuiButtonEmpty>
 
-				<EuiButton type="submit" fill>
+				<EuiButton
+					type="submit"
+					onClick={async (): Promise<void> => {
+						setIsLoading(true);
+
+						const signUpResult = await userApi.login({
+							username: username,
+							password: password,
+						});
+						if (!signUpResult.ok) {
+							setIsLoading(false);
+							return;
+						}
+
+						onSignIn();
+					}}
+					fill
+					isLoading={isLoading}
+				>
 					Sign in{/* LOC */}
 				</EuiButton>
 			</EuiModalFooter>

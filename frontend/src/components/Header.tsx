@@ -35,7 +35,10 @@ const SignInButton = (): React.ReactElement => {
 			</EuiHeaderLink>
 
 			{isModalVisible && (
-				<SignInModal onCancel={(): void => setIsModalVisible(false)} />
+				<SignInModal
+					onCancel={(): void => setIsModalVisible(false)}
+					onSignIn={(): void => setIsModalVisible(false)}
+				/>
 			)}
 		</>
 	);
@@ -54,7 +57,10 @@ const SignUpButton = (): React.ReactElement => {
 			</EuiHeaderLink>
 
 			{isModalVisible && (
-				<SignUpModal onCancel={(): void => setIsModalVisible(false)} />
+				<SignUpModal
+					onCancel={(): void => setIsModalVisible(false)}
+					onSignUp={(): void => setIsModalVisible(false)}
+				/>
 			)}
 		</>
 	);
