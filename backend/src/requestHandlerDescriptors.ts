@@ -10,6 +10,7 @@ import { NotebookGetHandler } from '@/request-handlers/NotebookGetHandler';
 import { NotebookListHandler } from '@/request-handlers/NotebookListHandler';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { UrlFetchHandler } from '@/request-handlers/UrlFetchHandler';
+import { UserGetHandler } from '@/request-handlers/UserGetHandler';
 import { UserLoginHandler } from '@/request-handlers/UserLoginHandler';
 import { UserLogoutHandler } from '@/request-handlers/UserLogoutHandler';
 import { UserSignUpHandler } from '@/request-handlers/UserSignUpHandler';
@@ -79,6 +80,11 @@ export const requestHandlerDescriptors: Record<
 		method: 'POST',
 		serviceType: Symbol.for('UrlFetchHandler'),
 		implType: UrlFetchHandler,
+	},
+	'/api/user/get': {
+		method: 'GET',
+		serviceType: Symbol.for('UserGetHandler'),
+		implType: UserGetHandler,
 	},
 	'/api/user/login': {
 		method: 'POST',
