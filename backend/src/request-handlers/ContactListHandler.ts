@@ -1,4 +1,6 @@
 import { Contact } from '@/entities/Contact';
+import { NotFoundError } from '@/errors/NotFoundError';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toContactDto } from '@/mappers/ContactMapper';
 import {
 	ContactListRequest,
@@ -7,16 +9,18 @@ import {
 } from '@/models/requests/ContactListRequest';
 import { ContactListResponse } from '@/models/responses/ContactListResponse';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
+import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
 
 export class ContactListHandler extends RequestHandler<
 	ContactListRequest,
 	ContactListResponse
 > {
 	constructor(
-		@inject(Symbol.for('EntityManager'))
-		private readonly em: EntityManager,
+		@inject(ICurrentUserService)
+		private readonly currentUserService: ICurrentUserService,
+		@inject(Symbol.for('EntityManager')) private readonly em: EntityManager,
 	) {
 		super(ContactListRequestSchema);
 	}
@@ -36,7 +40,12 @@ export class ContactListHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: ContactListRequest,
-	): Promise<Result<ContactListResponse, Error>> {
+	): Promise<Result<ContactListResponse, UnauthorizedError | NotFoundError>> {
+		const currentUser = await this.currentUserService.getCurrentUser();
+		if (!currentUser) {
+			return new Err(new UnauthorizedError());
+		}
+
 		// TODO: check permissions
 
 		const page =
@@ -48,7 +57,7 @@ export class ContactListHandler extends RequestHandler<
 
 		const [contacts, totalCount] = await this.em.findAndCount(
 			Contact,
-			{},
+			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],

@@ -1,4 +1,6 @@
 import { Note } from '@/entities/Note';
+import { NotFoundError } from '@/errors/NotFoundError';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import {
 	NoteListRequest,
@@ -7,16 +9,18 @@ import {
 } from '@/models/requests/NoteListRequest';
 import { NoteListResponse } from '@/models/responses/NoteListResponse';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
+import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
 
 export class NoteListHandler extends RequestHandler<
 	NoteListRequest,
 	NoteListResponse
 > {
 	constructor(
-		@inject(Symbol.for('EntityManager'))
-		private readonly em: EntityManager,
+		@inject(ICurrentUserService)
+		private readonly currentUserService: ICurrentUserService,
+		@inject(Symbol.for('EntityManager')) private readonly em: EntityManager,
 	) {
 		super(NoteListRequestSchema);
 	}
@@ -36,7 +40,12 @@ export class NoteListHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: NoteListRequest,
-	): Promise<Result<NoteListResponse, Error>> {
+	): Promise<Result<NoteListResponse, UnauthorizedError | NotFoundError>> {
+		const currentUser = await this.currentUserService.getCurrentUser();
+		if (!currentUser) {
+			return new Err(new UnauthorizedError());
+		}
+
 		// TODO: check permissions
 
 		const page =
@@ -48,7 +57,7 @@ export class NoteListHandler extends RequestHandler<
 
 		const [notes, totalCount] = await this.em.findAndCount(
 			Note,
-			{},
+			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],

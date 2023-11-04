@@ -1,4 +1,5 @@
 import { Notebook } from '@/entities/Notebook';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNotebookDto } from '@/mappers/NotebookMapper';
 import {
 	NotebookListRequest,
@@ -7,14 +8,17 @@ import {
 } from '@/models/requests/NotebookListRequest';
 import { NotebookListResponse } from '@/models/responses/NotebookListResponse';
 import { RequestHandler } from '@/request-handlers/RequestHandler';
+import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
 
 export class NotebookListHandler extends RequestHandler<
 	NotebookListRequest,
 	NotebookListResponse
 > {
 	constructor(
+		@inject(ICurrentUserService)
+		private readonly currentUserService: ICurrentUserService,
 		@inject(Symbol.for('EntityManager'))
 		private readonly em: EntityManager,
 	) {
@@ -36,6 +40,11 @@ export class NotebookListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NotebookListRequest,
 	): Promise<Result<NotebookListResponse, Error>> {
+		const currentUser = await this.currentUserService.getCurrentUser();
+		if (!currentUser) {
+			return new Err(new UnauthorizedError());
+		}
+
 		// TODO: check permissions
 
 		const page =
@@ -47,7 +56,7 @@ export class NotebookListHandler extends RequestHandler<
 
 		const [notebooks, totalCount] = await this.em.findAndCount(
 			Notebook,
-			{},
+			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),
 				populate: ['user'],
