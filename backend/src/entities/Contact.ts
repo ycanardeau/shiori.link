@@ -1,4 +1,5 @@
 import { User } from '@/entities/User';
+import { IUserOwnedEntity } from '@/models/entities/IUserOwnedEntity';
 import {
 	Entity,
 	ManyToOne,
@@ -9,7 +10,7 @@ import {
 } from '@mikro-orm/core';
 
 @Entity({ tableName: 'contacts' })
-export class Contact {
+export class Contact implements IUserOwnedEntity {
 	@PrimaryKey()
 	id!: number;
 

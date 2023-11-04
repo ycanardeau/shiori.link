@@ -6,6 +6,7 @@ import {
 	MarkdownNotePayloadDto,
 	NotePayloadDto,
 } from '@/models/dto/NoteDto';
+import { IUserOwnedEntity } from '@/models/entities/IUserOwnedEntity';
 import { NoteType } from '@/models/enums/NoteType';
 import {
 	Collection,
@@ -27,7 +28,8 @@ import {
 export abstract class Note<
 	TNoteType extends NoteType = NoteType,
 	TNotePayloadDto extends NotePayloadDto = NotePayloadDto,
-> {
+> implements IUserOwnedEntity
+{
 	@PrimaryKey()
 	id!: number;
 

@@ -1,5 +1,6 @@
 import { Note } from '@/entities/Note';
 import { User } from '@/entities/User';
+import { IUserOwnedEntity } from '@/models/entities/IUserOwnedEntity';
 import {
 	Entity,
 	ManyToOne,
@@ -14,7 +15,7 @@ import {
 	abstract: true,
 	discriminatorColumn: 'discr',
 })
-export abstract class ExternalLink {
+export abstract class ExternalLink implements IUserOwnedEntity {
 	@PrimaryKey()
 	id!: number;
 
