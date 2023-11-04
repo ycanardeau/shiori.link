@@ -28,7 +28,9 @@ export class NotebookGetHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NotebookGetRequest,
 	): Promise<Result<NotebookGetResponse, UnauthorizedError | NotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}

@@ -41,7 +41,9 @@ export class ContactListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: ContactListRequest,
 	): Promise<Result<ContactListResponse, UnauthorizedError | NotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}

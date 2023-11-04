@@ -28,7 +28,9 @@ export class ContactGetHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: ContactGetRequest,
 	): Promise<Result<ContactGetResponse, UnauthorizedError | NotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}

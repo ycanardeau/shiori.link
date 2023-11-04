@@ -41,7 +41,9 @@ export class NoteListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NoteListRequest,
 	): Promise<Result<NoteListResponse, UnauthorizedError | NotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}

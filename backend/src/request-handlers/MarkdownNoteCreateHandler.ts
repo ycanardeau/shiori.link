@@ -31,7 +31,9 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: MarkdownNoteCreateRequest,
 	): Promise<Result<NoteCreateResponse, Error>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (currentUser === undefined) {
 			return new Err(new UnauthorizedError());
 		}

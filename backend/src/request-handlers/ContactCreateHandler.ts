@@ -29,7 +29,9 @@ export class ContactCreateHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: ContactCreateRequest,
 	): Promise<Result<ContactDto, Error>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (currentUser === undefined) {
 			return new Err(new UnauthorizedError());
 		}

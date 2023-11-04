@@ -29,7 +29,9 @@ export class NotebookCreateHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NotebookCreateRequest,
 	): Promise<Result<NotebookDto, Error>> {
-		const currentUser = await this.currentUserService.getCurrentUser();
+		const currentUser = await this.currentUserService.getCurrentUser(
+			httpContext,
+		);
 		if (currentUser === undefined) {
 			return new Err(new UnauthorizedError());
 		}
