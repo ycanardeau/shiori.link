@@ -19,7 +19,7 @@ export class User {
 	createdAt = new Date();
 
 	@Property()
-	userName: string;
+	username: string;
 
 	@Property()
 	email: string;
@@ -40,21 +40,21 @@ export class User {
 	logins = new Collection(this);
 
 	constructor({
-		userName,
+		username,
 		email,
 		normalizedEmail,
 		passwordHashAlgorithm,
 		salt,
 		passwordHash,
 	}: {
-		userName: string;
+		username: string;
 		email: string;
 		normalizedEmail: string;
 		passwordHashAlgorithm: PasswordHashAlgorithm;
 		salt: string;
 		passwordHash: string;
 	}) {
-		this.userName = userName;
+		this.username = username;
 		this.email = email;
 		this.normalizedEmail = normalizedEmail;
 		this.passwordHashAlgorithm = passwordHashAlgorithm;

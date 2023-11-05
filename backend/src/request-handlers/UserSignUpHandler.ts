@@ -49,7 +49,7 @@ export class UserSignUpHandler extends RequestHandler<
 			);
 
 			const user = new User({
-				userName: request.username.trim(),
+				username: request.username.trim(),
 				email: request.email,
 				normalizedEmail: normalizedEmail,
 				salt: salt,

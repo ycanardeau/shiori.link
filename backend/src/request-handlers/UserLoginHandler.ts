@@ -45,7 +45,7 @@ export class UserLoginHandler extends RequestHandler<
 	): Promise<Result<UserLoginResponse, NotFoundError | UnauthorizedError>> {
 		const userResult = await this.em.transactional(async (em) => {
 			const user = await this.em.findOne(User, {
-				userName: request.username,
+				username: request.username,
 			});
 
 			if (!user) {
@@ -84,7 +84,7 @@ export class UserLoginHandler extends RequestHandler<
 
 		const userDto = userDtoResult.val;
 
-		const claims: Claim[] = [new Claim(ClaimTypes.name, userDto.userName)];
+		const claims: Claim[] = [new Claim(ClaimTypes.name, userDto.username)];
 
 		const claimsIdentity = new ClaimsIdentity(
 			undefined,

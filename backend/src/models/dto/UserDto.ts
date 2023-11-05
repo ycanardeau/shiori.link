@@ -2,6 +2,6 @@ export interface UserDto {
 	_UserDtoBrand: any;
 	id: number;
 	createdAt: string /* TODO: Date */;
-	userName: string;
+	username: string;
 	avatarUrl: string;
 }

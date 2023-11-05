@@ -8,7 +8,7 @@ export function toUserDto(user: User): Result<UserDto, NotFoundError> {
 		_UserDtoBrand: undefined,
 		id: user.id,
 		createdAt: user.createdAt.toISOString(),
-		userName: user.userName,
+		username: user.username,
 		avatarUrl: user.avatarUrl,
 	});
 }

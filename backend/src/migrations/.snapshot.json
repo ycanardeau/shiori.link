@@ -22,8 +22,8 @@
           "length": 0,
           "mappedType": "datetime"
         },
-        "user_name": {
-          "name": "user_name",
+        "username": {
+          "name": "username",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,

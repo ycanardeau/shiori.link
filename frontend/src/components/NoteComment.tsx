@@ -43,10 +43,10 @@ export const NoteComment = React.memo(
 	({ note }: NoteCommentProps): React.ReactElement => {
 		return (
 			<EuiComment
-				username={note.user.userName}
+				username={note.user.username}
 				timelineAvatar={
 					<EuiAvatar
-						name={note.user.userName}
+						name={note.user.username}
 						imageUrl={note.user.avatarUrl}
 					/>
 				}
