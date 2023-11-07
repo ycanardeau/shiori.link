@@ -5,7 +5,7 @@
 	"devDependencies": {
 		"@mikro-orm/cli": "^5.7.12",
 		"@mikro-orm/migrations": "^5.7.12",
-		"@trivago/prettier-plugin-sort-imports": "^4.2.0",
+		"@trivago/prettier-plugin-sort-imports": "^4.2.1",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jsdom": "^21.1.1",
 		"@types/lodash-es": "^4.17.6",
