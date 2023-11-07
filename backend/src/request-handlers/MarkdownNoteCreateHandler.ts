@@ -1,6 +1,7 @@
 import { NoteExternalLink } from '@/entities/ExternalLink';
 import { MarkdownNote } from '@/entities/Note';
 import { Notebook } from '@/entities/Notebook';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import { NoteType } from '@/models/enums/NoteType';
@@ -30,7 +31,9 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: MarkdownNoteCreateRequest,
-	): Promise<Result<NoteCreateResponse, Error>> {
+	): Promise<
+		Result<NoteCreateResponse, UnauthorizedError | DataNotFoundError>
+	> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);
@@ -44,7 +47,7 @@ export class MarkdownNoteCreateHandler extends RequestHandler<
 			// TODO: remove
 			const notebooks = await em.find(Notebook, {});
 			if (notebooks.length === 0) {
-				return new Err(new Error());
+				return new Err(new DataNotFoundError());
 			}
 			const notebook = notebooks[0];
 

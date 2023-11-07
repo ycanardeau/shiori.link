@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
 import { UserDto } from '@/models/dto/UserDto';
@@ -25,7 +25,7 @@ export class UserGetHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UserGetRequest,
-	): Promise<Result<UserDto, UnauthorizedError | NotFoundError>> {
+	): Promise<Result<UserDto, UnauthorizedError | DataNotFoundError>> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);

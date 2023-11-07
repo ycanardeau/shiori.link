@@ -1,5 +1,5 @@
 import { Note } from '@/entities/Note';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import {
@@ -40,7 +40,9 @@ export class NoteListHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: NoteListRequest,
-	): Promise<Result<NoteListResponse, UnauthorizedError | NotFoundError>> {
+	): Promise<
+		Result<NoteListResponse, UnauthorizedError | DataNotFoundError>
+	> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);

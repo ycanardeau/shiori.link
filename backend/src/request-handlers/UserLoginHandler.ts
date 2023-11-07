@@ -1,6 +1,6 @@
 import { Login } from '@/entities/Login';
 import { User } from '@/entities/User';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
 import {
@@ -42,14 +42,16 @@ export class UserLoginHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UserLoginRequest,
-	): Promise<Result<UserLoginResponse, NotFoundError | UnauthorizedError>> {
+	): Promise<
+		Result<UserLoginResponse, DataNotFoundError | UnauthorizedError>
+	> {
 		const userResult = await this.em.transactional(async (em) => {
 			const user = await this.em.findOne(User, {
 				username: request.username,
 			});
 
 			if (!user) {
-				return new Err(new NotFoundError());
+				return new Err(new DataNotFoundError());
 			}
 
 			const passwordService = this.passwordServiceFactory.create(

@@ -1,4 +1,5 @@
 import { Notebook } from '@/entities/Notebook';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNotebookDto } from '@/mappers/NotebookMapper';
 import {
@@ -39,7 +40,9 @@ export class NotebookListHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: NotebookListRequest,
-	): Promise<Result<NotebookListResponse, Error>> {
+	): Promise<
+		Result<NotebookListResponse, UnauthorizedError | DataNotFoundError>
+	> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);

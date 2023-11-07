@@ -1,5 +1,5 @@
 import { Note } from '@/entities/Note';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import {
@@ -27,7 +27,7 @@ export class NoteGetHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: NoteGetRequest,
-	): Promise<Result<NoteGetResponse, UnauthorizedError | NotFoundError>> {
+	): Promise<Result<NoteGetResponse, UnauthorizedError | DataNotFoundError>> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);
@@ -43,7 +43,7 @@ export class NoteGetHandler extends RequestHandler<
 			{ populate: ['user'] },
 		);
 		if (!note) {
-			return new Err(new NotFoundError());
+			return new Err(new DataNotFoundError());
 		}
 
 		return toNoteDto(note);

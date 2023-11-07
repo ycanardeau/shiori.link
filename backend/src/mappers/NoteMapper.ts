@@ -1,10 +1,10 @@
 import { Note } from '@/entities/Note';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { toUserDto } from '@/mappers/UserMapper';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { Ok, Result } from 'yohira';
 
-export function toNoteDto(note: Note): Result<NoteDto, NotFoundError> {
+export function toNoteDto(note: Note): Result<NoteDto, DataNotFoundError> {
 	const userDtoResult = toUserDto(note.user.getEntity());
 	if (!userDtoResult.ok) {
 		return userDtoResult;

@@ -1,9 +1,9 @@
 import { User } from '@/entities/User';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UserDto } from '@/models/dto/UserDto';
 import { Ok, Result } from 'yohira';
 
-export function toUserDto(user: User): Result<UserDto, NotFoundError> {
+export function toUserDto(user: User): Result<UserDto, DataNotFoundError> {
 	return new Ok({
 		_UserDtoBrand: undefined,
 		id: user.id,

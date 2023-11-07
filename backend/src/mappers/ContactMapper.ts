@@ -1,12 +1,12 @@
 import { Contact } from '@/entities/Contact';
-import { NotFoundError } from '@/errors/NotFoundError';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { toUserDto } from '@/mappers/UserMapper';
 import { ContactDto } from '@/models/dto/ContactDto';
 import { Ok, Result } from 'yohira';
 
 export function toContactDto(
 	contact: Contact,
-): Result<ContactDto, NotFoundError> {
+): Result<ContactDto, DataNotFoundError> {
 	const userDtoResult = toUserDto(contact.user.getEntity());
 	if (!userDtoResult.ok) {
 		return userDtoResult;

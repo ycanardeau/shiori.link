@@ -1,4 +1,5 @@
 import { Contact } from '@/entities/Contact';
+import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toContactDto } from '@/mappers/ContactMapper';
 import { ContactDto } from '@/models/dto/ContactDto';
@@ -28,7 +29,7 @@ export class ContactCreateHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: ContactCreateRequest,
-	): Promise<Result<ContactDto, Error>> {
+	): Promise<Result<ContactDto, UnauthorizedError | DataNotFoundError>> {
 		const currentUser = await this.currentUserService.getCurrentUser(
 			httpContext,
 		);
