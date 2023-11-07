@@ -5,17 +5,19 @@ import { NoteDto } from '@/models/dto/NoteDto';
 import { Ok, Result } from 'yohira';
 
 export function toNoteDto(note: Note): Result<NoteDto, NotFoundError> {
-	const toUserDtoResult = toUserDto(note.user.getEntity());
-	if (!toUserDtoResult.ok) {
-		return toUserDtoResult;
+	const userDtoResult = toUserDto(note.user.getEntity());
+	if (!userDtoResult.ok) {
+		return userDtoResult;
 	}
+
+	const userDto = userDtoResult.val;
 
 	return new Ok({
 		_NoteDtoBrand: undefined,
 		id: note.id,
 		createdAt: note.createdAt.toISOString(),
 		type: note.type,
-		user: toUserDtoResult.val,
+		user: userDto,
 		payload: note.payload,
 	});
 }

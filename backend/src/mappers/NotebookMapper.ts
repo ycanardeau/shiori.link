@@ -7,16 +7,18 @@ import { Ok, Result } from 'yohira';
 export function toNotebookDto(
 	notebook: Notebook,
 ): Result<NotebookDto, NotFoundError> {
-	const toUserDtoResult = toUserDto(notebook.user.getEntity());
-	if (!toUserDtoResult.ok) {
-		return toUserDtoResult;
+	const userDtoResult = toUserDto(notebook.user.getEntity());
+	if (!userDtoResult.ok) {
+		return userDtoResult;
 	}
+
+	const userDto = userDtoResult.val;
 
 	return new Ok({
 		_NotebookDtoBrand: undefined,
 		id: notebook.id,
 		createdAt: notebook.createdAt.toISOString(),
-		user: toUserDtoResult.val,
+		user: userDto,
 		name: notebook.name,
 	});
 }

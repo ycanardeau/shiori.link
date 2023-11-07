@@ -7,16 +7,18 @@ import { Ok, Result } from 'yohira';
 export function toContactDto(
 	contact: Contact,
 ): Result<ContactDto, NotFoundError> {
-	const toUserDtoResult = toUserDto(contact.user.getEntity());
-	if (!toUserDtoResult.ok) {
-		return toUserDtoResult;
+	const userDtoResult = toUserDto(contact.user.getEntity());
+	if (!userDtoResult.ok) {
+		return userDtoResult;
 	}
+
+	const userDto = userDtoResult.val;
 
 	return new Ok({
 		_ContactDtoBrand: undefined,
 		id: contact.id,
 		createdAt: contact.createdAt.toISOString(),
-		user: toUserDtoResult.val,
+		user: userDto,
 		firstName: contact.firstName,
 		lastName: contact.lastName,
 	});
