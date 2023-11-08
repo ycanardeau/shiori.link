@@ -1,4 +1,5 @@
 import { AppRoutes } from '@/AppRoutes';
+import { AuthenticationProvider } from '@/components/AuthenticationProvider';
 import { Header } from '@/components/Header';
 import '@/icons';
 import { ScrollToTop } from '@aigamo/route-sphere';
@@ -19,13 +20,15 @@ const App = (): React.ReactElement => {
 	return (
 		<BrowserRouter>
 			<EuiProvider colorMode="dark" cache={euiCache}>
-				<ScrollToTop />
+				<AuthenticationProvider>
+					<ScrollToTop />
 
-				<Header />
+					<Header />
 
-				<React.Suspense fallback={null}>
-					<AppRoutes />
-				</React.Suspense>
+					<React.Suspense fallback={null}>
+						<AppRoutes />
+					</React.Suspense>
+				</AuthenticationProvider>
 			</EuiProvider>
 		</BrowserRouter>
 	);

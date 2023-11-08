@@ -1,3 +1,5 @@
+import { userApi } from '@/api/UserApi';
+import { useAuthentication } from '@/components/AuthenticationProvider';
 import { SignInModal } from '@/components/SignInModal';
 import { SignUpModal } from '@/components/SignUpModal';
 import {
@@ -22,6 +24,23 @@ import {
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const SignOutButton = (): React.ReactElement => {
+	return (
+		<EuiHeaderLink
+			color="primary"
+			onClick={async (): Promise<void> => {
+				const logoutResult = await userApi.logout({});
+
+				if (logoutResult.ok) {
+					window.location.reload();
+				}
+			}}
+		>
+			Sign out{/* LOC */}
+		</EuiHeaderLink>
+	);
+};
+
 const SignInButton = (): React.ReactElement => {
 	const [isModalVisible, setIsModalVisible] = React.useState(false);
 
@@ -37,7 +56,9 @@ const SignInButton = (): React.ReactElement => {
 			{isModalVisible && (
 				<SignInModal
 					onCancel={(): void => setIsModalVisible(false)}
-					onSignIn={(): void => setIsModalVisible(false)}
+					onSignIn={(user): void => {
+						window.location.reload();
+					}}
 				/>
 			)}
 		</>
@@ -72,6 +93,8 @@ export const Header = (): React.ReactElement => {
 	const collapsibleNavId = useGeneratedHtmlId({ prefix: 'collapsibleNav' });
 
 	const navigate = useNavigate();
+
+	const authentication = useAuthentication();
 
 	const listItems: EuiListGroupItemProps[] = React.useMemo(
 		() => [
@@ -164,14 +187,23 @@ export const Header = (): React.ReactElement => {
 		<EuiHeader
 			position="fixed"
 			sections={[
-				{ items: leftSectionItems, borders: 'right' },
+				{ items: leftSectionItems },
 				{
 					items: [
 						<EuiHeaderLinks
 							popoverProps={{ repositionOnScroll: true }}
 						>
-							<SignInButton />
-							<SignUpButton />
+							{!authentication.isLoading &&
+								(authentication.isAuthenticated ? (
+									<>
+										<SignOutButton />
+									</>
+								) : (
+									<>
+										<SignInButton />
+										<SignUpButton />
+									</>
+								))}
 						</EuiHeaderLinks>,
 					],
 				},

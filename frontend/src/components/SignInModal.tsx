@@ -1,4 +1,5 @@
 import { userApi } from '@/api/UserApi';
+import { UserDto } from '@/models/dto/UserDto';
 import {
 	EuiButton,
 	EuiButtonEmpty,
@@ -16,7 +17,7 @@ import React from 'react';
 
 interface SignInModalProps {
 	onCancel: () => void;
-	onSignIn: () => void;
+	onSignIn: (user: UserDto) => void;
 }
 
 export const SignInModal = ({
@@ -75,7 +76,7 @@ export const SignInModal = ({
 							return;
 						}
 
-						onSignIn();
+						onSignIn(signUpResult.val);
 					}}
 					fill
 					isLoading={isLoading}
