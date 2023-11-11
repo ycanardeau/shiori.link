@@ -1,6 +1,9 @@
 import { AppRoutes } from '@/AppRoutes';
 import { AuthenticationProvider } from '@/components/AuthenticationProvider';
+import { Compose } from '@/components/Compose';
 import { Header } from '@/components/Header';
+import { Player } from '@/components/Player';
+import { PlayerProvider } from '@/components/PlayerProvider';
 import '@/icons';
 import { ScrollToTop } from '@aigamo/route-sphere';
 import { EuiProvider } from '@elastic/eui';
@@ -16,21 +19,40 @@ const euiCache = createCache({
 });
 euiCache.compat = true;
 
+interface EuiProviderWrapperProps {
+	children?: React.ReactNode;
+}
+
+const EuiProviderWrapper = ({
+	children,
+}: EuiProviderWrapperProps): React.ReactElement => {
+	return (
+		<EuiProvider colorMode="dark" cache={euiCache}>
+			{children}
+		</EuiProvider>
+	);
+};
+
 const App = (): React.ReactElement => {
 	return (
-		<BrowserRouter>
-			<EuiProvider colorMode="dark" cache={euiCache}>
-				<AuthenticationProvider>
-					<ScrollToTop />
+		<Compose
+			components={[
+				BrowserRouter,
+				EuiProviderWrapper,
+				AuthenticationProvider,
+				PlayerProvider,
+			]}
+		>
+			<ScrollToTop />
 
-					<Header />
+			<Header />
 
-					<React.Suspense fallback={null}>
-						<AppRoutes />
-					</React.Suspense>
-				</AuthenticationProvider>
-			</EuiProvider>
-		</BrowserRouter>
+			<React.Suspense fallback={null}>
+				<AppRoutes />
+			</React.Suspense>
+
+			<Player />
+		</Compose>
 	);
 };
 
