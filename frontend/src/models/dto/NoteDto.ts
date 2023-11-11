@@ -4,7 +4,7 @@ import { NoteType } from '@/models/enums/NoteType';
 export interface BookmarkNotePayloadDto {
 	type: NoteType.Bookmark;
 	url: string;
-	title: string | undefined;
+	title: string;
 }
 
 export interface MarkdownNotePayloadDto {

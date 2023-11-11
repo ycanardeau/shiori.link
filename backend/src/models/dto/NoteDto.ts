@@ -9,7 +9,7 @@ export interface NotePayloadDtoBase<T extends NoteType> {
 export interface BookmarkNotePayloadDto
 	extends NotePayloadDtoBase<NoteType.Bookmark> {
 	url: string;
-	title: string | undefined;
+	title: string;
 }
 
 export interface MarkdownNotePayloadDto

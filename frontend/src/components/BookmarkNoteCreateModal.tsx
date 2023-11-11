@@ -123,7 +123,7 @@ export const BookmarkNoteCreateModal = ({
 
 						const noteCreateResult = await noteApi.createBookmark({
 							url: normalizedUrl,
-							title: title,
+							title: title ?? normalizedUrl,
 						});
 						if (!noteCreateResult.ok) {
 							setIsLoading(false);

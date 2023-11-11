@@ -2,7 +2,7 @@ import { JSONSchemaType } from 'ajv';
 
 export interface BookmarkNoteCreateRequest {
 	url: string;
-	title?: string;
+	title: string;
 }
 
 export const BookmarkNoteCreateRequestSchema: JSONSchemaType<BookmarkNoteCreateRequest> =
@@ -14,8 +14,7 @@ export const BookmarkNoteCreateRequestSchema: JSONSchemaType<BookmarkNoteCreateR
 			},
 			title: {
 				type: 'string',
-				nullable: true,
 			},
 		},
-		required: ['url'],
+		required: ['url', 'title'],
 	};
