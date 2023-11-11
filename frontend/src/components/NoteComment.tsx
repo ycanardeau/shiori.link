@@ -1,3 +1,4 @@
+import { EmbedPVPreview } from '@/components/EmbedPVPreview';
 import { NoteLink } from '@/components/NoteLink';
 import { NoteMarkdownFormat } from '@/components/NoteMarkdownFormat';
 import {
@@ -6,7 +7,13 @@ import {
 	NotePayloadDto,
 } from '@/models/dto/NoteDto';
 import { NoteType } from '@/models/enums/NoteType';
-import { EuiAvatar, EuiButtonEmpty, EuiComment, EuiText } from '@elastic/eui';
+import {
+	EuiAvatar,
+	EuiButtonEmpty,
+	EuiComment,
+	EuiSpacer,
+	EuiText,
+} from '@elastic/eui';
 import React from 'react';
 
 interface BookmarkNoteCommentBodyProps {
@@ -16,15 +23,21 @@ interface BookmarkNoteCommentBodyProps {
 const BookmarkNoteCommentBody = React.memo(
 	({ payload }: BookmarkNoteCommentBodyProps): React.ReactElement => {
 		return (
-			<EuiButtonEmpty
-				href={payload.url}
-				target="_blank"
-				iconType={`https://www.google.com/s2/favicons?domain=${
-					new URL(payload.url).hostname
-				}&sz=${16}`}
-			>
-				{payload.title || payload.url}
-			</EuiButtonEmpty>
+			<>
+				<EuiButtonEmpty
+					href={payload.url}
+					target="_blank"
+					iconType={`https://www.google.com/s2/favicons?domain=${
+						new URL(payload.url).hostname
+					}&sz=${16}`}
+				>
+					{payload.title || payload.url}
+				</EuiButtonEmpty>
+
+				<EuiSpacer size="s" />
+
+				<EmbedPVPreview />
+			</>
 		);
 	},
 );
