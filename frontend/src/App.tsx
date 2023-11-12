@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Player } from '@/components/Player';
 import { PlayerProvider } from '@/components/PlayerProvider';
 import '@/icons';
+import { NostalgicDivaProvider } from '@aigamo/nostalgic-diva';
 import { ScrollToTop } from '@aigamo/route-sphere';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
@@ -41,6 +42,7 @@ const App = (): React.ReactElement => {
 				EuiProviderWrapper,
 				AuthenticationProvider,
 				PlayerProvider,
+				NostalgicDivaProvider,
 			]}
 		>
 			<ScrollToTop />

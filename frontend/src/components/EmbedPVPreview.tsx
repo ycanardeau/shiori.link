@@ -26,7 +26,7 @@ export const EmbedPVPreview = observer(
 		payload,
 		width = 16 * 25,
 		height = 9 * 25,
-		allowInline = true,
+		allowInline = false,
 	}: EmbedPVPreviewProps): React.ReactElement => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const embedPVPreviewRef = React.useRef<HTMLDivElement>(undefined!);
