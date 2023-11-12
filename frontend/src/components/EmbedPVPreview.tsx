@@ -99,33 +99,35 @@ export const EmbedPVPreview = observer(
 
 		return (
 			<>
-				<div
-					css={{
-						position: 'relative',
-						maxWidth: width,
-						maxHeight: height,
-						width: '100%',
-						aspectRatio: '16 / 9',
-					}}
-					ref={embedPVPreviewRef}
-				>
-					<div
-						css={{
-							width: '100%',
-							height: '100%',
-							backgroundColor: 'rbg(28, 28, 28)',
-							backgroundSize: 'cover',
-							backgroundPosition: 'center',
-						}}
-						style={{
-							backgroundImage: `url(${
-								'https://source.unsplash.com/400x200/?Nature' /* TODO */
-							})`,
-						}}
-					/>
-				</div>
+				{false /* TODO */ && (
+					<>
+						<div
+							css={{
+								position: 'relative',
+								maxWidth: width,
+								maxHeight: height,
+								width: '100%',
+								aspectRatio: '16 / 9',
+							}}
+							ref={embedPVPreviewRef}
+						>
+							<div
+								css={{
+									width: '100%',
+									height: '100%',
+									backgroundColor: 'rbg(28, 28, 28)',
+									backgroundSize: 'cover',
+									backgroundPosition: 'center',
+								}}
+								style={{
+									backgroundImage: `url(${'' /* TODO */})`,
+								}}
+							/>
+						</div>
 
-				<EuiSpacer size="s" />
+						<EuiSpacer size="s" />
+					</>
+				)}
 
 				<EuiFlexGroup responsive={false} gutterSize="xs">
 					<EuiFlexItem grow={false}>
