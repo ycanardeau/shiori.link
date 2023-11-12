@@ -1,3 +1,4 @@
+import { PlayQueueStore } from '@/stores/PlayQueueStore';
 import { action, makeObservable, observable } from 'mobx';
 
 interface Rectangle {
@@ -8,6 +9,7 @@ interface Rectangle {
 }
 
 export class PlayerStore {
+	readonly playQueue = new PlayQueueStore();
 	@observable playerBounds: Rectangle | undefined;
 
 	constructor() {
