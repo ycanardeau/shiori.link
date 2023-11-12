@@ -36,7 +36,7 @@ const BookmarkNoteCommentBody = React.memo(
 
 				<EuiSpacer size="s" />
 
-				<EmbedPVPreview />
+				<EmbedPVPreview payload={payload} />
 			</>
 		);
 	},

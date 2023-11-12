@@ -1,3 +1,4 @@
+import { usePlayer } from '@/components/PlayerProvider';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
@@ -28,6 +29,8 @@ export const MiniPlayer = observer((): React.ReactElement => {
 	);
 });
 
-export const Player = React.memo((): React.ReactElement => {
-	return <>{true /* TODO */ && <MiniPlayer />}</>;
+export const Player = observer((): React.ReactElement => {
+	const player = usePlayer();
+
+	return <>{!player.playQueue.isEmpty && <MiniPlayer />}</>;
 });

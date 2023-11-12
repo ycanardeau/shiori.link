@@ -1,4 +1,7 @@
 import { usePlayer } from '@/components/PlayerProvider';
+import { BookmarkNotePayloadDto } from '@/models/dto/NoteDto';
+import { videoServices } from '@/services/VideoService';
+import { PlayQueueItemStore } from '@/stores/PlayQueueItemStore';
 import {
 	EuiButton,
 	EuiButtonIcon,
@@ -7,10 +10,12 @@ import {
 	EuiSpacer,
 } from '@elastic/eui';
 import { MoreHorizontalRegular, PlayRegular } from '@fluentui/react-icons';
+import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 interface EmbedPVPreviewProps {
+	payload: BookmarkNotePayloadDto;
 	width?: number;
 	height?: number;
 	allowInline?: boolean;
@@ -18,6 +23,7 @@ interface EmbedPVPreviewProps {
 
 export const EmbedPVPreview = observer(
 	({
+		payload,
 		width = 16 * 25,
 		height = 9 * 25,
 		allowInline = true,
@@ -31,7 +37,7 @@ export const EmbedPVPreview = observer(
 				return;
 			}
 
-			if (false /* TODO */) {
+			if (payload.url === player.playQueue.currentItem?.url) {
 				const rect = embedPVPreviewRef.current.getBoundingClientRect();
 				player.setPlayerBounds({
 					x: rect.x + window.scrollX,
@@ -42,11 +48,32 @@ export const EmbedPVPreview = observer(
 			} else {
 				player.setPlayerBounds(undefined);
 			}
-		}, [allowInline, player]);
+		}, [allowInline, payload, player]);
 
 		const handlePlay = React.useCallback((): void => {
+			const videoService = videoServices.find((videoService) =>
+				videoService.canPlay(payload.url),
+			);
+			if (videoService === undefined) {
+				return;
+			}
+
+			const videoId = videoService.extractVideoId(payload.url);
+			if (videoId === undefined) {
+				return;
+			}
+
+			player.playQueue.clearAndSetItems([
+				new PlayQueueItemStore(
+					payload.url,
+					videoService.type,
+					videoId,
+					payload.title,
+				),
+			]);
+
 			handleResize();
-		}, [handleResize]);
+		}, [player, payload, handleResize]);
 
 		React.useLayoutEffect(() => {
 			window.addEventListener('resize', handleResize);
@@ -64,8 +91,11 @@ export const EmbedPVPreview = observer(
 		}, [player]);
 
 		React.useLayoutEffect(() => {
-			// TODO
-		}, []);
+			return reaction(
+				() => player.playQueue.currentItem?.url,
+				handleResize,
+			);
+		}, [player, handleResize]);
 
 		return (
 			<>
