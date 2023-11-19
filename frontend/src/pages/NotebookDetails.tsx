@@ -15,7 +15,7 @@ const NotebookDetailsPageTemplate = ({
 	const navigate = useNavigate();
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<EuiPageTemplate.Header
 				pageTitle={notebook.name}
 				rightSideItems={[]}
@@ -36,7 +36,7 @@ const NotebookDetailsPageTemplate = ({
 			/>
 
 			<EuiPageTemplate.Section></EuiPageTemplate.Section>
-		</EuiPageTemplate>
+		</>
 	);
 };
 

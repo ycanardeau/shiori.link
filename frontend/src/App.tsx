@@ -1,12 +1,9 @@
-import { AppRoutes } from '@/AppRoutes';
+import { AppContainer } from '@/components/AppContainer';
 import { AuthenticationProvider } from '@/components/AuthenticationProvider';
 import { Compose } from '@/components/Compose';
-import { Header } from '@/components/Header';
-import { Player } from '@/components/Player';
 import { PlayerStoreProvider } from '@/components/PlayerStoreProvider';
 import '@/icons';
 import { NostalgicDivaProvider } from '@aigamo/nostalgic-diva';
-import { ScrollToTop } from '@aigamo/route-sphere';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
 import createCache from '@emotion/cache';
@@ -45,15 +42,7 @@ const App = (): React.ReactElement => {
 				NostalgicDivaProvider,
 			]}
 		>
-			<ScrollToTop />
-
-			<Header />
-
-			<React.Suspense fallback={null}>
-				<AppRoutes />
-			</React.Suspense>
-
-			<Player />
+			<AppContainer />
 		</Compose>
 	);
 };

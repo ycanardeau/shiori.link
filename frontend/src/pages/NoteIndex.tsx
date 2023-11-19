@@ -242,11 +242,11 @@ const NoteIndex = React.memo((): React.ReactElement => {
 	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<NoteIndexHeader noteSearchStore={noteSearchStore} />
 
 			<NoteIndexBody noteSearchStore={noteSearchStore} />
-		</EuiPageTemplate>
+		</>
 	);
 });
 

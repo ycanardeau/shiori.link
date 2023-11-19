@@ -148,11 +148,11 @@ const NotebookIndex = React.memo((): React.ReactElement => {
 	);
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<NotebookIndexHeader notebookSearchStore={notebookSearchStore} />
 
 			<NotebookIndexBody notebookSearchStore={notebookSearchStore} />
-		</EuiPageTemplate>
+		</>
 	);
 });
 

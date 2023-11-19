@@ -15,7 +15,7 @@ const ContactDetailsPageTemplate = ({
 	const navigate = useNavigate();
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<EuiPageTemplate.Header
 				pageTitle={[contact.lastName, contact.firstName].join(' ')}
 				rightSideItems={[]}
@@ -36,7 +36,7 @@ const ContactDetailsPageTemplate = ({
 			/>
 
 			<EuiPageTemplate.Section></EuiPageTemplate.Section>
-		</EuiPageTemplate>
+		</>
 	);
 };
 

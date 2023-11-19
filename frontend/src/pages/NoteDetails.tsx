@@ -16,7 +16,7 @@ const NoteDetailsPageTemplate = ({
 	const navigate = useNavigate();
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<EuiPageTemplate.Header
 				pageTitle={`Note ${note.id}` /* LOC */}
 				rightSideItems={[]}
@@ -39,7 +39,7 @@ const NoteDetailsPageTemplate = ({
 			<EuiPageTemplate.Section>
 				<NoteComment note={note} />
 			</EuiPageTemplate.Section>
-		</EuiPageTemplate>
+		</>
 	);
 };
 

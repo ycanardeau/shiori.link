@@ -147,11 +147,11 @@ const ContactIndex = React.memo((): React.ReactElement => {
 	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
 
 	return (
-		<EuiPageTemplate>
+		<>
 			<ContactIndexHeader contactSearchStore={contactSearchStore} />
 
 			<ContactIndexBody contactSearchStore={contactSearchStore} />
-		</EuiPageTemplate>
+		</>
 	);
 });
 
