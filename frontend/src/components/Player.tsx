@@ -1,4 +1,4 @@
-import { usePlayer } from '@/components/PlayerProvider';
+import { usePlayerStore } from '@/components/PlayerStoreProvider';
 import { NostalgicDiva } from '@aigamo/nostalgic-diva';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -11,7 +11,7 @@ const miniPlayerSize = {
 } as const;
 
 export const MiniPlayer = observer((): React.ReactElement => {
-	const player = usePlayer();
+	const playerStore = usePlayerStore();
 
 	return (
 		<div
@@ -19,7 +19,7 @@ export const MiniPlayer = observer((): React.ReactElement => {
 				backgroundColor: 'rgb(39, 39, 39)',
 				display: 'flex',
 				flexDirection: 'column',
-				...(player.playerBounds === undefined
+				...(playerStore.playerBounds === undefined
 					? {
 							position: 'fixed',
 							right: 0,
@@ -30,8 +30,8 @@ export const MiniPlayer = observer((): React.ReactElement => {
 					  }
 					: {
 							position: 'absolute',
-							left: player.playerBounds.x,
-							top: player.playerBounds.y,
+							left: playerStore.playerBounds.x,
+							top: playerStore.playerBounds.y,
 							bottom: bottomBarHeight,
 							width: miniPlayerSize.width,
 							height: miniPlayerSize.height,
@@ -40,10 +40,10 @@ export const MiniPlayer = observer((): React.ReactElement => {
 			}}
 		>
 			<div css={{ flexGrow: 1, backgroundColor: 'black' }}>
-				{player.playQueue.currentItem && (
+				{playerStore.playQueueStore.currentItem && (
 					<NostalgicDiva
-						type={player.playQueue.currentItem.type}
-						videoId={player.playQueue.currentItem.videoId}
+						type={playerStore.playQueueStore.currentItem.type}
+						videoId={playerStore.playQueueStore.currentItem.videoId}
 					/>
 				)}
 			</div>
@@ -52,7 +52,7 @@ export const MiniPlayer = observer((): React.ReactElement => {
 });
 
 export const Player = observer((): React.ReactElement => {
-	const player = usePlayer();
+	const playerStore = usePlayerStore();
 
-	return <>{!player.playQueue.isEmpty && <MiniPlayer />}</>;
+	return <>{!playerStore.playQueueStore.isEmpty && <MiniPlayer />}</>;
 });

@@ -1,4 +1,4 @@
-import { usePlayer } from '@/components/PlayerProvider';
+import { usePlayerStore } from '@/components/PlayerStoreProvider';
 import { BookmarkNotePayloadDto } from '@/models/dto/NoteDto';
 import { videoServices } from '@/services/VideoService';
 import { PlayQueueItemStore } from '@/stores/PlayQueueItemStore';
@@ -30,25 +30,25 @@ export const EmbedPVPreview = observer(
 	}: EmbedPVPreviewProps): React.ReactElement => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const embedPVPreviewRef = React.useRef<HTMLDivElement>(undefined!);
-		const player = usePlayer();
+		const playerStore = usePlayerStore();
 
 		const handleResize = React.useCallback((): void => {
 			if (!allowInline) {
 				return;
 			}
 
-			if (payload.url === player.playQueue.currentItem?.url) {
+			if (payload.url === playerStore.playQueueStore.currentItem?.url) {
 				const rect = embedPVPreviewRef.current.getBoundingClientRect();
-				player.setPlayerBounds({
+				playerStore.setPlayerBounds({
 					x: rect.x + window.scrollX,
 					y: rect.y + window.scrollY,
 					width: rect.width,
 					height: rect.height,
 				});
 			} else {
-				player.setPlayerBounds(undefined);
+				playerStore.setPlayerBounds(undefined);
 			}
-		}, [allowInline, payload, player]);
+		}, [allowInline, payload, playerStore]);
 
 		const handlePlay = React.useCallback((): void => {
 			const videoService = videoServices.find((videoService) =>
@@ -63,7 +63,7 @@ export const EmbedPVPreview = observer(
 				return;
 			}
 
-			player.playQueue.clearAndSetItems([
+			playerStore.playQueueStore.clearAndSetItems([
 				new PlayQueueItemStore(
 					payload.url,
 					videoService.type,
@@ -73,7 +73,7 @@ export const EmbedPVPreview = observer(
 			]);
 
 			handleResize();
-		}, [player, payload, handleResize]);
+		}, [playerStore, payload, handleResize]);
 
 		React.useLayoutEffect(() => {
 			window.addEventListener('resize', handleResize);
@@ -86,16 +86,16 @@ export const EmbedPVPreview = observer(
 
 		React.useLayoutEffect(() => {
 			return (): void => {
-				player.setPlayerBounds(undefined);
+				playerStore.setPlayerBounds(undefined);
 			};
-		}, [player]);
+		}, [playerStore]);
 
 		React.useLayoutEffect(() => {
 			return reaction(
-				() => player.playQueue.currentItem?.url,
+				() => playerStore.playQueueStore.currentItem?.url,
 				handleResize,
 			);
-		}, [player, handleResize]);
+		}, [playerStore, handleResize]);
 
 		return (
 			<>

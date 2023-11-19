@@ -9,7 +9,7 @@ interface Rectangle {
 }
 
 export class PlayerStore {
-	readonly playQueue = new PlayQueueStore();
+	readonly playQueueStore = new PlayQueueStore();
 	@observable playerBounds: Rectangle | undefined;
 
 	constructor() {

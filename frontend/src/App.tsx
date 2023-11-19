@@ -3,7 +3,7 @@ import { AuthenticationProvider } from '@/components/AuthenticationProvider';
 import { Compose } from '@/components/Compose';
 import { Header } from '@/components/Header';
 import { Player } from '@/components/Player';
-import { PlayerProvider } from '@/components/PlayerProvider';
+import { PlayerStoreProvider } from '@/components/PlayerStoreProvider';
 import '@/icons';
 import { NostalgicDivaProvider } from '@aigamo/nostalgic-diva';
 import { ScrollToTop } from '@aigamo/route-sphere';
@@ -41,7 +41,7 @@ const App = (): React.ReactElement => {
 				BrowserRouter,
 				EuiProviderWrapper,
 				AuthenticationProvider,
-				PlayerProvider,
+				PlayerStoreProvider,
 				NostalgicDivaProvider,
 			]}
 		>
