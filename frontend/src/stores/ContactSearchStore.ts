@@ -76,15 +76,14 @@ export class ContactSearchStore
 			perPage: this.paginationStore.perPage,
 		});
 
-		if (result.ok) {
-			runInAction(() => {
-				this.items = result.val.items;
-
-				this.paginationStore.setTotalCount(result.val.totalCount);
-			});
-		}
-
 		runInAction(() => {
+			if (result.ok) {
+				const { items, totalCount } = result.val;
+
+				this.items = items;
+				this.paginationStore.setTotalCount(totalCount);
+			}
+
 			this.loading = false;
 		});
 	}
