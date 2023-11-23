@@ -70,16 +70,12 @@ export class NoteListHandler extends RequestHandler<
 			},
 		);
 
-		const toNoteDtoAllResult = Result.all(
-			...notes.map((note) => toNoteDto(note)),
+		return Result.all(...notes.map((note) => toNoteDto(note))).andThen(
+			(items) =>
+				new Ok({
+					items: items,
+					totalCount: totalCount,
+				}),
 		);
-		if (!toNoteDtoAllResult.ok) {
-			return toNoteDtoAllResult;
-		}
-
-		return new Ok({
-			items: toNoteDtoAllResult.val,
-			totalCount: totalCount,
-		});
 	}
 }

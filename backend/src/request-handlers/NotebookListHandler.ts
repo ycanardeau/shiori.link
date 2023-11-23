@@ -70,16 +70,14 @@ export class NotebookListHandler extends RequestHandler<
 			},
 		);
 
-		const toNotebookDtoAllResult = Result.all(
+		return Result.all(
 			...notebooks.map((notebook) => toNotebookDto(notebook)),
+		).andThen(
+			(items) =>
+				new Ok({
+					items: items,
+					totalCount: totalCount,
+				}),
 		);
-		if (!toNotebookDtoAllResult.ok) {
-			return toNotebookDtoAllResult;
-		}
-
-		return new Ok({
-			items: toNotebookDtoAllResult.val,
-			totalCount: totalCount,
-		});
 	}
 }

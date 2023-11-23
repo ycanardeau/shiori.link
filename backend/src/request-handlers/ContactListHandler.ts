@@ -70,16 +70,14 @@ export class ContactListHandler extends RequestHandler<
 			},
 		);
 
-		const toContactDtoAllResult = Result.all(
+		return Result.all(
 			...contacts.map((contact) => toContactDto(contact)),
+		).andThen(
+			(items) =>
+				new Ok({
+					items: items,
+					totalCount: totalCount,
+				}),
 		);
-		if (!toContactDtoAllResult.ok) {
-			return toContactDtoAllResult;
-		}
-
-		return new Ok({
-			items: toContactDtoAllResult.val,
-			totalCount: totalCount,
-		});
 	}
 }
