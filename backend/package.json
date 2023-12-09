@@ -35,7 +35,7 @@
 		"jsdom": "^22.1.0",
 		"lodash-es": "^4.17.21",
 		"qs": "^6.11.2",
-		"yohira": "^0.0.0-alpha.26"
+		"yohira": "^0.0.0-alpha.30"
 	},
 	"scripts": {
 		"clean": "rimraf ./dist",

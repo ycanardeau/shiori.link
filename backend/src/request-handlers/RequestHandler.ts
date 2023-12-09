@@ -55,7 +55,9 @@ export abstract class RequestHandler<TRequest, TResponse> {
 				case 'GET':
 					return JSON.stringify(
 						Object.fromEntries(
-							new URLSearchParams(httpRequest.queryString),
+							new URLSearchParams(
+								httpRequest.queryString.toString(),
+							),
 						),
 					);
 
