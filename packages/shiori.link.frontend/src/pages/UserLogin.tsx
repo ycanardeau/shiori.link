@@ -1,5 +1,7 @@
 import { userApi } from '@/api/UserApi';
 import { AppButton } from '@/components/AppButton';
+import { useAuthentication } from '@/components/AuthenticationProvider';
+import { UserLoginRequest } from '@/models/requests/UserLoginRequest';
 import {
 	EuiButton,
 	EuiFieldPassword,
@@ -13,21 +15,41 @@ import {
 	EuiText,
 	EuiTitle,
 } from '@elastic/eui';
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, ReactElement, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserLogin = (): ReactElement => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
+	const authentication = useAuthentication();
+	const navigate = useNavigate();
+
+	const login = useCallback(
+		async (request: UserLoginRequest): Promise<void> => {
+			try {
+				setIsLoading(true);
+
+				const loginResult = await userApi.login(request);
+				if (!loginResult.ok) {
+					return;
+				}
+
+				authentication.setUser(loginResult.val);
+
+				navigate('/');
+			} finally {
+				setIsLoading(false);
+			}
+		},
+		[authentication, navigate],
+	);
+
 	const handleSubmit = (e: FormEvent): void => {
 		e.preventDefault();
 
-		setIsLoading(true);
-
-		userApi.login({ email: email, password: password }).finally(() => {
-			setIsLoading(false);
-		});
+		login({ email: email, password: password });
 	};
 
 	return (

@@ -249,37 +249,34 @@ export const Header = (): ReactElement => {
 			</EuiHeaderSection>
 
 			<EuiHeaderSection side="right">
-				{!authentication.isLoading &&
-					(authentication.user ? (
-						<>
-							<EuiHeaderSectionItem>
-								<EuiHeaderSectionItemButton>
-									<EuiIcon type={AddRegular} />
-								</EuiHeaderSectionItemButton>
-							</EuiHeaderSectionItem>
+				{authentication.user ? (
+					<>
+						<EuiHeaderSectionItem>
+							<EuiHeaderSectionItemButton>
+								<EuiIcon type={AddRegular} />
+							</EuiHeaderSectionItemButton>
+						</EuiHeaderSectionItem>
 
-							<EuiHeaderSectionItem>
-								<EuiHeaderLinks
-									popoverProps={{ repositionOnScroll: true }}
-								>
-									<HeaderUserMenu
-										user={authentication.user}
-									/>
-								</EuiHeaderLinks>
-							</EuiHeaderSectionItem>
-						</>
-					) : (
-						<>
-							<EuiHeaderSectionItem>
-								<EuiHeaderLinks
-									popoverProps={{ repositionOnScroll: true }}
-								>
-									<SignInButton />
-									<SignUpButton />
-								</EuiHeaderLinks>
-							</EuiHeaderSectionItem>
-						</>
-					))}
+						<EuiHeaderSectionItem>
+							<EuiHeaderLinks
+								popoverProps={{ repositionOnScroll: true }}
+							>
+								<HeaderUserMenu user={authentication.user} />
+							</EuiHeaderLinks>
+						</EuiHeaderSectionItem>
+					</>
+				) : (
+					<>
+						<EuiHeaderSectionItem>
+							<EuiHeaderLinks
+								popoverProps={{ repositionOnScroll: true }}
+							>
+								<SignInButton />
+								<SignUpButton />
+							</EuiHeaderLinks>
+						</EuiHeaderSectionItem>
+					</>
+				)}
 			</EuiHeaderSection>
 		</EuiHeader>
 	);

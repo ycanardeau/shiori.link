@@ -28,7 +28,7 @@ interface AuthenticationProviderProps {
 export const AuthenticationProvider = ({
 	children,
 }: AuthenticationProviderProps): ReactElement => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [user, setUser] = useState<UserDto>();
 
 	const isAuthenticated = user !== undefined;
@@ -52,7 +52,7 @@ export const AuthenticationProvider = ({
 				isAuthenticated: isAuthenticated,
 			}}
 		>
-			{children}
+			{!isLoading && children}
 		</AuthenticationContext.Provider>
 	);
 };
