@@ -1,4 +1,4 @@
-import { AppContainer } from '@/components/AppContainer';
+import { AppContainer } from '@/AppContainer';
 import { AuthenticationProvider } from '@/components/AuthenticationProvider';
 import { Compose } from '@/components/Compose';
 import { PlayerStoreProvider } from '@/components/PlayerStoreProvider';

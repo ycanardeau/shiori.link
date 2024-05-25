@@ -11,13 +11,13 @@ const NotebookDetails = React.lazy(() => import('@/pages/NotebookDetails'));
 export const AppRoutes = (): React.ReactElement => {
 	return (
 		<Routes>
-			<Route path="notes" element={<NoteIndex />} />
-			<Route path="notes/:id" element={<NoteDetails />} />
-			<Route path="contacts" element={<ContactIndex />} />
-			<Route path="contacts/:id" element={<ContactDetails />} />
-			<Route path="notebooks" element={<NotebookIndex />} />
-			<Route path="notebooks/:id" element={<NotebookDetails />} />
-			<Route path="" element={<Navigate to="/notes" replace />} />
+			<Route path="/notes" element={<NoteIndex />} />
+			<Route path="/notes/:id" element={<NoteDetails />} />
+			<Route path="/contacts" element={<ContactIndex />} />
+			<Route path="/contacts/:id" element={<ContactDetails />} />
+			<Route path="/notebooks" element={<NotebookIndex />} />
+			<Route path="/notebooks/:id" element={<NotebookDetails />} />
+			<Route path="/" element={<Navigate to="/notes" replace />} />
 		</Routes>
 	);
 };
