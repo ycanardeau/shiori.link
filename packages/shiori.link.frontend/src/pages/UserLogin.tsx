@@ -28,20 +28,14 @@ const UserLogin = (): ReactElement => {
 
 	const login = useCallback(
 		async (request: UserLoginRequest): Promise<void> => {
-			try {
-				setIsLoading(true);
+			setIsLoading(true);
 
-				const loginResult = await userApi.login(request);
-				if (!loginResult.ok) {
-					return;
-				}
-
-				authentication.setUser(loginResult.val);
-
-				navigate('/');
-			} finally {
-				setIsLoading(false);
-			}
+			await userApi
+				.login(request)
+				.map((user) => authentication.setUser(user))
+				.map(() => navigate('/'))
+				.resolve()
+				.finally(() => setIsLoading(false));
 		},
 		[authentication, navigate],
 	);

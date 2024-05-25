@@ -68,6 +68,9 @@ importers:
       rehype-stringify:
         specifier: ^8.0.0
         version: 8.0.0
+      ts-async-results:
+        specifier: ^0.7.10
+        version: 0.7.10
       ts-results:
         specifier: ^3.3.0
         version: 3.3.0
@@ -3136,6 +3139,9 @@ packages:
 
   trough@1.0.5:
     resolution: {integrity: sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==}
+
+  ts-async-results@0.7.10:
+    resolution: {integrity: sha512-HxwtGg4inl1szAu46pO6TdQj8Q0inKkmQrYKxOiofzlDT9DdOKH5sraDthNyIX8nXqHlYtT/snNi++bfs6qJPA==}
 
   ts-results@3.3.0:
     resolution: {integrity: sha512-FWqxGX2NHp5oCyaMd96o2y2uMQmSu8Dey6kvyuFdRJ2AzfmWo3kWa4UsPlCGlfQ/qu03m09ZZtppMoY8EMHuiA==}
@@ -6848,6 +6854,10 @@ snapshots:
   trim-trailing-lines@1.1.4: {}
 
   trough@1.0.5: {}
+
+  ts-async-results@0.7.10:
+    dependencies:
+      ts-results: 3.3.0
 
   ts-results@3.3.0: {}
 

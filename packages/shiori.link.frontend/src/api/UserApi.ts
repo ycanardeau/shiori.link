@@ -7,6 +7,7 @@ import { UserLoginResponse } from '@/models/responses/UserLoginResponse';
 import { UserLogoutResponse } from '@/models/responses/UserLogoutResponse';
 import { UserSignUpResponse } from '@/models/responses/UserSignUpResponse';
 import { stringify } from 'qs';
+import { AsyncResultWrapper } from 'ts-async-results';
 import { Err, Ok, Result } from 'ts-results';
 
 class UserApi {
@@ -26,23 +27,27 @@ class UserApi {
 		}
 	}
 
-	async login(
+	login(
 		request: UserLoginRequest,
-	): Promise<Result<UserLoginResponse, Error>> {
-		try {
-			const response = await fetch('/api/user/login', {
-				method: 'POST',
-				body: JSON.stringify(request),
-			});
-			const json = await response.json();
-			return new Ok(json);
-		} catch (error) {
-			if (error instanceof Error) {
-				return new Err(error);
-			} else {
-				throw error;
-			}
-		}
+	): AsyncResultWrapper<UserLoginResponse, Error> {
+		return new AsyncResultWrapper(
+			async (): Promise<Result<UserLoginResponse, Error>> => {
+				try {
+					const response = await fetch('/api/user/login', {
+						method: 'POST',
+						body: JSON.stringify(request),
+					});
+					const json = await response.json();
+					return new Ok(json);
+				} catch (error) {
+					if (error instanceof Error) {
+						return new Err(error);
+					} else {
+						throw error;
+					}
+				}
+			},
+		);
 	}
 
 	async logout(
@@ -64,23 +69,27 @@ class UserApi {
 		}
 	}
 
-	async signUp(
+	signUp(
 		request: UserSignUpRequest,
-	): Promise<Result<UserSignUpResponse, Error>> {
-		try {
-			const response = await fetch('/api/user/signup', {
-				method: 'POST',
-				body: JSON.stringify(request),
-			});
-			const json = await response.json();
-			return new Ok(json);
-		} catch (error) {
-			if (error instanceof Error) {
-				return new Err(error);
-			} else {
-				throw error;
-			}
-		}
+	): AsyncResultWrapper<UserSignUpResponse, Error> {
+		return new AsyncResultWrapper(
+			async (): Promise<Result<UserSignUpResponse, Error>> => {
+				try {
+					const response = await fetch('/api/user/signup', {
+						method: 'POST',
+						body: JSON.stringify(request),
+					});
+					const json = await response.json();
+					return new Ok(json);
+				} catch (error) {
+					if (error instanceof Error) {
+						return new Err(error);
+					} else {
+						throw error;
+					}
+				}
+			},
+		);
 	}
 }
 
