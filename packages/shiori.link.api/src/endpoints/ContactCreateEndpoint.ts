@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Contact } from '@/entities/Contact';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -8,12 +9,11 @@ import {
 	ContactCreateRequestSchema,
 } from '@/models/requests/ContactCreateRequest';
 import { ContactCreateResponse } from '@/models/responses/ContactCreateResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/core';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class ContactCreateHandler extends RequestHandler<
+export class ContactCreateEndpoint extends Endpoint<
 	ContactCreateRequest,
 	ContactCreateResponse
 > {
@@ -29,10 +29,11 @@ export class ContactCreateHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: ContactCreateRequest,
-	): Promise<Result<ContactDto, UnauthorizedError | DataNotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+	): Promise<
+		Result<JsonResult<ContactDto>, UnauthorizedError | DataNotFoundError>
+	> {
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (currentUser === undefined) {
 			return new Err(new UnauthorizedError());
 		}
@@ -50,6 +51,8 @@ export class ContactCreateHandler extends RequestHandler<
 			return new Ok(contact);
 		});
 
-		return result.andThen((contact) => toContactDto(contact));
+		return result
+			.andThen((contact) => toContactDto(contact))
+			.map((contactDto) => new JsonResult(contactDto));
 	}
 }

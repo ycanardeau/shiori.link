@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Notebook } from '@/entities/Notebook';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -8,12 +9,11 @@ import {
 	NotebookListSort,
 } from '@/models/requests/NotebookListRequest';
 import { NotebookListResponse } from '@/models/responses/NotebookListResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class NotebookListHandler extends RequestHandler<
+export class NotebookListEndpoint extends Endpoint<
 	NotebookListRequest,
 	NotebookListResponse
 > {
@@ -41,11 +41,13 @@ export class NotebookListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NotebookListRequest,
 	): Promise<
-		Result<NotebookListResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<NotebookListResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -72,9 +74,9 @@ export class NotebookListHandler extends RequestHandler<
 
 		return Result.all(
 			...notebooks.map((notebook) => toNotebookDto(notebook)),
-		).andThen(
+		).map(
 			(items) =>
-				new Ok({
+				new JsonResult({
 					items: items,
 					totalCount: totalCount,
 				}),

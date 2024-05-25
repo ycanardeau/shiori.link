@@ -1,13 +1,13 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import {
 	UrlFetchRequest,
 	UrlFetchRequestSchema,
 } from '@/models/requests/UrlFetchRequest';
 import { UrlFetchResponse } from '@/models/responses/UrlFetchResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { JSDOM } from 'jsdom';
-import { Err, IHttpContext, Ok, Result } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result } from 'yohira';
 
-export class UrlFetchHandler extends RequestHandler<
+export class UrlFetchEndpoint extends Endpoint<
 	UrlFetchRequest,
 	UrlFetchResponse
 > {
@@ -18,21 +18,23 @@ export class UrlFetchHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UrlFetchRequest,
-	): Promise<Result<UrlFetchResponse, Error>> {
+	): Promise<Result<JsonResult<UrlFetchResponse>, Error>> {
 		try {
 			const response = await fetch(request.url);
 			const text = await response.text();
 			const dom = new JSDOM(text);
-			return new Ok({
-				title:
-					dom.window.document
-						.querySelector('title')
-						?.textContent?.trim() ?? undefined,
-				canonical:
-					dom.window.document
-						.querySelector("link[rel='canonical']")
-						?.getAttribute('href') ?? undefined,
-			});
+			return new Ok(
+				new JsonResult({
+					title:
+						dom.window.document
+							.querySelector('title')
+							?.textContent?.trim() ?? undefined,
+					canonical:
+						dom.window.document
+							.querySelector("link[rel='canonical']")
+							?.getAttribute('href') ?? undefined,
+				}),
+			);
 		} catch (error) {
 			if (error instanceof Error) {
 				return new Err(error);

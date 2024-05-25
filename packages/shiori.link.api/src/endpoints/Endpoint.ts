@@ -1,13 +1,20 @@
 import { JSONSchemaType, ValidateFunction } from 'ajv';
 import Ajv from 'ajv';
-import { Err, IHttpContext, IHttpRequest, Ok, Result } from 'yohira';
+import {
+	Err,
+	IActionResult,
+	IHttpContext,
+	IHttpRequest,
+	Ok,
+	Result,
+} from 'yohira';
 
 const ajv = new Ajv({
 	coerceTypes: true,
 	removeAdditional: 'all',
 });
 
-export abstract class RequestHandler<TRequest, TResponse> {
+export abstract class Endpoint<TRequest, TResponse> {
 	private readonly validate: ValidateFunction<TRequest>;
 
 	private getOrAddSchema(
@@ -55,9 +62,7 @@ export abstract class RequestHandler<TRequest, TResponse> {
 				case 'GET':
 					return JSON.stringify(
 						Object.fromEntries(
-							new URLSearchParams(
-								httpRequest.queryString.toString(),
-							),
+							new URLSearchParams(httpRequest.queryString.toString()),
 						),
 					);
 
@@ -81,5 +86,5 @@ export abstract class RequestHandler<TRequest, TResponse> {
 	abstract handle(
 		httpContext: IHttpContext,
 		request: TRequest,
-	): Promise<Result<TResponse, Error>>;
+	): Promise<Result<IActionResult, Error>>;
 }

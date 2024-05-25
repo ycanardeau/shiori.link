@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Notebook } from '@/entities/Notebook';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -7,12 +8,11 @@ import {
 	NotebookGetRequestSchema,
 } from '@/models/requests/NotebookGetRequest';
 import { NotebookGetResponse } from '@/models/responses/NotebookGetResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/core';
-import { Err, IHttpContext, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Result, inject } from 'yohira';
 
-export class NotebookGetHandler extends RequestHandler<
+export class NotebookGetEndpoint extends Endpoint<
 	NotebookGetRequest,
 	NotebookGetResponse
 > {
@@ -28,11 +28,13 @@ export class NotebookGetHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NotebookGetRequest,
 	): Promise<
-		Result<NotebookGetResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<NotebookGetResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -48,6 +50,8 @@ export class NotebookGetHandler extends RequestHandler<
 			return new Err(new DataNotFoundError());
 		}
 
-		return toNotebookDto(notebook);
+		return toNotebookDto(notebook).map(
+			(notebookDto) => new JsonResult(notebookDto),
+		);
 	}
 }

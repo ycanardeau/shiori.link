@@ -1,9 +1,11 @@
 import react from '@vitejs/plugin-react';
 import Ajv from 'ajv';
 import ajvGenerate from 'ajv/dist/standalone';
-import fs from 'fs';
-import { join, resolve } from 'path';
-import { PluginOption, defineConfig } from 'vite';
+import fs from 'node:fs';
+import { resolve } from 'node:path';
+import { join } from 'node:path';
+import { defineConfig } from 'vite';
+import { PluginOption } from 'vite';
 
 const schemas = resolve(__dirname, 'schemas');
 
@@ -20,10 +22,7 @@ const jsonSchemaValidator = (): PluginOption => {
 
 			try {
 				const schemaPath = join(schemas, schemaFile);
-				const schemaJson = await fs.promises.readFile(
-					schemaPath,
-					'utf8',
-				);
+				const schemaJson = await fs.promises.readFile(schemaPath, 'utf8');
 				const schema = JSON.parse(schemaJson);
 
 				const ajv = new Ajv({
@@ -52,7 +51,6 @@ export default defineConfig({
 	},
 	plugins: [react(), jsonSchemaValidator()],
 	build: {
-		// https://github.com/elastic/eui/issues/5463#issuecomment-1107665339
 		dynamicImportVarsOptions: {
 			exclude: [],
 		},
@@ -60,9 +58,11 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: 'http://localhost:8000',
+				target: 'http://localhost:5000',
 				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, ''),
 			},
 		},
 	},
+	base: process.env.NODE_ENV === 'production' ? '/shiori.link/' : './',
 });

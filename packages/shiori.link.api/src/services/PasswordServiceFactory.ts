@@ -1,5 +1,5 @@
-import { PasswordHashAlgorithm } from '@/models/enums/PasswordHashAlgorithm';
-import { genSalt, hash } from 'bcrypt';
+import { PasswordHashAlgorithm } from '@/entities/User';
+import { genSalt, hash } from 'bcryptjs';
 
 interface IPasswordService {
 	readonly algorithm: PasswordHashAlgorithm;

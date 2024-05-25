@@ -6,6 +6,7 @@ import {
 	StateChangeEvent,
 	includesAny,
 } from '@aigamo/route-sphere';
+// @ts-ignore
 import validate from 'ContactSearchLocationState.jsonschema';
 import { JSONSchemaType } from 'ajv';
 import {

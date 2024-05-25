@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { User } from '@/entities/User';
 import { toUserDto } from '@/mappers/UserMapper';
 import {
@@ -5,13 +6,12 @@ import {
 	UserSignUpRequestSchema,
 } from '@/models/requests/UserSignUpRequest';
 import { UserSignUpResponse } from '@/models/responses/UserSignUpResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { IEmailService } from '@/services/EmailService';
 import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { EntityManager } from '@mikro-orm/core';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class UserSignUpHandler extends RequestHandler<
+export class UserSignUpEndpoint extends Endpoint<
 	UserSignUpRequest,
 	UserSignUpResponse
 > {
@@ -27,7 +27,7 @@ export class UserSignUpHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UserSignUpRequest,
-	): Promise<Result<UserSignUpResponse, Error>> {
+	): Promise<Result<JsonResult<UserSignUpResponse>, Error>> {
 		const normalizedEmail = await this.emailService.normalizeEmail(
 			request.email,
 		);
@@ -61,6 +61,8 @@ export class UserSignUpHandler extends RequestHandler<
 			return new Ok(user);
 		});
 
-		return userResult.andThen((user) => toUserDto(user));
+		return userResult
+			.andThen((user) => toUserDto(user))
+			.map((userDto) => new JsonResult(userDto));
 	}
 }

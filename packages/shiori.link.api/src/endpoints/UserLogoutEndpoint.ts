@@ -1,18 +1,19 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import {
 	UserLogoutRequest,
 	UserLogoutRequestSchema,
 } from '@/models/requests/UserLogoutRequest';
 import { UserLogoutResponse } from '@/models/responses/UserLogoutResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import {
 	CookieAuthenticationDefaults,
 	IHttpContext,
+	JsonResult,
 	Ok,
 	Result,
 	signOut,
 } from 'yohira';
 
-export class UserLogoutHandler extends RequestHandler<
+export class UserLogoutEndpoint extends Endpoint<
 	UserLogoutRequest,
 	UserLogoutResponse
 > {
@@ -23,13 +24,13 @@ export class UserLogoutHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UserLogoutRequest,
-	): Promise<Result<UserLogoutResponse, Error>> {
+	): Promise<Result<JsonResult<UserLogoutResponse>, Error>> {
 		await signOut(
 			httpContext,
 			CookieAuthenticationDefaults.authenticationScheme,
 			undefined,
 		);
 
-		return new Ok({});
+		return new Ok(new JsonResult({}));
 	}
 }

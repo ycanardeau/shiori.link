@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Contact } from '@/entities/Contact';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -7,12 +8,11 @@ import {
 	ContactGetRequestSchema,
 } from '@/models/requests/ContactGetRequest';
 import { ContactGetResponse } from '@/models/responses/ContactGetResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/core';
-import { Err, IHttpContext, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Result, inject } from 'yohira';
 
-export class ContactGetHandler extends RequestHandler<
+export class ContactGetEndpoint extends Endpoint<
 	ContactGetRequest,
 	ContactGetResponse
 > {
@@ -28,11 +28,13 @@ export class ContactGetHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: ContactGetRequest,
 	): Promise<
-		Result<ContactGetResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<ContactGetResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -48,6 +50,8 @@ export class ContactGetHandler extends RequestHandler<
 			return new Err(new DataNotFoundError());
 		}
 
-		return toContactDto(contact);
+		return toContactDto(contact).map(
+			(contactDto) => new JsonResult(contactDto),
+		);
 	}
 }

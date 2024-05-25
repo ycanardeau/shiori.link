@@ -1,0 +1,58 @@
+# https://github.com/workfall/workfall-chatgpt-be/blob/aba89c916fcd516f3e8ee070475c4c5d1c0a32be/docker-compose.yml
+
+version: "3.9"
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  shiori.link.api:
+    # image: ghcr.io/ycanardeau/shiori.link.api:main
+    platform: linux/amd64
+    container_name: shiori.link.api
+    restart: always
+    environment:
+      - MIKRO_ORM_HOST=${MIKRO_ORM_HOST}
+      - MIKRO_ORM_DB_NAME=shiori.link
+      - MIKRO_ORM_DEBUG=${MIKRO_ORM_DEBUG}
+      - MIKRO_ORM_USER=${MIKRO_ORM_USER}
+      - MIKRO_ORM_PASSWORD=${MIKRO_ORM_PASSWORD}
+      - MIKRO_ORM_ALLOW_GLOBAL_CONTEXT=${MIKRO_ORM_ALLOW_GLOBAL_CONTEXT}
+    networks:
+      - app-network
+  shiori.link.frontend:
+    # image: ghcr.io/ycanardeau/shiori.link.frontend:main
+    platform: linux/amd64
+    container_name: shiori.link.frontend # must match the name of the container in the nginx config
+    restart: always
+    depends_on:
+      - shiori.link.api
+    networks:
+      - app-network
+
+  gateway:
+    build:
+      context: nginx
+    container_name: gateway
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    depends_on:
+      - shiori.link.api
+      - shiori.link.frontend
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

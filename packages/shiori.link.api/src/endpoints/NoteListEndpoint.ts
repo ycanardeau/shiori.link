@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Note } from '@/entities/Note';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -8,12 +9,11 @@ import {
 	NoteListSort,
 } from '@/models/requests/NoteListRequest';
 import { NoteListResponse } from '@/models/responses/NoteListResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class NoteListHandler extends RequestHandler<
+export class NoteListEndpoint extends Endpoint<
 	NoteListRequest,
 	NoteListResponse
 > {
@@ -41,11 +41,13 @@ export class NoteListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: NoteListRequest,
 	): Promise<
-		Result<NoteListResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<NoteListResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -70,9 +72,9 @@ export class NoteListHandler extends RequestHandler<
 			},
 		);
 
-		return Result.all(...notes.map((note) => toNoteDto(note))).andThen(
+		return Result.all(...notes.map((note) => toNoteDto(note))).map(
 			(items) =>
-				new Ok({
+				new JsonResult({
 					items: items,
 					totalCount: totalCount,
 				}),

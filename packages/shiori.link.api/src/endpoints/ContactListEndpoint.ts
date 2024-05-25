@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Contact } from '@/entities/Contact';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -8,12 +9,11 @@ import {
 	ContactListSort,
 } from '@/models/requests/ContactListRequest';
 import { ContactListResponse } from '@/models/responses/ContactListResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class ContactListHandler extends RequestHandler<
+export class ContactListEndpoint extends Endpoint<
 	ContactListRequest,
 	ContactListResponse
 > {
@@ -41,11 +41,13 @@ export class ContactListHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: ContactListRequest,
 	): Promise<
-		Result<ContactListResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<ContactListResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -72,9 +74,9 @@ export class ContactListHandler extends RequestHandler<
 
 		return Result.all(
 			...contacts.map((contact) => toContactDto(contact)),
-		).andThen(
+		).map(
 			(items) =>
-				new Ok({
+				new JsonResult({
 					items: items,
 					totalCount: totalCount,
 				}),

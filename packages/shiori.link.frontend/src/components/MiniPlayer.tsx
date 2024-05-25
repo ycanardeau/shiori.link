@@ -85,7 +85,7 @@ export const MiniPlayer = observer(
 								width: miniPlayerSize.width,
 								height: miniPlayerSize.height,
 								zIndex: 998,
-						  }
+							}
 						: {
 								position: 'absolute',
 								left: playerStore.playerBounds.x,
@@ -94,16 +94,13 @@ export const MiniPlayer = observer(
 								width: miniPlayerSize.width,
 								height: miniPlayerSize.height,
 								zIndex: 998,
-						  }),
+							}),
 				}}
 			>
 				<div css={{ flexGrow: 1, backgroundColor: 'black' }}>
 					{playerStore.playQueueStore.currentItem && (
 						<NostalgicDiva
-							type={playerStore.playQueueStore.currentItem.type}
-							videoId={
-								playerStore.playQueueStore.currentItem.videoId
-							}
+							src={playerStore.playQueueStore.currentItem.url}
 							options={options}
 						/>
 					)}

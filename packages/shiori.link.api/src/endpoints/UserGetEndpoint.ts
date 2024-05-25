@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
@@ -7,14 +8,10 @@ import {
 	UserGetRequestSchema,
 } from '@/models/requests/UserGetRequest';
 import { UserGetResponse } from '@/models/responses/UserGetResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class UserGetHandler extends RequestHandler<
-	UserGetRequest,
-	UserGetResponse
-> {
+export class UserGetEndpoint extends Endpoint<UserGetRequest, UserGetResponse> {
 	constructor(
 		@inject(ICurrentUserService)
 		private readonly currentUserService: ICurrentUserService,
@@ -25,10 +22,11 @@ export class UserGetHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: UserGetRequest,
-	): Promise<Result<UserDto, UnauthorizedError | DataNotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+	): Promise<
+		Result<JsonResult<UserDto>, UnauthorizedError | DataNotFoundError>
+	> {
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
@@ -42,6 +40,6 @@ export class UserGetHandler extends RequestHandler<
 
 		const userDto = userDtoResult.val;
 
-		return new Ok(userDto);
+		return new Ok(new JsonResult(userDto));
 	}
 }

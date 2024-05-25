@@ -1,5 +1,4 @@
-import { User } from '@/entities/User';
-import { IUserOwnedEntity } from '@/models/entities/IUserOwnedEntity';
+import { IUserOwnedEntity, User } from '@/entities/User';
 import {
 	Entity,
 	ManyToOne,
@@ -17,7 +16,7 @@ export class Login implements IUserOwnedEntity {
 	@Property()
 	createdAt = new Date();
 
-	@ManyToOne()
+	@ManyToOne(() => User)
 	user: Ref<User>;
 
 	@Property()

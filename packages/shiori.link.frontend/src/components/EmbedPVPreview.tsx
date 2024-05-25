@@ -1,7 +1,7 @@
 import { usePlayerStore } from '@/components/PlayerStoreProvider';
 import { BookmarkNotePayloadDto } from '@/models/dto/NoteDto';
-import { videoServices } from '@/services/VideoService';
 import { PlayQueueItemStore } from '@/stores/PlayQueueItemStore';
+import { findVideoService } from '@aigamo/nostalgic-diva';
 import {
 	EuiButton,
 	EuiButtonIcon,
@@ -51,9 +51,7 @@ export const EmbedPVPreview = observer(
 		}, [allowInline, payload, playerStore]);
 
 		const handlePlay = React.useCallback((): void => {
-			const videoService = videoServices.find((videoService) =>
-				videoService.canPlay(payload.url),
-			);
+			const videoService = findVideoService(payload.url);
 			if (videoService === undefined) {
 				return;
 			}

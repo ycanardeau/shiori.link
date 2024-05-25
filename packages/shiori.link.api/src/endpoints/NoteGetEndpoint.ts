@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Note } from '@/entities/Note';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -7,15 +8,11 @@ import {
 	NoteGetRequestSchema,
 } from '@/models/requests/NoteGetRequest';
 import { NoteGetResponse } from '@/models/responses/NoteGetResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager } from '@mikro-orm/core';
-import { Err, IHttpContext, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Result, inject } from 'yohira';
 
-export class NoteGetHandler extends RequestHandler<
-	NoteGetRequest,
-	NoteGetResponse
-> {
+export class NoteGetEndpoint extends Endpoint<NoteGetRequest, NoteGetResponse> {
 	constructor(
 		@inject(ICurrentUserService)
 		private readonly currentUserService: ICurrentUserService,
@@ -27,10 +24,14 @@ export class NoteGetHandler extends RequestHandler<
 	async handle(
 		httpContext: IHttpContext,
 		request: NoteGetRequest,
-	): Promise<Result<NoteGetResponse, UnauthorizedError | DataNotFoundError>> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+	): Promise<
+		Result<
+			JsonResult<NoteGetResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
+	> {
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (!currentUser) {
 			return new Err(new UnauthorizedError());
 		}
@@ -46,6 +47,6 @@ export class NoteGetHandler extends RequestHandler<
 			return new Err(new DataNotFoundError());
 		}
 
-		return toNoteDto(note);
+		return toNoteDto(note).map((noteDto) => new JsonResult(noteDto));
 	}
 }

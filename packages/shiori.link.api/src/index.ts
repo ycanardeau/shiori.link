@@ -1,6 +1,6 @@
+import { endpoints } from '@/endpoints';
+import { Endpoint } from '@/endpoints/Endpoint';
 import config from '@/mikro-orm.config';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
-import { requestHandlerDescriptors } from '@/requestHandlerDescriptors';
 import {
 	CurrentUserService,
 	ICurrentUserService,
@@ -12,6 +12,7 @@ import {
 } from '@/services/PasswordServiceFactory';
 import { MikroORM } from '@mikro-orm/core';
 import {
+	ActionContext,
 	CookieAuthenticationDefaults,
 	Envs,
 	IHttpContext,
@@ -20,21 +21,21 @@ import {
 	addAuthentication,
 	addCookie,
 	addHttpLogging,
+	addMvcCoreServices,
 	addRouting,
 	addScopedFactory,
 	addSingletonCtor,
 	addSingletonFactory,
-	addStaticFiles,
 	addTransientCtor,
 	createWebAppBuilder,
 	getRequiredService,
+	isDevelopment,
 	mapGet,
 	mapPost,
 	useAuthentication,
 	useEndpoints,
-	useHttpLogging,
+	useErrorHandler,
 	useRouting,
-	useStaticFiles,
 	write,
 } from 'yohira';
 
@@ -46,7 +47,6 @@ async function main(): Promise<void> {
 	const builder = createWebAppBuilder(options);
 	const services = builder.services;
 
-	addStaticFiles(services);
 	addHttpLogging(services);
 	addRouting(services);
 
@@ -80,46 +80,44 @@ async function main(): Promise<void> {
 
 	addTransientCtor(services, ICurrentUserService, CurrentUserService);
 
-	for (const { serviceType, implType } of Object.values(
-		requestHandlerDescriptors,
-	)) {
+	for (const { serviceType, implType } of endpoints) {
 		addTransientCtor(services, serviceType, implType);
 	}
 
+	addMvcCoreServices(services);
+
 	const app = builder.build();
 
-	useStaticFiles(app);
-
-	useHttpLogging(app);
+	if (!isDevelopment(app.env)) {
+		useErrorHandler(app);
+	}
 
 	useAuthentication(app);
 
 	useRouting(app);
 
-	for (const [endpoint, descriptor] of Object.entries(
-		requestHandlerDescriptors,
-	)) {
+	for (const descriptor of endpoints) {
 		const requestDelegate = async (
 			httpContext: IHttpContext,
 		): Promise<void> => {
-			const requestHandler = getRequiredService<
-				RequestHandler<unknown, unknown>
-			>(httpContext.requestServices, descriptor.serviceType);
+			const endpoint = getRequiredService<Endpoint<unknown, unknown>>(
+				httpContext.requestServices,
+				descriptor.serviceType,
+			);
 
-			const parseHttpRequestResult = requestHandler.parseHttpRequest(
+			const parseHttpRequestResult = endpoint.parseHttpRequest(
 				httpContext.request,
 			);
 
 			if (parseHttpRequestResult.ok) {
-				const handleResult = await requestHandler.handle(
+				const handleResult = await endpoint.handle(
 					httpContext,
 					parseHttpRequestResult.val,
 				);
 
 				if (handleResult.ok) {
-					return write(
-						httpContext.response,
-						JSON.stringify(handleResult.val),
+					await handleResult.val.executeResult(
+						new ActionContext(httpContext),
 					);
 				} else {
 					httpContext.response.statusCode =
@@ -138,16 +136,19 @@ async function main(): Promise<void> {
 
 		switch (descriptor.method) {
 			case 'GET':
-				mapGet(app, endpoint, requestDelegate);
+				mapGet(app, descriptor.endpoint, requestDelegate);
 				break;
 
 			case 'POST':
-				mapPost(app, endpoint, requestDelegate);
+				mapPost(app, descriptor.endpoint, requestDelegate);
 				break;
 		}
 	}
 
 	useEndpoints(app, () => {});
+
+	const migrator = orm.getMigrator();
+	await migrator.up();
 
 	await app.run();
 }

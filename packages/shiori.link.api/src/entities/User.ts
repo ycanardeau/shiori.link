@@ -1,5 +1,4 @@
 import { Login } from '@/entities/Login';
-import { PasswordHashAlgorithm } from '@/models/enums/PasswordHashAlgorithm';
 import {
 	Collection,
 	Entity,
@@ -7,8 +6,13 @@ import {
 	OneToMany,
 	PrimaryKey,
 	Property,
+	Ref,
 } from '@mikro-orm/core';
 import { createHash } from 'node:crypto';
+
+export enum PasswordHashAlgorithm {
+	Bcrypt = 'Bcrypt',
+}
 
 @Entity({ tableName: 'users' })
 export class User {
@@ -68,4 +72,8 @@ export class User {
 			.digest('hex');
 		return `https://www.gravatar.com/avatar/${hash}`;
 	}
+}
+
+export interface IUserOwnedEntity {
+	user: Ref<User>;
 }

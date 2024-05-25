@@ -1,22 +1,22 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { NoteExternalLink } from '@/entities/ExternalLink';
-import { BookmarkNote } from '@/entities/Note';
+import { MarkdownNote } from '@/entities/Note';
 import { Notebook } from '@/entities/Notebook';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toNoteDto } from '@/mappers/NoteMapper';
 import { NoteType } from '@/models/enums/NoteType';
 import {
-	BookmarkNoteCreateRequest,
-	BookmarkNoteCreateRequestSchema,
-} from '@/models/requests/BookmarkNoteCreateRequest';
+	MarkdownNoteCreateRequest,
+	MarkdownNoteCreateRequestSchema,
+} from '@/models/requests/MarkdownNoteCreateRequest';
 import { NoteCreateResponse } from '@/models/responses/NoteCreateResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { ICurrentUserService } from '@/services/CurrentUserService';
-import { EntityManager } from '@mikro-orm/mariadb';
-import { Err, IHttpContext, Ok, Result, inject } from 'yohira';
+import { EntityManager } from '@mikro-orm/core';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
-export class BookmarkNoteCreateHandler extends RequestHandler<
-	BookmarkNoteCreateRequest,
+export class MarkdownNoteCreateEndpoint extends Endpoint<
+	MarkdownNoteCreateRequest,
 	NoteCreateResponse
 > {
 	constructor(
@@ -25,18 +25,20 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 		@inject(ICurrentUserService)
 		private readonly currentUserService: ICurrentUserService,
 	) {
-		super(BookmarkNoteCreateRequestSchema);
+		super(MarkdownNoteCreateRequestSchema);
 	}
 
 	async handle(
 		httpContext: IHttpContext,
-		request: BookmarkNoteCreateRequest,
+		request: MarkdownNoteCreateRequest,
 	): Promise<
-		Result<NoteCreateResponse, UnauthorizedError | DataNotFoundError>
+		Result<
+			JsonResult<NoteCreateResponse>,
+			UnauthorizedError | DataNotFoundError
+		>
 	> {
-		const currentUser = await this.currentUserService.getCurrentUser(
-			httpContext,
-		);
+		const currentUser =
+			await this.currentUserService.getCurrentUser(httpContext);
 		if (currentUser === undefined) {
 			return new Err(new UnauthorizedError());
 		}
@@ -51,24 +53,24 @@ export class BookmarkNoteCreateHandler extends RequestHandler<
 			}
 			const notebook = notebooks[0];
 
-			const note = new BookmarkNote(notebook, {
+			const note = new MarkdownNote(notebook, {
 				_NotePayloadDtoBrand: undefined,
-				type: NoteType.Bookmark,
-				url: request.url,
-				title: request.title,
+				type: NoteType.Markdown,
+				text: request.text,
 			});
 			em.persist(note);
 
 			// TODO: validate and restrict URLs
-			const externalLink = new NoteExternalLink(
-				note,
-				new URL(request.url),
-			);
-			em.persist(externalLink);
+			for (const url of request.urls) {
+				const externalLink = new NoteExternalLink(note, new URL(url));
+				em.persist(externalLink);
+			}
 
 			return new Ok(note);
 		});
 
-		return result.andThen((note) => toNoteDto(note));
+		return result
+			.andThen((note) => toNoteDto(note))
+			.map((noteDto) => new JsonResult(noteDto));
 	}
 }

@@ -1,3 +1,4 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Login } from '@/entities/Login';
 import { User } from '@/entities/User';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
@@ -8,7 +9,6 @@ import {
 	UserLoginRequestSchema,
 } from '@/models/requests/UserLoginRequest';
 import { UserLoginResponse } from '@/models/responses/UserLoginResponse';
-import { RequestHandler } from '@/request-handlers/RequestHandler';
 import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { EntityManager } from '@mikro-orm/core';
 import {
@@ -20,13 +20,14 @@ import {
 	CookieAuthenticationDefaults,
 	Err,
 	IHttpContext,
+	JsonResult,
 	Ok,
 	Result,
 	inject,
 	signIn,
 } from 'yohira';
 
-export class UserLoginHandler extends RequestHandler<
+export class UserLoginEndpoint extends Endpoint<
 	UserLoginRequest,
 	UserLoginResponse
 > {
@@ -43,7 +44,10 @@ export class UserLoginHandler extends RequestHandler<
 		httpContext: IHttpContext,
 		request: UserLoginRequest,
 	): Promise<
-		Result<UserLoginResponse, DataNotFoundError | UnauthorizedError>
+		Result<
+			JsonResult<UserLoginResponse>,
+			DataNotFoundError | UnauthorizedError
+		>
 	> {
 		const userResult = await this.em.transactional(async (em) => {
 			const user = await this.em.findOne(User, {
@@ -108,6 +112,6 @@ export class UserLoginHandler extends RequestHandler<
 			authProperties,
 		);
 
-		return new Ok(userDto);
+		return new Ok(new JsonResult(userDto));
 	}
 }
