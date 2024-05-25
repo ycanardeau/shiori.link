@@ -12,7 +12,7 @@ import {
 	EuiModalHeaderTitle,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 interface DateNoteCreateModalProps {
 	onCancel: () => void;
@@ -22,17 +22,17 @@ interface DateNoteCreateModalProps {
 export const DateNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: DateNoteCreateModalProps): React.ReactElement => {
+}: DateNoteCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [year, setYear] = React.useState('');
-	const [month, setMonth] = React.useState('');
-	const [day, setDay] = React.useState('');
-	const [hour, setHour] = React.useState('');
-	const [minute, setMinute] = React.useState('');
-	const [second, setSecond] = React.useState('');
-	const [offset, setOffset] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [year, setYear] = useState('');
+	const [month, setMonth] = useState('');
+	const [day, setDay] = useState('');
+	const [hour, setHour] = useState('');
+	const [minute, setMinute] = useState('');
+	const [second, setSecond] = useState('');
+	const [offset, setOffset] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const canSave = true; /* TODO */
 

@@ -5,9 +5,9 @@ import { miniPlayerSize } from '@/components/MiniPlayer';
 import { Player } from '@/components/Player';
 import { ScrollToTop } from '@aigamo/route-sphere';
 import { EuiPageTemplate, EuiSpacer } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, Suspense } from 'react';
 
-export const AppContainer = (): React.ReactElement => {
+export const AppContainer = (): ReactElement => {
 	return (
 		<>
 			<ScrollToTop />
@@ -20,9 +20,9 @@ export const AppContainer = (): React.ReactElement => {
 					minBlockSize: `max(460px, 100vh - ${bottomBarHeight}px)`,
 				}}
 			>
-				<React.Suspense fallback={null}>
+				<Suspense fallback={null}>
 					<AppRoutes />
-				</React.Suspense>
+				</Suspense>
 
 				<EuiSpacer style={{ blockSize: miniPlayerSize.height }} />
 			</EuiPageTemplate>

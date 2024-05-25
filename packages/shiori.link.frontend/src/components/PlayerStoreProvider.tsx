@@ -1,21 +1,27 @@
 import { PlayerStore } from '@/stores/PlayerStore';
-import React from 'react';
+import {
+	ReactElement,
+	ReactNode,
+	createContext,
+	useContext,
+	useState,
+} from 'react';
 
 type PlayerStoreContextProps = PlayerStore;
 
-const PlayerStoreContext = React.createContext<PlayerStoreContextProps>(
+const PlayerStoreContext = createContext<PlayerStoreContextProps>(
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	undefined!,
 );
 
 interface PlayerStoreProviderProps {
-	children?: React.ReactNode;
+	children?: ReactNode;
 }
 
 export const PlayerStoreProvider = ({
 	children,
-}: PlayerStoreProviderProps): React.ReactElement => {
-	const [playerStore] = React.useState(() => new PlayerStore());
+}: PlayerStoreProviderProps): ReactElement => {
+	const [playerStore] = useState(() => new PlayerStore());
 
 	return (
 		<PlayerStoreContext.Provider value={playerStore}>
@@ -25,5 +31,5 @@ export const PlayerStoreProvider = ({
 };
 
 export const usePlayerStore = (): PlayerStoreContextProps => {
-	return React.useContext(PlayerStoreContext);
+	return useContext(PlayerStoreContext);
 };

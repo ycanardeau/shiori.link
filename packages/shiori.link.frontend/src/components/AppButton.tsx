@@ -1,12 +1,12 @@
 import { EuiButton } from '@elastic/eui';
 import { EuiButtonPropsForAnchor } from '@elastic/eui/src/components/button/button';
-import React from 'react';
+import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const AppButton = ({
 	href,
 	...props
-}: EuiButtonPropsForAnchor): React.ReactElement => {
+}: EuiButtonPropsForAnchor): ReactElement => {
 	const navigate = useNavigate();
 
 	const handleClick =

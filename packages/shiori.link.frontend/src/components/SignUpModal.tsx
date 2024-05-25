@@ -12,7 +12,7 @@ import {
 	EuiModalHeader,
 	EuiModalHeaderTitle,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 interface SignUpModalProps {
 	onCancel: () => void;
@@ -22,10 +22,10 @@ interface SignUpModalProps {
 export const SignUpModal = ({
 	onCancel,
 	onSignUp,
-}: SignUpModalProps): React.ReactElement => {
-	const [email, setEmail] = React.useState('');
-	const [password, setPassword] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+}: SignUpModalProps): ReactElement => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<EuiModal onClose={onCancel} initialFocus="[name=email]">

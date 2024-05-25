@@ -17,7 +17,7 @@ import {
 	EuiTextArea,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 import rehypeStringify from 'rehype-stringify';
 import unified from 'unified';
 import { VFileContents } from 'vfile';
@@ -47,11 +47,11 @@ interface MarkdownNoteCreateModalProps {
 export const MarkdownNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: MarkdownNoteCreateModalProps): React.ReactElement => {
+}: MarkdownNoteCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [text, setText] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [text, setText] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const trimmedText = text.trim();
 	const canSave = trimmedText.length > 0;

@@ -33,7 +33,15 @@ import {
 	TopSpeedRegular,
 } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import {
+	ReactElement,
+	ReactNode,
+	memo,
+	useCallback,
+	useLayoutEffect,
+	useMemo,
+	useState,
+} from 'react';
 
 export const bottomBarHeight = 80;
 
@@ -41,77 +49,71 @@ interface SeekBarProps {
 	playerStore: PlayerStore;
 }
 
-const SeekBar = observer(
-	({ playerStore }: SeekBarProps): React.ReactElement => {
-		const diva = useNostalgicDiva();
+const SeekBar = observer(({ playerStore }: SeekBarProps): ReactElement => {
+	const diva = useNostalgicDiva();
 
-		const handleChange = React.useCallback(
-			(e: _SingleRangeChangeEvent) => {
+	const handleChange = useCallback(
+		(e: _SingleRangeChangeEvent) => {
+			const percent = Number(e.currentTarget.value) / 100;
+			playerStore.setPercent(percent);
+		},
+		[playerStore],
+	);
+
+	const handleMouseDown = useCallback(
+		(e: React.MouseEvent<HTMLInputElement>) => {
+			if (e.button === 0) {
+				playerStore.setSeeking(true);
+			}
+		},
+		[playerStore],
+	);
+
+	const handleMouseUp = useCallback(
+		async (e: React.MouseEvent<HTMLInputElement>) => {
+			if (e.button === 0) {
 				const percent = Number(e.currentTarget.value) / 100;
-				playerStore.setPercent(percent);
-			},
-			[playerStore],
-		);
 
-		const handleMouseDown = React.useCallback(
-			(e: React.MouseEvent<HTMLInputElement>) => {
-				if (e.button === 0) {
-					playerStore.setSeeking(true);
+				playerStore.setSeeking(false);
+
+				const duration = await diva.getDuration();
+				if (duration !== undefined) {
+					diva.setCurrentTime(duration * percent);
 				}
-			},
-			[playerStore],
-		);
+			}
+		},
+		[playerStore, diva],
+	);
 
-		const handleMouseUp = React.useCallback(
-			async (e: React.MouseEvent<HTMLInputElement>) => {
-				if (e.button === 0) {
-					const percent = Number(e.currentTarget.value) / 100;
-
-					playerStore.setSeeking(false);
-
-					const duration = await diva.getDuration();
-					if (duration !== undefined) {
-						diva.setCurrentTime(duration * percent);
-					}
-				}
-			},
-			[playerStore, diva],
-		);
-
-		return (
-			<EuiRange
-				min={0}
-				max={100}
-				step={0.0000001}
-				value={playerStore.percent * 100}
-				onChange={handleChange}
-				onMouseDown={handleMouseDown}
-				onMouseUp={handleMouseUp}
-				fullWidth
-				showRange
-				css={{ blockSize: 32 }}
-			/>
-		);
-	},
-);
+	return (
+		<EuiRange
+			min={0}
+			max={100}
+			step={0.0000001}
+			value={playerStore.percent * 100}
+			onChange={handleChange}
+			onMouseDown={handleMouseDown}
+			onMouseUp={handleMouseUp}
+			fullWidth
+			showRange
+			css={{ blockSize: 32 }}
+		/>
+	);
+});
 
 interface VolumePopoverProps {
-	button?: NonNullable<React.ReactNode>;
+	button?: NonNullable<ReactNode>;
 	isOpen: boolean;
 	closePopover: () => void;
 }
 
-const VolumePopover = React.memo(
-	({
-		button,
-		isOpen,
-		closePopover,
-	}: VolumePopoverProps): React.ReactElement => {
-		const [value, setValue] = React.useState('0');
+const VolumePopover = memo(
+	({ button, isOpen, closePopover }: VolumePopoverProps): ReactElement => {
+		const [value, setValue] = useState('0');
 
 		const diva = useNostalgicDiva();
 
-		React.useLayoutEffect(() => {
+		useLayoutEffect(() => {
 			if (isOpen) {
 				diva.getVolume().then((volume) => {
 					if (volume !== undefined) {
@@ -121,7 +123,7 @@ const VolumePopover = React.memo(
 			}
 		}, [isOpen, diva]);
 
-		const handleChange = React.useCallback(
+		const handleChange = useCallback(
 			async (e): Promise<void> => {
 				setValue(e.currentTarget.value);
 
@@ -171,14 +173,14 @@ interface MoreOptionsContextMenuProps {
 	closePopover: () => void;
 }
 
-const MoreOptionsContextMenu = React.memo(
+const MoreOptionsContextMenu = memo(
 	({
 		playQueueStore,
 		closePopover,
-	}: MoreOptionsContextMenuProps): React.ReactElement => {
+	}: MoreOptionsContextMenuProps): ReactElement => {
 		const diva = useNostalgicDiva();
 
-		const handleClickSkipBack10 = React.useCallback(async () => {
+		const handleClickSkipBack10 = useCallback(async () => {
 			const currentTime = await diva.getCurrentTime();
 
 			if (currentTime !== undefined) {
@@ -188,7 +190,7 @@ const MoreOptionsContextMenu = React.memo(
 			closePopover();
 		}, [diva, closePopover]);
 
-		const handleClickSkipForward30 = React.useCallback(async () => {
+		const handleClickSkipForward30 = useCallback(async () => {
 			const currentTime = await diva.getCurrentTime();
 
 			if (currentTime !== undefined) {
@@ -198,7 +200,7 @@ const MoreOptionsContextMenu = React.memo(
 			closePopover();
 		}, [diva, closePopover]);
 
-		const handleClickPlaybackRate = React.useCallback(
+		const handleClickPlaybackRate = useCallback(
 			async (playbackRate: number): Promise<void> => {
 				await diva.setPlaybackRate(playbackRate);
 
@@ -208,7 +210,7 @@ const MoreOptionsContextMenu = React.memo(
 		);
 
 		const handleClickRemoveFromPlayQueue =
-			React.useCallback(async (): Promise<void> => {
+			useCallback(async (): Promise<void> => {
 				if (playQueueStore.currentItem !== undefined) {
 					await playQueueStore.removeItems([
 						playQueueStore.currentItem,
@@ -218,9 +220,9 @@ const MoreOptionsContextMenu = React.memo(
 				closePopover();
 			}, [playQueueStore, closePopover]);
 
-		const [playbackRate] = React.useState<number>();
+		const [playbackRate] = useState<number>();
 
-		const panels = React.useMemo(
+		const panels = useMemo(
 			(): EuiContextMenuPanelDescriptor[] => [
 				{
 					id: 0,
@@ -284,18 +286,18 @@ const MoreOptionsContextMenu = React.memo(
 
 interface MoreOptionsPopoverProps {
 	playQueueStore: PlayQueueStore;
-	button?: NonNullable<React.ReactNode>;
+	button?: NonNullable<ReactNode>;
 	isOpen: boolean;
 	closePopover: () => void;
 }
 
-const MoreOptionsPopover = React.memo(
+const MoreOptionsPopover = memo(
 	({
 		playQueueStore,
 		button,
 		isOpen,
 		closePopover,
-	}: MoreOptionsPopoverProps): React.ReactElement => {
+	}: MoreOptionsPopoverProps): ReactElement => {
 		return (
 			<EuiPopover
 				button={button}
@@ -328,10 +330,10 @@ const BottomBarCenterControls = observer(
 	({
 		playerStore,
 		playQueueStore,
-	}: BottomBarCenterControlsProps): React.ReactElement => {
+	}: BottomBarCenterControlsProps): ReactElement => {
 		const diva = useNostalgicDiva();
 
-		const handlePrevious = React.useCallback(async () => {
+		const handlePrevious = useCallback(async () => {
 			if (playQueueStore.hasPreviousItem) {
 				const currentTime = await diva.getCurrentTime();
 				if (currentTime === undefined || currentTime < 5) {
@@ -417,8 +419,8 @@ const BottomBarCenterControls = observer(
 							playQueueStore.repeat === RepeatMode.All
 								? 'All'
 								: playQueueStore.repeat === RepeatMode.One
-								? 'One'
-								: 'Off'
+									? 'One'
+									: 'Off'
 						}` /* LOC */
 					}
 					aria-label={
@@ -426,8 +428,8 @@ const BottomBarCenterControls = observer(
 							playQueueStore.repeat === RepeatMode.All
 								? 'All'
 								: playQueueStore.repeat === RepeatMode.One
-								? 'One'
-								: 'Off'
+									? 'One'
+									: 'Off'
 						}` /* LOC */
 					}
 					iconType={repeatIconTypes[playQueueStore.repeat]}
@@ -440,8 +442,8 @@ const BottomBarCenterControls = observer(
 	},
 );
 
-const VolumeButton = React.memo((): React.ReactElement => {
-	const [isVolumePopoverOpen, setIsVolumePopoverOpen] = React.useState(false);
+const VolumeButton = memo((): ReactElement => {
+	const [isVolumePopoverOpen, setIsVolumePopoverOpen] = useState(false);
 
 	const toggleVolumePopover = (): void =>
 		setIsVolumePopoverOpen(!isVolumePopoverOpen);
@@ -468,10 +470,10 @@ interface MoreOptionsButtonProps {
 	playQueueStore: PlayQueueStore;
 }
 
-const MoreOptionsButton = React.memo(
-	({ playQueueStore }: MoreOptionsButtonProps): React.ReactElement => {
+const MoreOptionsButton = memo(
+	({ playQueueStore }: MoreOptionsButtonProps): ReactElement => {
 		const [isMoreOptionsPopoverOpen, setIsMoreOptionsPopoverOpen] =
-			React.useState(false);
+			useState(false);
 
 		const toggleMoreOptionsPopover = (): void =>
 			setIsMoreOptionsPopoverOpen(!isMoreOptionsPopoverOpen);
@@ -500,8 +502,8 @@ interface BottomBarRightControlsProps {
 	playQueueStore: PlayQueueStore;
 }
 
-const BottomBarRightControls = React.memo(
-	({ playQueueStore }: BottomBarRightControlsProps): React.ReactElement => {
+const BottomBarRightControls = memo(
+	({ playQueueStore }: BottomBarRightControlsProps): ReactElement => {
 		return (
 			<EuiFlexGroup
 				responsive={false}
@@ -522,7 +524,7 @@ interface BottomBarProps {
 }
 
 export const BottomBar = observer(
-	({ playerStore, playQueueStore }: BottomBarProps): React.ReactElement => {
+	({ playerStore, playQueueStore }: BottomBarProps): ReactElement => {
 		return (
 			<EuiBottomBar paddingSize="s">
 				<EuiFlexGroup direction="column" gutterSize="none">

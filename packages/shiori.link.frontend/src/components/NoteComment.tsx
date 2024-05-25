@@ -14,14 +14,14 @@ import {
 	EuiSpacer,
 	EuiText,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, memo } from 'react';
 
 interface BookmarkNoteCommentBodyProps {
 	payload: BookmarkNotePayloadDto;
 }
 
-const BookmarkNoteCommentBody = React.memo(
-	({ payload }: BookmarkNoteCommentBodyProps): React.ReactElement => {
+const BookmarkNoteCommentBody = memo(
+	({ payload }: BookmarkNoteCommentBodyProps): ReactElement => {
 		return (
 			<>
 				<EuiButtonEmpty
@@ -46,8 +46,8 @@ interface NoteCommentBodyProps {
 	payload: NotePayloadDto;
 }
 
-const NoteCommentBody = React.memo(
-	({ payload }: NoteCommentBodyProps): React.ReactElement => {
+const NoteCommentBody = memo(
+	({ payload }: NoteCommentBodyProps): ReactElement => {
 		switch (payload.type) {
 			case NoteType.Bookmark:
 				return <BookmarkNoteCommentBody payload={payload} />;
@@ -66,29 +66,27 @@ interface NoteCommentProps {
 	note: NoteDto;
 }
 
-export const NoteComment = React.memo(
-	({ note }: NoteCommentProps): React.ReactElement => {
-		return (
-			<EuiComment
-				username={note.user.username}
-				timelineAvatar={
-					<EuiAvatar
-						name={note.user.username}
-						imageUrl={note.user.avatarUrl}
-					/>
-				}
-				timestamp={
-					<NoteLink
-						note={note}
-						color="text"
-						style={{ fontSize: 'inherit', fontWeight: 'inherit' }}
-					>
-						{note.createdAt}
-					</NoteLink>
-				}
-			>
-				<NoteCommentBody payload={note.payload} />
-			</EuiComment>
-		);
-	},
-);
+export const NoteComment = memo(({ note }: NoteCommentProps): ReactElement => {
+	return (
+		<EuiComment
+			username={note.user.username}
+			timelineAvatar={
+				<EuiAvatar
+					name={note.user.username}
+					imageUrl={note.user.avatarUrl}
+				/>
+			}
+			timestamp={
+				<NoteLink
+					note={note}
+					color="text"
+					style={{ fontSize: 'inherit', fontWeight: 'inherit' }}
+				>
+					{note.createdAt}
+				</NoteLink>
+			}
+		>
+			<NoteCommentBody payload={note.payload} />
+		</EuiComment>
+	);
+});

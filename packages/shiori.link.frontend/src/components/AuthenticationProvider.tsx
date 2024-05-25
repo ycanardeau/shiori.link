@@ -1,6 +1,13 @@
 import { userApi } from '@/api/UserApi';
 import { UserDto } from '@/models/dto/UserDto';
-import React from 'react';
+import {
+	ReactElement,
+	ReactNode,
+	createContext,
+	useContext,
+	useLayoutEffect,
+	useState,
+} from 'react';
 
 interface AuthenticationContextProps {
 	isLoading: boolean;
@@ -9,24 +16,24 @@ interface AuthenticationContextProps {
 	isAuthenticated: boolean;
 }
 
-const AuthenticationContext = React.createContext<AuthenticationContextProps>(
+const AuthenticationContext = createContext<AuthenticationContextProps>(
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	undefined!,
 );
 
 interface AuthenticationProviderProps {
-	children?: React.ReactNode;
+	children?: ReactNode;
 }
 
 export const AuthenticationProvider = ({
 	children,
-}: AuthenticationProviderProps): React.ReactElement => {
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [user, setUser] = React.useState<UserDto>();
+}: AuthenticationProviderProps): ReactElement => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [user, setUser] = useState<UserDto>();
 
 	const isAuthenticated = user !== undefined;
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		setIsLoading(true);
 
 		userApi.get({}).then((result) => {
@@ -51,5 +58,5 @@ export const AuthenticationProvider = ({
 };
 
 export const useAuthentication = (): AuthenticationContextProps => {
-	return React.useContext(AuthenticationContext);
+	return useContext(AuthenticationContext);
 };

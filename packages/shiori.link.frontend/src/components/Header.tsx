@@ -27,11 +27,11 @@ import {
 	PersonRegular,
 	SignOutRegular,
 } from '@fluentui/react-icons';
-import React from 'react';
+import { ReactElement, memo, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignInButton = (): React.ReactElement => {
-	const [isModalVisible, setIsModalVisible] = React.useState(false);
+const SignInButton = (): ReactElement => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	return (
 		<>
@@ -54,8 +54,8 @@ const SignInButton = (): React.ReactElement => {
 	);
 };
 
-const SignUpButton = (): React.ReactElement => {
-	const [isModalVisible, setIsModalVisible] = React.useState(false);
+const SignUpButton = (): ReactElement => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	return (
 		<>
@@ -80,76 +80,74 @@ interface HeaderUserMenuProps {
 	user: UserDto;
 }
 
-const HeaderUserMenu = React.memo(
-	({ user }: HeaderUserMenuProps): React.ReactElement => {
-		const [navIsOpen, setNavIsOpen] = React.useState(false);
+const HeaderUserMenu = memo(({ user }: HeaderUserMenuProps): ReactElement => {
+	const [navIsOpen, setNavIsOpen] = useState(false);
 
-		const collapsibleNavId = useGeneratedHtmlId({
-			prefix: 'collapsibleNav',
-		});
+	const collapsibleNavId = useGeneratedHtmlId({
+		prefix: 'collapsibleNav',
+	});
 
-		const listItems: EuiListGroupItemProps[] = React.useMemo(
-			() => [
-				{
-					label: 'Sign out' /* LOC */,
-					iconType: SignOutRegular,
-					href: '/',
-					onClick: async (e): Promise<void> => {
-						e.preventDefault();
+	const listItems: EuiListGroupItemProps[] = useMemo(
+		() => [
+			{
+				label: 'Sign out' /* LOC */,
+				iconType: SignOutRegular,
+				href: '/',
+				onClick: async (e): Promise<void> => {
+					e.preventDefault();
 
-						setNavIsOpen(false);
+					setNavIsOpen(false);
 
-						const logoutResult = await userApi.logout({});
+					const logoutResult = await userApi.logout({});
 
-						if (logoutResult.ok) {
-							window.location.reload();
-						}
-					},
+					if (logoutResult.ok) {
+						window.location.reload();
+					}
 				},
-			],
-			[],
-		);
+			},
+		],
+		[],
+	);
 
-		return (
-			<EuiCollapsibleNav
-				id={collapsibleNavId}
-				isOpen={navIsOpen}
-				button={
-					<EuiHeaderSectionItemButton
-						onClick={(): void => setNavIsOpen(!navIsOpen)}
-					>
-						<EuiAvatar
-							name={user.username}
-							size="s"
-							imageUrl={user.avatarUrl}
-						/>
-					</EuiHeaderSectionItemButton>
-				}
-				onClose={(): void => setNavIsOpen(false)}
-				side="right"
-			>
-				<EuiFlexItem grow={false} style={{ flexShrink: 0 }}>
-					<EuiCollapsibleNavGroup
-						background="light"
-						style={{ maxHeight: '40vh' }}
-						className="eui-yScroll"
-					>
-						<EuiListGroup
-							listItems={listItems}
-							maxWidth="none"
-							color="text"
-							gutterSize="none"
-							size="s"
-						/>
-					</EuiCollapsibleNavGroup>
-				</EuiFlexItem>
-			</EuiCollapsibleNav>
-		);
-	},
-);
+	return (
+		<EuiCollapsibleNav
+			id={collapsibleNavId}
+			isOpen={navIsOpen}
+			button={
+				<EuiHeaderSectionItemButton
+					onClick={(): void => setNavIsOpen(!navIsOpen)}
+				>
+					<EuiAvatar
+						name={user.username}
+						size="s"
+						imageUrl={user.avatarUrl}
+					/>
+				</EuiHeaderSectionItemButton>
+			}
+			onClose={(): void => setNavIsOpen(false)}
+			side="right"
+		>
+			<EuiFlexItem grow={false} style={{ flexShrink: 0 }}>
+				<EuiCollapsibleNavGroup
+					background="light"
+					style={{ maxHeight: '40vh' }}
+					className="eui-yScroll"
+				>
+					<EuiListGroup
+						listItems={listItems}
+						maxWidth="none"
+						color="text"
+						gutterSize="none"
+						size="s"
+					/>
+				</EuiCollapsibleNavGroup>
+			</EuiFlexItem>
+		</EuiCollapsibleNav>
+	);
+});
 
-export const Header = (): React.ReactElement => {
-	const [navIsOpen, setNavIsOpen] = React.useState(false);
+export const Header = (): ReactElement => {
+	const [navIsOpen, setNavIsOpen] = useState(false);
 
 	const collapsibleNavId = useGeneratedHtmlId({ prefix: 'collapsibleNav' });
 
@@ -157,7 +155,7 @@ export const Header = (): React.ReactElement => {
 
 	const authentication = useAuthentication();
 
-	const listItems: EuiListGroupItemProps[] = React.useMemo(
+	const listItems: EuiListGroupItemProps[] = useMemo(
 		() => [
 			{
 				label: 'Home' /* LOC */,

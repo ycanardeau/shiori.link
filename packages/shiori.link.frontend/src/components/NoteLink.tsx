@@ -1,17 +1,14 @@
 import { AppLink } from '@/components/AppLink';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiLinkAnchorProps } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useMemo } from 'react';
 
 interface NoteLinkProps extends EuiLinkAnchorProps {
 	note: NoteDto;
 }
 
-export const NoteLink = ({
-	note,
-	...props
-}: NoteLinkProps): React.ReactElement => {
-	const href = React.useMemo(() => `/notes/${note.id}`, [note]);
+export const NoteLink = ({ note, ...props }: NoteLinkProps): ReactElement => {
+	const href = useMemo(() => `/notes/${note.id}`, [note]);
 
 	return <AppLink {...props} href={href} />;
 };

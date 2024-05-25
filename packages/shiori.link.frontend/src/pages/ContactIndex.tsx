@@ -18,19 +18,19 @@ import {
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { ReactElement, memo, useCallback, useEffect, useState } from 'react';
 
 interface ContactCreateButtonProps {
 	onSave: (contact: ContactDto) => void;
 }
 
-const ContactCreateButton = React.memo(
-	({ onSave }: ContactCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const ContactCreateButton = memo(
+	({ onSave }: ContactCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(contact: ContactDto) => {
 				closeModal();
 
@@ -61,8 +61,8 @@ interface ContactIndexHeaderProps {
 }
 
 const ContactIndexHeader = observer(
-	({ contactSearchStore }: ContactIndexHeaderProps): React.ReactElement => {
-		const handleSaveContact = React.useCallback(
+	({ contactSearchStore }: ContactIndexHeaderProps): ReactElement => {
+		const handleSaveContact = useCallback(
 			async (contact: ContactDto): Promise<void> => {
 				await contactSearchStore.updateResults(true);
 			},
@@ -90,9 +90,9 @@ interface ContactIndexBodyProps {
 }
 
 const ContactIndexBody = observer(
-	({ contactSearchStore }: ContactIndexBodyProps): React.ReactElement => {
+	({ contactSearchStore }: ContactIndexBodyProps): ReactElement => {
 		const [, setLoading] = useProgressBar();
-		React.useEffect(
+		useEffect(
 			() => setLoading(contactSearchStore.loading),
 			[contactSearchStore.loading, setLoading],
 		);
@@ -132,8 +132,8 @@ const ContactIndexBody = observer(
 	},
 );
 
-const ContactIndex = React.memo((): React.ReactElement => {
-	const [contactSearchStore] = React.useState(() => new ContactSearchStore());
+const ContactIndex = memo((): ReactElement => {
+	const [contactSearchStore] = useState(() => new ContactSearchStore());
 
 	return (
 		<>

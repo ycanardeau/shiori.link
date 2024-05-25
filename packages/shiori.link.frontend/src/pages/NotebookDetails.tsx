@@ -3,7 +3,7 @@ import { AppPageTemplateHeader } from '@/components/AppPageTemplateHeader';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NotebookDto } from '@/models/dto/NotebookDto';
 import { EuiPageTemplate } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface NotebookDetailsPageTemplateProps {
@@ -12,7 +12,7 @@ interface NotebookDetailsPageTemplateProps {
 
 const NotebookDetailsPageTemplate = ({
 	notebook,
-}: NotebookDetailsPageTemplateProps): React.ReactElement => {
+}: NotebookDetailsPageTemplateProps): ReactElement => {
 	return (
 		<>
 			<AppPageTemplateHeader
@@ -34,13 +34,13 @@ const NotebookDetailsPageTemplate = ({
 	);
 };
 
-const NotebookDetails = (): React.ReactElement => {
+const NotebookDetails = (): ReactElement => {
 	const { id } = useParams();
 
-	const [notebook, setNotebook] = React.useState<NotebookDto>();
+	const [notebook, setNotebook] = useState<NotebookDto>();
 
 	const [, setLoading] = useProgressBar();
-	React.useEffect(() => {
+	useEffect(() => {
 		setLoading(true);
 
 		notebookApi.get({ id: Number(id) }).then((result) => {

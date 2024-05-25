@@ -13,7 +13,7 @@ import {
 	EuiModalHeaderTitle,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 interface PurchaseNoteCreateModalProps {
 	onCancel: () => void;
@@ -23,13 +23,13 @@ interface PurchaseNoteCreateModalProps {
 export const PurchaseNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: PurchaseNoteCreateModalProps): React.ReactElement => {
+}: PurchaseNoteCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [price, setPrice] = React.useState('');
-	const [quantity, setQuantity] = React.useState('1');
-	const [currency, setCurrency] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [price, setPrice] = useState('');
+	const [quantity, setQuantity] = useState('1');
+	const [currency, setCurrency] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const canSave = true; /* TODO */
 

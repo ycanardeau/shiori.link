@@ -18,19 +18,19 @@ import {
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { ReactElement, memo, useCallback, useEffect, useState } from 'react';
 
 interface NotebookCreateButtonProps {
 	onSave: (notebook: NotebookDto) => void;
 }
 
-const NotebookCreateButton = React.memo(
-	({ onSave }: NotebookCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const NotebookCreateButton = memo(
+	({ onSave }: NotebookCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(notebook: NotebookDto) => {
 				closeModal();
 
@@ -61,8 +61,8 @@ interface NotebookIndexHeaderProps {
 }
 
 const NotebookIndexHeader = observer(
-	({ notebookSearchStore }: NotebookIndexHeaderProps): React.ReactElement => {
-		const handleSaveNotebook = React.useCallback(
+	({ notebookSearchStore }: NotebookIndexHeaderProps): ReactElement => {
+		const handleSaveNotebook = useCallback(
 			async (notebook: NotebookDto): Promise<void> => {
 				await notebookSearchStore.updateResults(true);
 			},
@@ -90,9 +90,9 @@ interface NotebookIndexBodyProps {
 }
 
 const NotebookIndexBody = observer(
-	({ notebookSearchStore }: NotebookIndexBodyProps): React.ReactElement => {
+	({ notebookSearchStore }: NotebookIndexBodyProps): ReactElement => {
 		const [, setLoading] = useProgressBar();
-		React.useEffect(
+		useEffect(
 			() => setLoading(notebookSearchStore.loading),
 			[notebookSearchStore.loading, setLoading],
 		);
@@ -129,10 +129,8 @@ const NotebookIndexBody = observer(
 	},
 );
 
-const NotebookIndex = React.memo((): React.ReactElement => {
-	const [notebookSearchStore] = React.useState(
-		() => new NotebookSearchStore(),
-	);
+const NotebookIndex = memo((): ReactElement => {
+	const [notebookSearchStore] = useState(() => new NotebookSearchStore());
 
 	return (
 		<>

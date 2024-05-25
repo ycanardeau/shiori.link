@@ -5,6 +5,7 @@ import {
 	getDefaultEuiMarkdownParsingPlugins,
 	getDefaultEuiMarkdownProcessingPlugins,
 } from '@elastic/eui';
+import { ReactElement } from 'react';
 
 export const parsingPluginList = getDefaultEuiMarkdownParsingPlugins();
 
@@ -12,7 +13,7 @@ export const processingPluginList = getDefaultEuiMarkdownProcessingPlugins();
 processingPluginList[1][1].components.a = ({
 	children,
 	...props
-}): React.ReactElement => {
+}): ReactElement => {
 	return (
 		<EuiLink {...props} external target="_blank">
 			{children}
@@ -22,7 +23,7 @@ processingPluginList[1][1].components.a = ({
 
 export const NoteMarkdownFormat = (
 	props: EuiMarkdownFormatProps,
-): React.ReactElement => {
+): ReactElement => {
 	return (
 		<EuiMarkdownFormat
 			parsingPluginList={parsingPluginList}

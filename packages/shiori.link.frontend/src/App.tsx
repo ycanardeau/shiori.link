@@ -7,7 +7,7 @@ import { NostalgicDivaProvider } from '@aigamo/nostalgic-diva';
 import { EuiProvider } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_dark.css';
 import createCache from '@emotion/cache';
-import React from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 // https://elastic.github.io/eui/#/utilities/provider
@@ -18,12 +18,12 @@ const euiCache = createCache({
 euiCache.compat = true;
 
 interface EuiProviderWrapperProps {
-	children?: React.ReactNode;
+	children?: ReactNode;
 }
 
 const EuiProviderWrapper = ({
 	children,
-}: EuiProviderWrapperProps): React.ReactElement => {
+}: EuiProviderWrapperProps): ReactElement => {
 	return (
 		<EuiProvider colorMode="dark" cache={euiCache}>
 			{children}
@@ -31,7 +31,7 @@ const EuiProviderWrapper = ({
 	);
 };
 
-const App = (): React.ReactElement => {
+const App = (): ReactElement => {
 	return (
 		<Compose
 			components={[

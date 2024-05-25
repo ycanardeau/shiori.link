@@ -2,9 +2,9 @@ import { BottomBar } from '@/components/BottomBar';
 import { MiniPlayer } from '@/components/MiniPlayer';
 import { usePlayerStore } from '@/components/PlayerStoreProvider';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { ReactElement } from 'react';
 
-export const Player = observer((): React.ReactElement => {
+export const Player = observer((): ReactElement => {
 	const playerStore = usePlayerStore();
 
 	return (

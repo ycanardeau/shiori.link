@@ -16,14 +16,14 @@ import {
 } from '@elastic/eui';
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { ReactElement, memo, useCallback, useEffect, useState } from 'react';
 
 interface NoteCommentListProps {
 	notes: readonly NoteDto[];
 }
 
-const NoteCommentList = React.memo(
-	({ notes }: NoteCommentListProps): React.ReactElement => {
+const NoteCommentList = memo(
+	({ notes }: NoteCommentListProps): ReactElement => {
 		return (
 			<EuiCommentList>
 				{notes.map((note) => (
@@ -38,13 +38,13 @@ interface BookmarkNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const BookmarkNoteCreateButton = React.memo(
-	({ onSave }: BookmarkNoteCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const BookmarkNoteCreateButton = memo(
+	({ onSave }: BookmarkNoteCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(note: NoteDto) => {
 				closeModal();
 
@@ -74,13 +74,13 @@ interface MarkdownNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const MarkdownNoteCreateButton = React.memo(
-	({ onSave }: MarkdownNoteCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const MarkdownNoteCreateButton = memo(
+	({ onSave }: MarkdownNoteCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(note: NoteDto) => {
 				closeModal();
 
@@ -110,13 +110,13 @@ interface DateNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const DateNoteCreateButton = React.memo(
-	({ onSave }: DateNoteCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const DateNoteCreateButton = memo(
+	({ onSave }: DateNoteCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(note: NoteDto) => {
 				closeModal();
 
@@ -146,13 +146,13 @@ interface PurchaseNoteCreateButtonProps {
 	onSave: (note: NoteDto) => void;
 }
 
-const PurchaseNoteCreateButton = React.memo(
-	({ onSave }: PurchaseNoteCreateButtonProps): React.ReactElement => {
-		const [isModalVisible, setIsModalVisible] = React.useState(false);
+const PurchaseNoteCreateButton = memo(
+	({ onSave }: PurchaseNoteCreateButtonProps): ReactElement => {
+		const [isModalVisible, setIsModalVisible] = useState(false);
 		const closeModal = (): void => setIsModalVisible(false);
 		const showModal = (): void => setIsModalVisible(true);
 
-		const handleSave = React.useCallback(
+		const handleSave = useCallback(
 			(note: NoteDto) => {
 				closeModal();
 
@@ -183,8 +183,8 @@ interface NoteIndexHeaderProps {
 }
 
 const NoteIndexHeader = observer(
-	({ noteSearchStore }: NoteIndexHeaderProps): React.ReactElement => {
-		const handleSaveNote = React.useCallback(
+	({ noteSearchStore }: NoteIndexHeaderProps): ReactElement => {
+		const handleSaveNote = useCallback(
 			async (note: NoteDto): Promise<void> => {
 				await noteSearchStore.updateResults(true);
 			},
@@ -215,9 +215,9 @@ interface NoteIndexBodyProps {
 }
 
 const NoteIndexBody = observer(
-	({ noteSearchStore }: NoteIndexBodyProps): React.ReactElement => {
+	({ noteSearchStore }: NoteIndexBodyProps): ReactElement => {
 		const [, setLoading] = useProgressBar();
-		React.useEffect(
+		useEffect(
 			() => setLoading(noteSearchStore.loading),
 			[noteSearchStore.loading, setLoading],
 		);
@@ -238,8 +238,8 @@ const NoteIndexBody = observer(
 	},
 );
 
-const NoteIndex = React.memo((): React.ReactElement => {
-	const [noteSearchStore] = React.useState(() => new NoteSearchStore());
+const NoteIndex = memo((): ReactElement => {
+	const [noteSearchStore] = useState(() => new NoteSearchStore());
 
 	return (
 		<>

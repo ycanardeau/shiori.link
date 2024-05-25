@@ -4,7 +4,7 @@ import { NoteComment } from '@/components/NoteComment';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiPageTemplate } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface NoteDetailsPageTemplateProps {
@@ -13,7 +13,7 @@ interface NoteDetailsPageTemplateProps {
 
 const NoteDetailsPageTemplate = ({
 	note,
-}: NoteDetailsPageTemplateProps): React.ReactElement => {
+}: NoteDetailsPageTemplateProps): ReactElement => {
 	return (
 		<>
 			<AppPageTemplateHeader
@@ -37,13 +37,13 @@ const NoteDetailsPageTemplate = ({
 	);
 };
 
-const NoteDetails = (): React.ReactElement => {
+const NoteDetails = (): ReactElement => {
 	const { id } = useParams();
 
-	const [note, setNote] = React.useState<NoteDto>();
+	const [note, setNote] = useState<NoteDto>();
 
 	const [, setLoading] = useProgressBar();
-	React.useEffect(() => {
+	useEffect(() => {
 		setLoading(true);
 
 		noteApi.get({ id: Number(id) }).then((result) => {

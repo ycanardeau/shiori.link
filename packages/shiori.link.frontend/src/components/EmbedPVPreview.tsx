@@ -12,7 +12,7 @@ import {
 import { MoreHorizontalRegular, PlayRegular } from '@fluentui/react-icons';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { ReactElement, useCallback, useLayoutEffect, useRef } from 'react';
 
 interface EmbedPVPreviewProps {
 	payload: BookmarkNotePayloadDto;
@@ -27,12 +27,12 @@ export const EmbedPVPreview = observer(
 		width = 16 * 25,
 		height = 9 * 25,
 		allowInline = false,
-	}: EmbedPVPreviewProps): React.ReactElement => {
+	}: EmbedPVPreviewProps): ReactElement => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const embedPVPreviewRef = React.useRef<HTMLDivElement>(undefined!);
+		const embedPVPreviewRef = useRef<HTMLDivElement>(undefined!);
 		const playerStore = usePlayerStore();
 
-		const handleResize = React.useCallback((): void => {
+		const handleResize = useCallback((): void => {
 			if (!allowInline) {
 				return;
 			}
@@ -50,7 +50,7 @@ export const EmbedPVPreview = observer(
 			}
 		}, [allowInline, payload, playerStore]);
 
-		const handlePlay = React.useCallback((): void => {
+		const handlePlay = useCallback((): void => {
 			const videoService = findVideoService(payload.url);
 			if (videoService === undefined) {
 				return;
@@ -73,7 +73,7 @@ export const EmbedPVPreview = observer(
 			handleResize();
 		}, [playerStore, payload, handleResize]);
 
-		React.useLayoutEffect(() => {
+		useLayoutEffect(() => {
 			window.addEventListener('resize', handleResize);
 			handleResize();
 
@@ -82,13 +82,13 @@ export const EmbedPVPreview = observer(
 			};
 		}, [handleResize]);
 
-		React.useLayoutEffect(() => {
+		useLayoutEffect(() => {
 			return (): void => {
 				playerStore.setPlayerBounds(undefined);
 			};
 		}, [playerStore]);
 
-		React.useLayoutEffect(() => {
+		useLayoutEffect(() => {
 			return reaction(
 				() => playerStore.playQueueStore.currentItem?.url,
 				handleResize,

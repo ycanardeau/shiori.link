@@ -13,7 +13,7 @@ import {
 	EuiModalHeaderTitle,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 interface ContactCreateModalProps {
 	onCancel: () => void;
@@ -23,12 +23,12 @@ interface ContactCreateModalProps {
 export const ContactCreateModal = ({
 	onCancel,
 	onSave,
-}: ContactCreateModalProps): React.ReactElement => {
+}: ContactCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [firstName, setFirstName] = React.useState('');
-	const [lastName, setLastName] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const trimmedFirstName = firstName.trim();
 	const trimmedLastName = lastName.trim();

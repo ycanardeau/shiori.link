@@ -13,7 +13,7 @@ import {
 	EuiModalHeaderTitle,
 	useGeneratedHtmlId,
 } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 interface NotebookCreateModalProps {
 	onCancel: () => void;
@@ -23,11 +23,11 @@ interface NotebookCreateModalProps {
 export const NotebookCreateModal = ({
 	onCancel,
 	onSave,
-}: NotebookCreateModalProps): React.ReactElement => {
+}: NotebookCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [name, setName] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [name, setName] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const trimmedName = name.trim();
 	const canSave = trimmedName.length > 0;

@@ -3,7 +3,7 @@ import { AppPageTemplateHeader } from '@/components/AppPageTemplateHeader';
 import { useProgressBar } from '@/components/useProgressBar';
 import { ContactDto } from '@/models/dto/ContactDto';
 import { EuiPageTemplate } from '@elastic/eui';
-import React from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface ContactDetailsPageTemplateProps {
@@ -12,7 +12,7 @@ interface ContactDetailsPageTemplateProps {
 
 const ContactDetailsPageTemplate = ({
 	contact,
-}: ContactDetailsPageTemplateProps): React.ReactElement => {
+}: ContactDetailsPageTemplateProps): ReactElement => {
 	return (
 		<>
 			<AppPageTemplateHeader
@@ -34,13 +34,13 @@ const ContactDetailsPageTemplate = ({
 	);
 };
 
-const ContactDetails = (): React.ReactElement => {
+const ContactDetails = (): ReactElement => {
 	const { id } = useParams();
 
-	const [contact, setContact] = React.useState<ContactDto>();
+	const [contact, setContact] = useState<ContactDto>();
 
 	const [, setLoading] = useProgressBar();
-	React.useEffect(() => {
+	useEffect(() => {
 		setLoading(true);
 
 		contactApi.get({ id: Number(id) }).then((result) => {

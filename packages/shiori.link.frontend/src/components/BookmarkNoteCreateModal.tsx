@@ -16,7 +16,7 @@ import {
 	useGeneratedHtmlId,
 } from '@elastic/eui';
 import { OpenRegular } from '@fluentui/react-icons';
-import React from 'react';
+import { ReactElement, useState } from 'react';
 
 const normalizedHosts: Record<string, string> = {
 	'music.youtube.com': 'youtube.com',
@@ -56,11 +56,11 @@ interface BookmarkNoteCreateModalProps {
 export const BookmarkNoteCreateModal = ({
 	onCancel,
 	onSave,
-}: BookmarkNoteCreateModalProps): React.ReactElement => {
+}: BookmarkNoteCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [url, setUrl] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [url, setUrl] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const trimmedUrl = url.trim();
 	const canSave = trimmedUrl.length > 0;

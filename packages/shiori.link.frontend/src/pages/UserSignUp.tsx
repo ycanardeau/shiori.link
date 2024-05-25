@@ -13,14 +13,14 @@ import {
 	EuiText,
 	EuiTitle,
 } from '@elastic/eui';
-import React from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 
-const UserSignUp = (): React.ReactElement => {
-	const [email, setEmail] = React.useState('');
-	const [password, setPassword] = React.useState('');
-	const [isLoading, setIsLoading] = React.useState(false);
+const UserSignUp = (): ReactElement => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
-	const handleSubmit = (e: React.FormEvent): void => {
+	const handleSubmit = (e: FormEvent): void => {
 		e.preventDefault();
 
 		setIsLoading(true);

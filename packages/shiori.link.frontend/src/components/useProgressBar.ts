@@ -1,6 +1,6 @@
 import usePreviousDistinct from '@/components/usePreviousDistinct';
 import NProgress from 'nprogress';
-import React from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import './nprogress.css';
 
@@ -8,12 +8,12 @@ NProgress.configure({ showSpinner: false });
 
 export const useProgressBar = (): [
 	boolean,
-	React.Dispatch<React.SetStateAction<boolean>>,
+	Dispatch<SetStateAction<boolean>>,
 ] => {
-	const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = useState(false);
 	const previousLoading = usePreviousDistinct(loading);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (previousLoading === false && loading === true) {
 			NProgress.start();
 		}
