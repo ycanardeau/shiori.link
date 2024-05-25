@@ -1,7 +1,5 @@
 import { userApi } from '@/api/UserApi';
 import { useAuthentication } from '@/components/AuthenticationProvider';
-import { SignInModal } from '@/components/SignInModal';
-import { SignUpModal } from '@/components/SignUpModal';
 import { UserDto } from '@/models/dto/UserDto';
 import {
 	EuiAvatar,
@@ -9,7 +7,6 @@ import {
 	EuiCollapsibleNavGroup,
 	EuiFlexItem,
 	EuiHeader,
-	EuiHeaderLink,
 	EuiHeaderLinks,
 	EuiHeaderSection,
 	EuiHeaderSectionItem,
@@ -29,52 +26,6 @@ import {
 } from '@fluentui/react-icons';
 import { ReactElement, memo, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const SignInButton = (): ReactElement => {
-	const [isModalVisible, setIsModalVisible] = useState(false);
-
-	return (
-		<>
-			<EuiHeaderLink
-				color="primary"
-				onClick={(): void => setIsModalVisible(true)}
-			>
-				Sign in{/* LOC */}
-			</EuiHeaderLink>
-
-			{isModalVisible && (
-				<SignInModal
-					onCancel={(): void => setIsModalVisible(false)}
-					onSignIn={(user): void => {
-						window.location.reload();
-					}}
-				/>
-			)}
-		</>
-	);
-};
-
-const SignUpButton = (): ReactElement => {
-	const [isModalVisible, setIsModalVisible] = useState(false);
-
-	return (
-		<>
-			<EuiHeaderLink
-				color="primary"
-				onClick={(): void => setIsModalVisible(true)}
-			>
-				Sign up{/* LOC */}
-			</EuiHeaderLink>
-
-			{isModalVisible && (
-				<SignUpModal
-					onCancel={(): void => setIsModalVisible(false)}
-					onSignUp={(): void => setIsModalVisible(false)}
-				/>
-			)}
-		</>
-	);
-};
 
 interface HeaderUserMenuProps {
 	user: UserDto;
@@ -249,7 +200,7 @@ export const Header = (): ReactElement => {
 			</EuiHeaderSection>
 
 			<EuiHeaderSection side="right">
-				{authentication.user ? (
+				{authentication.user && (
 					<>
 						<EuiHeaderSectionItem>
 							<EuiHeaderSectionItemButton>
@@ -262,17 +213,6 @@ export const Header = (): ReactElement => {
 								popoverProps={{ repositionOnScroll: true }}
 							>
 								<HeaderUserMenu user={authentication.user} />
-							</EuiHeaderLinks>
-						</EuiHeaderSectionItem>
-					</>
-				) : (
-					<>
-						<EuiHeaderSectionItem>
-							<EuiHeaderLinks
-								popoverProps={{ repositionOnScroll: true }}
-							>
-								<SignInButton />
-								<SignUpButton />
 							</EuiHeaderLinks>
 						</EuiHeaderSectionItem>
 					</>
