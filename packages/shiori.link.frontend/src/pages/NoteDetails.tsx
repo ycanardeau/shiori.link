@@ -1,10 +1,11 @@
 import { noteApi } from '@/api/NoteApi';
+import { AppPageTemplateHeader } from '@/components/AppPageTemplateHeader';
 import { NoteComment } from '@/components/NoteComment';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NoteDto } from '@/models/dto/NoteDto';
 import { EuiPageTemplate } from '@elastic/eui';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 interface NoteDetailsPageTemplateProps {
 	note: NoteDto;
@@ -13,21 +14,14 @@ interface NoteDetailsPageTemplateProps {
 const NoteDetailsPageTemplate = ({
 	note,
 }: NoteDetailsPageTemplateProps): React.ReactElement => {
-	const navigate = useNavigate();
-
 	return (
 		<>
-			<EuiPageTemplate.Header
+			<AppPageTemplateHeader
 				pageTitle={`Note ${note.id}` /* LOC */}
 				rightSideItems={[]}
 				breadcrumbs={[
 					{
 						href: '/notes',
-						onClick: (e): void => {
-							e.preventDefault();
-
-							navigate('/notes');
-						},
 						text: 'Notes' /* LOC */,
 					},
 					{

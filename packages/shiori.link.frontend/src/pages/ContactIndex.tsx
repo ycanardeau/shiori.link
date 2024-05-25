@@ -1,3 +1,4 @@
+import { AppLink } from '@/components/AppLink';
 import { ContactCreateModal } from '@/components/ContactCreateModal';
 import { useProgressBar } from '@/components/useProgressBar';
 import { ContactDto } from '@/models/dto/ContactDto';
@@ -6,7 +7,6 @@ import { ContactSearchStore } from '@/stores/ContactSearchStore';
 import { useLocationStateStore } from '@aigamo/route-sphere';
 import {
 	EuiButton,
-	EuiLink,
 	EuiPageTemplate,
 	EuiSpacer,
 	EuiTable,
@@ -19,7 +19,6 @@ import {
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface ContactCreateButtonProps {
 	onSave: (contact: ContactDto) => void;
@@ -100,8 +99,6 @@ const ContactIndexBody = observer(
 
 		useLocationStateStore(contactSearchStore);
 
-		const navigate = useNavigate();
-
 		return (
 			<EuiPageTemplate.Section>
 				<EuiTable>
@@ -113,20 +110,12 @@ const ContactIndexBody = observer(
 						{contactSearchStore.items.map((contact) => (
 							<EuiTableRow key={contact.id}>
 								<EuiTableRowCell>
-									<EuiLink
-										href={`/contacts/${contact.id}`}
-										onClick={(
-											e: React.MouseEvent,
-										): void => {
-											e.preventDefault();
-											navigate(`/contacts/${contact.id}`);
-										}}
-									>
+									<AppLink href={`/contacts/${contact.id}`}>
 										{[
 											contact.lastName,
 											contact.firstName,
 										].join(' ')}
-									</EuiLink>
+									</AppLink>
 								</EuiTableRowCell>
 							</EuiTableRow>
 						))}

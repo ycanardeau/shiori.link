@@ -1,9 +1,10 @@
 import { notebookApi } from '@/api/NotebookApi';
+import { AppPageTemplateHeader } from '@/components/AppPageTemplateHeader';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NotebookDto } from '@/models/dto/NotebookDto';
 import { EuiPageTemplate } from '@elastic/eui';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 interface NotebookDetailsPageTemplateProps {
 	notebook: NotebookDto;
@@ -12,21 +13,14 @@ interface NotebookDetailsPageTemplateProps {
 const NotebookDetailsPageTemplate = ({
 	notebook,
 }: NotebookDetailsPageTemplateProps): React.ReactElement => {
-	const navigate = useNavigate();
-
 	return (
 		<>
-			<EuiPageTemplate.Header
+			<AppPageTemplateHeader
 				pageTitle={notebook.name}
 				rightSideItems={[]}
 				breadcrumbs={[
 					{
 						href: '/notebooks',
-						onClick: (e): void => {
-							e.preventDefault();
-
-							navigate('/notebooks');
-						},
 						text: 'Notebooks' /* LOC */,
 					},
 					{

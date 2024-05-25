@@ -1,3 +1,4 @@
+import { AppLink } from '@/components/AppLink';
 import { NotebookCreateModal } from '@/components/NotebookCreateModal';
 import { useProgressBar } from '@/components/useProgressBar';
 import { NotebookDto } from '@/models/dto/NotebookDto';
@@ -6,7 +7,6 @@ import { NotebookSearchStore } from '@/stores/NotebookSearchStore';
 import { useLocationStateStore } from '@aigamo/route-sphere';
 import {
 	EuiButton,
-	EuiLink,
 	EuiPageTemplate,
 	EuiSpacer,
 	EuiTable,
@@ -19,7 +19,6 @@ import {
 import { AddRegular } from '@fluentui/react-icons';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface NotebookCreateButtonProps {
 	onSave: (notebook: NotebookDto) => void;
@@ -100,8 +99,6 @@ const NotebookIndexBody = observer(
 
 		useLocationStateStore(notebookSearchStore);
 
-		const navigate = useNavigate();
-
 		return (
 			<EuiPageTemplate.Section>
 				<EuiTable>
@@ -113,19 +110,9 @@ const NotebookIndexBody = observer(
 						{notebookSearchStore.items.map((notebook) => (
 							<EuiTableRow key={notebook.id}>
 								<EuiTableRowCell>
-									<EuiLink
-										href={`/notebooks/${notebook.id}`}
-										onClick={(
-											e: React.MouseEvent,
-										): void => {
-											e.preventDefault();
-											navigate(
-												`/notebooks/${notebook.id}`,
-											);
-										}}
-									>
+									<AppLink href={`/notebooks/${notebook.id}`}>
 										{notebook.name}
-									</EuiLink>
+									</AppLink>
 								</EuiTableRowCell>
 							</EuiTableRow>
 						))}

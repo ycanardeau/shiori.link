@@ -1,9 +1,10 @@
 import { contactApi } from '@/api/ContactApi';
+import { AppPageTemplateHeader } from '@/components/AppPageTemplateHeader';
 import { useProgressBar } from '@/components/useProgressBar';
 import { ContactDto } from '@/models/dto/ContactDto';
 import { EuiPageTemplate } from '@elastic/eui';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 interface ContactDetailsPageTemplateProps {
 	contact: ContactDto;
@@ -12,21 +13,14 @@ interface ContactDetailsPageTemplateProps {
 const ContactDetailsPageTemplate = ({
 	contact,
 }: ContactDetailsPageTemplateProps): React.ReactElement => {
-	const navigate = useNavigate();
-
 	return (
 		<>
-			<EuiPageTemplate.Header
+			<AppPageTemplateHeader
 				pageTitle={[contact.lastName, contact.firstName].join(' ')}
 				rightSideItems={[]}
 				breadcrumbs={[
 					{
 						href: '/contacts',
-						onClick: (e): void => {
-							e.preventDefault();
-
-							navigate('/contacts');
-						},
 						text: 'Contacts' /* LOC */,
 					},
 					{
