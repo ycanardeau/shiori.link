@@ -51,7 +51,7 @@ export class UserLoginEndpoint extends Endpoint<
 	> {
 		const userResult = await this.em.transactional(async (em) => {
 			const user = await this.em.findOne(User, {
-				username: request.username,
+				email: request.email,
 			});
 
 			if (!user) {

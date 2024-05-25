@@ -1,19 +1,19 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface UserLoginRequest {
-	username: string;
+	email: string;
 	password: string;
 }
 
 export const UserLoginRequestSchema: JSONSchemaType<UserLoginRequest> = {
 	type: 'object',
 	properties: {
-		username: {
+		email: {
 			type: 'string',
 		},
 		password: {
 			type: 'string',
 		},
 	},
-	required: ['username', 'password'],
+	required: ['email', 'password'],
 };

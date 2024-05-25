@@ -23,28 +23,18 @@ export const SignUpModal = ({
 	onCancel,
 	onSignUp,
 }: SignUpModalProps): React.ReactElement => {
-	const [username, setUsername] = React.useState('');
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	return (
-		<EuiModal onClose={onCancel} initialFocus="[name=username]">
+		<EuiModal onClose={onCancel} initialFocus="[name=email]">
 			<EuiModalHeader>
 				<EuiModalHeaderTitle>Sign up{/* LOC */}</EuiModalHeaderTitle>
 			</EuiModalHeader>
 
 			<EuiModalBody>
 				<EuiForm component="form" autoComplete="newPassword">
-					<EuiFormRow label="Username" /* LOC */>
-						<EuiFieldText
-							name="username"
-							autoComplete="username"
-							value={username}
-							onChange={(e): void => setUsername(e.target.value)}
-						/>
-					</EuiFormRow>
-
 					<EuiFormRow label="Email" /* LOC */>
 						<EuiFieldText
 							type="email"
@@ -77,7 +67,6 @@ export const SignUpModal = ({
 						setIsLoading(true);
 
 						const signUpResult = await userApi.signUp({
-							username: username,
 							email: email,
 							password: password,
 						});
