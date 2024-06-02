@@ -50,6 +50,12 @@ export class UserLoginEndpoint extends Endpoint<
 		>
 	> {
 		const userResult = await this.em.transactional(async (em) => {
+			const realIp = httpContext.request.headers['x-real-ip'];
+
+			if (typeof realIp !== 'string') {
+				return new Err(new UnauthorizedError());
+			}
+
 			const user = await this.em.findOne(User, {
 				email: request.email,
 			});
@@ -69,7 +75,7 @@ export class UserLoginEndpoint extends Endpoint<
 
 			const success = passwordHash === user.passwordHash;
 
-			const login = new Login(user, '' /* TODO: ip */, success);
+			const login = new Login(user, realIp, success);
 
 			em.persist(login);
 
