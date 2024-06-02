@@ -5,6 +5,5 @@ export interface ContactDto {
 	id: number;
 	createdAt: string;
 	user: UserDto;
-	firstName: string;
-	lastName: string;
+	name: string;
 }

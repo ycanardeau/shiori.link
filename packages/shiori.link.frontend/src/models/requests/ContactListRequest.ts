@@ -2,8 +2,7 @@ import { PageQuery } from '@/models/requests/PageQuery';
 import { JSONSchemaType } from 'ajv';
 
 export enum ContactListSort {
-	FirstNameAsc = 'FirstNameAsc',
-	LastNameAsc = 'LastNameAsc',
+	NameAsc = 'NameAsc',
 }
 
 export type ContactListRequest = PageQuery<ContactListSort>;

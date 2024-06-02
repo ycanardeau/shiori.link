@@ -41,11 +41,7 @@ export class ContactCreateEndpoint extends Endpoint<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const contact = new Contact(
-				currentUser,
-				request.firstName,
-				request.lastName,
-			);
+			const contact = new Contact(currentUser, request.name);
 			em.persist(contact);
 
 			return new Ok(contact);

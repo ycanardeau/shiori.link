@@ -1,20 +1,16 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface ContactCreateRequest {
-	firstName: string;
-	lastName: string;
+	name: string;
 }
 
 export const ContactCreateRequestSchema: JSONSchemaType<ContactCreateRequest> =
 	{
 		type: 'object',
 		properties: {
-			firstName: {
-				type: 'string',
-			},
-			lastName: {
+			name: {
 				type: 'string',
 			},
 		},
-		required: ['firstName', 'lastName'],
+		required: ['name'],
 	};

@@ -21,14 +21,10 @@ export class Contact implements IUserOwnedEntity {
 	user: Ref<User>;
 
 	@Property()
-	firstName: string;
+	name: string;
 
-	@Property()
-	lastName: string;
-
-	constructor(user: User, firstName: string, lastName: string) {
+	constructor(user: User, name: string) {
 		this.user = ref(user);
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
 	}
 }

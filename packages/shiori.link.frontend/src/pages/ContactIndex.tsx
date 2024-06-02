@@ -111,10 +111,7 @@ const ContactIndexBody = observer(
 							<EuiTableRow key={contact.id}>
 								<EuiTableRowCell>
 									<AppLink href={`/contacts/${contact.id}`}>
-										{[
-											contact.lastName,
-											contact.firstName,
-										].join(' ')}
+										{contact.name}
 									</AppLink>
 								</EuiTableRowCell>
 							</EuiTableRow>

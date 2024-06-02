@@ -11,7 +11,7 @@ import {
 import { ContactListResponse } from '@/models/responses/ContactListResponse';
 import { ICurrentUserService } from '@/services/CurrentUserService';
 import { EntityManager, QueryOrderMap } from '@mikro-orm/core';
-import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
+import { Err, IHttpContext, JsonResult, Result, inject } from 'yohira';
 
 export class ContactListEndpoint extends Endpoint<
 	ContactListRequest,
@@ -27,12 +27,9 @@ export class ContactListEndpoint extends Endpoint<
 
 	private orderBy(sort: ContactListSort | undefined): QueryOrderMap<Contact> {
 		switch (sort) {
-			case ContactListSort.FirstNameAsc:
-			default:
-				return { firstName: 'asc' };
-
-			case ContactListSort.LastNameAsc:
-				return { lastName: 'asc' };
+			case ContactListSort.NameAsc:
+			case undefined:
+				return { name: 'asc' };
 		}
 	}
 

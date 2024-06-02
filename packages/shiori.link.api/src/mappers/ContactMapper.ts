@@ -19,7 +19,6 @@ export function toContactDto(
 		id: contact.id,
 		createdAt: contact.createdAt.toISOString(),
 		user: userDto,
-		firstName: contact.firstName,
-		lastName: contact.lastName,
+		name: contact.name,
 	});
 }

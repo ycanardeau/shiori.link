@@ -88,12 +88,14 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
       ],
       "checks": [],
-      "foreignKeys": {}
+      "foreignKeys": {},
+      "nativeEnums": {}
     },
     {
       "columns": {
@@ -143,6 +145,7 @@
           ],
           "composite": false,
           "keyName": "notebooks_user_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -152,6 +155,7 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
@@ -170,7 +174,8 @@
           "referencedTableName": "users",
           "updateRule": "cascade"
         }
-      }
+      },
+      "nativeEnums": {}
     },
     {
       "columns": {
@@ -195,7 +200,7 @@
         },
         "type": {
           "name": "type",
-          "type": "enum('Bookmark', 'Markdown')",
+          "type": "enum('Bookmark','Markdown')",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
@@ -242,6 +247,7 @@
           ],
           "composite": false,
           "keyName": "notes_type_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -251,6 +257,7 @@
           ],
           "composite": false,
           "keyName": "notes_user_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -260,6 +267,7 @@
           ],
           "composite": false,
           "keyName": "notes_notebook_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -269,6 +277,7 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
@@ -299,7 +308,8 @@
           "referencedTableName": "notebooks",
           "updateRule": "cascade"
         }
-      }
+      },
+      "nativeEnums": {}
     },
     {
       "columns": {
@@ -358,6 +368,7 @@
           ],
           "composite": false,
           "keyName": "logins_user_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -367,6 +378,7 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
@@ -385,7 +397,8 @@
           "referencedTableName": "users",
           "updateRule": "cascade"
         }
-      }
+      },
+      "nativeEnums": {}
     },
     {
       "columns": {
@@ -509,6 +522,7 @@
           ],
           "composite": false,
           "keyName": "external_links_user_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -518,6 +532,7 @@
           ],
           "composite": false,
           "keyName": "external_links_discr_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -527,6 +542,7 @@
           ],
           "composite": false,
           "keyName": "external_links_note_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -536,6 +552,7 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
@@ -567,7 +584,8 @@
           "deleteRule": "set null",
           "updateRule": "cascade"
         }
-      }
+      },
+      "nativeEnums": {}
     },
     {
       "columns": {
@@ -599,17 +617,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "first_name": {
-          "name": "first_name",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "last_name": {
-          "name": "last_name",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -626,6 +635,7 @@
           ],
           "composite": false,
           "keyName": "contacts_user_id_index",
+          "constraint": false,
           "primary": false,
           "unique": false
         },
@@ -635,6 +645,7 @@
             "id"
           ],
           "composite": false,
+          "constraint": true,
           "primary": true,
           "unique": true
         }
@@ -653,7 +664,9 @@
           "referencedTableName": "users",
           "updateRule": "cascade"
         }
-      }
+      },
+      "nativeEnums": {}
     }
-  ]
+  ],
+  "nativeEnums": {}
 }

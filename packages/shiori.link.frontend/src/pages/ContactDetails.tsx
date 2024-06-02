@@ -16,7 +16,7 @@ const ContactDetailsPageTemplate = ({
 	return (
 		<>
 			<AppPageTemplateHeader
-				pageTitle={[contact.lastName, contact.firstName].join(' ')}
+				pageTitle={contact.name}
 				rightSideItems={[]}
 				breadcrumbs={[
 					{
@@ -24,7 +24,7 @@ const ContactDetailsPageTemplate = ({
 						text: 'Contacts' /* LOC */,
 					},
 					{
-						text: [contact.lastName, contact.firstName].join(' '),
+						text: contact.name,
 					},
 				]}
 			/>

@@ -26,16 +26,14 @@ export const ContactCreateModal = ({
 }: ContactCreateModalProps): ReactElement => {
 	const modalFormId = useGeneratedHtmlId({ prefix: 'modalForm' });
 
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
+	const [name, setName] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	const trimmedFirstName = firstName.trim();
-	const trimmedLastName = lastName.trim();
-	const canSave = trimmedFirstName.length > 0 || trimmedLastName.length > 0;
+	const trimmedName = name.trim();
+	const canSave = trimmedName.length > 0;
 
 	return (
-		<EuiModal onClose={onCancel} initialFocus="[name=firstName]">
+		<EuiModal onClose={onCancel} initialFocus="[name=name]">
 			<EuiModalHeader>
 				<EuiModalHeaderTitle>
 					Add contact{/* LOC */}
@@ -44,20 +42,11 @@ export const ContactCreateModal = ({
 
 			<EuiModalBody>
 				<EuiForm id={modalFormId} component="form">
-					<EuiFormRow label="First name" /* LOC */>
+					<EuiFormRow label="Name" /* LOC */>
 						<EuiFieldText
-							name="firstName"
-							value={firstName}
-							onChange={(e): void => setFirstName(e.target.value)}
-							disabled={isLoading}
-						/>
-					</EuiFormRow>
-
-					<EuiFormRow label="Last name" /* LOC */>
-						<EuiFieldText
-							name="lastName"
-							value={lastName}
-							onChange={(e): void => setLastName(e.target.value)}
+							name="name"
+							value={name}
+							onChange={(e): void => setName(e.target.value)}
 							disabled={isLoading}
 						/>
 					</EuiFormRow>
@@ -75,8 +64,7 @@ export const ContactCreateModal = ({
 						setIsLoading(true);
 
 						const result = await contactApi.create({
-							firstName: trimmedFirstName,
-							lastName: trimmedLastName,
+							name: trimmedName,
 						});
 						if (!result.ok) {
 							setIsLoading(false);
