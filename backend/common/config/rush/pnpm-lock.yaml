@@ -24,6 +24,9 @@ importers:
       '@mikro-orm/sql-highlighter':
         specifier: ^1.0.1
         version: 1.0.1
+      '@shiori.link/server.monolith.contracts':
+        specifier: workspace:*
+        version: link:../../modules/monolith/contracts
       ajv:
         specifier: ^8.12.0
         version: 8.16.0
@@ -147,6 +150,10 @@ importers:
         version: 1.6.0(@types/node@20.12.14)
 
   ../../modules/monolith/contracts:
+    dependencies:
+      ajv:
+        specifier: ~8.16.0
+        version: 8.16.0
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0

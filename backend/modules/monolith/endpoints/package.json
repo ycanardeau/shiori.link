@@ -2,6 +2,7 @@
 	"name": "@shiori.link/server.monolith.endpoints",
 	"version": "1.0.0",
 	"private": true,
+	"main": "dist/index.js",
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
 		"@types/node": "~20.12.12",

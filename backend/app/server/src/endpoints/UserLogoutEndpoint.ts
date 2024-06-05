@@ -1,9 +1,9 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import {
 	UserLogoutRequest,
 	UserLogoutRequestSchema,
-} from '@/models/requests/UserLogoutRequest';
-import { UserLogoutResponse } from '@/models/responses/UserLogoutResponse';
-import { Endpoint } from '@/endpoints/Endpoint';
+	UserLogoutResponse,
+} from '@shiori.link/server.monolith.contracts';
 import {
 	CookieAuthenticationDefaults,
 	IHttpContext,

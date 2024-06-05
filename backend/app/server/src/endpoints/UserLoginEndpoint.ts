@@ -1,16 +1,16 @@
+import { Endpoint } from '@/endpoints/Endpoint';
 import { Login } from '@/entities/Login';
 import { User } from '@/entities/User';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
+import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
+import { EntityManager } from '@mikro-orm/core';
 import {
 	UserLoginRequest,
 	UserLoginRequestSchema,
-} from '@/models/requests/UserLoginRequest';
-import { UserLoginResponse } from '@/models/responses/UserLoginResponse';
-import { Endpoint } from '@/endpoints/Endpoint';
-import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
-import { EntityManager } from '@mikro-orm/core';
+	UserLoginResponse,
+} from '@shiori.link/server.monolith.contracts';
 import {
 	AuthenticationProperties,
 	Claim,
@@ -44,7 +44,10 @@ export class UserLoginEndpoint extends Endpoint<
 		httpContext: IHttpContext,
 		request: UserLoginRequest,
 	): Promise<
-		Result<JsonResult<UserLoginResponse>, DataNotFoundError | UnauthorizedError>
+		Result<
+			JsonResult<UserLoginResponse>,
+			DataNotFoundError | UnauthorizedError
+		>
 	> {
 		const userResult = await this.em.transactional(async (em) => {
 			const realIp = httpContext.request.headers['x-real-ip'];
@@ -103,7 +106,10 @@ export class UserLoginEndpoint extends Endpoint<
 			undefined,
 		);
 
-		const authProperties = new AuthenticationProperties(undefined, undefined);
+		const authProperties = new AuthenticationProperties(
+			undefined,
+			undefined,
+		);
 
 		await signIn(
 			httpContext,
