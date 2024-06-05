@@ -4,13 +4,12 @@ import {
 	IEmailService,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.monolith.application';
+import { Endpoint, endpoints } from '@shiori.link/server.monolith.endpoints';
 import {
 	CurrentUserService,
 	EmailService,
-	Endpoint,
 	PasswordServiceFactory,
-	endpoints,
-} from '@shiori.link/server.monolith.endpoints';
+} from '@shiori.link/server.monolith.infrastructure';
 import {
 	ActionContext,
 	CookieAuthenticationDefaults,

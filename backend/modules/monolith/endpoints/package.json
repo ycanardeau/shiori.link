@@ -5,7 +5,6 @@
 	"main": "dist/index.js",
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
-		"@types/bcryptjs": "~2.4.6",
 		"@types/node": "~20.12.12",
 		"@typescript-eslint/eslint-plugin": "^7.6.0",
 		"@typescript-eslint/parser": "^7.6.0",
@@ -25,7 +24,6 @@
 		"@shiori.link/server.monolith.contracts": "workspace:*",
 		"@shiori.link/server.monolith.domain": "workspace:*",
 		"ajv": "~8.16.0",
-		"bcryptjs": "~2.4.3",
 		"yohira": "~0.0.0-alpha.53"
 	},
 	"scripts": {

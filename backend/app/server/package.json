@@ -29,6 +29,7 @@
 		"@shiori.link/server.monolith.contracts": "workspace:*",
 		"@shiori.link/server.monolith.domain": "workspace:*",
 		"@shiori.link/server.monolith.endpoints": "workspace:*",
+		"@shiori.link/server.monolith.infrastructure": "workspace:*",
 		"yohira": "latest"
 	},
 	"scripts": {
