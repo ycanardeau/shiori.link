@@ -15,12 +15,11 @@
 		"eslint-plugin-prettier": "^5.1.3",
 		"prettier": "^3.2.5",
 		"rimraf": "~5.0.7",
-		"tsc-alias": "^1.7.1",
 		"typescript": "^5.4.5",
 		"vitest": "~1.6.0"
 	},
 	"dependencies": {},
 	"scripts": {
-		"build": "rimraf ./dist && tsc && tsc-alias"
+		"build": "rimraf ./dist && tsc"
 	}
 }

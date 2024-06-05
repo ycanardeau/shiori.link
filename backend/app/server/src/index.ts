@@ -1,4 +1,3 @@
-import config from '@/mikro-orm.config';
 import { MikroORM } from '@mikro-orm/core';
 import {
 	ICurrentUserService,
@@ -38,6 +37,8 @@ import {
 	useRouting,
 	write,
 } from 'yohira';
+
+import config from './mikro-orm.config';
 
 async function main(): Promise<void> {
 	// TODO: remove

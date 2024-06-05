@@ -37,9 +37,8 @@
 		"yohira": "latest"
 	},
 	"scripts": {
-		"clean": "rimraf ./dist",
-		"build": "pnpm clean && tsc && tsc-alias",
-		"build:watch": "pnpm clean && tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+		"build": "rimraf ./dist && tsc && tsc-alias",
+		"build:watch": "rimraf ./dist && tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
 		"start": "node dist/index.js"
 	},
 	"mikro-orm": {

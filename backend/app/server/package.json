@@ -6,9 +6,6 @@
 		"@mikro-orm/cli": "^6.2.4",
 		"@mikro-orm/migrations": "^6.2.4",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
-		"@types/bcryptjs": "^2.4.6",
-		"@types/lodash-es": "^4.17.6",
-		"@types/qs": "^6.9.7",
 		"@typescript-eslint/eslint-plugin": "^7.6.0",
 		"@typescript-eslint/parser": "^7.6.0",
 		"concurrently": "^8.2.2",
@@ -20,7 +17,6 @@
 		"prettier": "^3.2.5",
 		"rimraf": "~5.0.7",
 		"ts-node": "^10.9.1",
-		"tsc-alias": "^1.7.1",
 		"typescript": "^5.4.5",
 		"vitest": "~1.6.0"
 	},
@@ -33,16 +29,11 @@
 		"@shiori.link/server.monolith.contracts": "workspace:*",
 		"@shiori.link/server.monolith.domain": "workspace:*",
 		"@shiori.link/server.monolith.endpoints": "workspace:*",
-		"ajv": "^8.12.0",
-		"bcryptjs": "^2.4.3",
-		"lodash-es": "^4.17.21",
-		"qs": "^6.11.2",
 		"yohira": "latest"
 	},
 	"scripts": {
-		"clean": "rimraf ./dist",
-		"build": "pnpm clean && tsc && tsc-alias",
-		"build:watch": "pnpm clean && tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+		"build": "rimraf ./dist && tsc",
+		"build:watch": "rimraf ./dist && tsc && (concurrently \"tsc -w\")",
 		"start": "node dist/index.js"
 	},
 	"mikro-orm": {
