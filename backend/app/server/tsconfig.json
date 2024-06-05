@@ -8,6 +8,9 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"baseUrl": "./",
+		"paths": {
+			"@/*": ["src/*"]
+		},
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"declaration": true
