@@ -1,11 +1,9 @@
+import {
+	IPasswordService,
+	IPasswordServiceFactory,
+} from '@shiori.link/server.monolith.application';
 import { PasswordHashAlgorithm } from '@shiori.link/server.monolith.domain';
 import { genSalt, hash } from 'bcryptjs';
-
-interface IPasswordService {
-	readonly algorithm: PasswordHashAlgorithm;
-	generateSalt(): Promise<string>;
-	hashPassword(password: string, salt: string): Promise<string>;
-}
 
 class BcryptPasswordService implements IPasswordService {
 	readonly algorithm = PasswordHashAlgorithm.Bcrypt;
@@ -22,12 +20,6 @@ class BcryptPasswordService implements IPasswordService {
 
 		return hash(password, salt);
 	}
-}
-
-export const IPasswordServiceFactory = Symbol.for('IPasswordServiceFactory');
-export interface IPasswordServiceFactory {
-	readonly default: IPasswordService;
-	create(algorithm: PasswordHashAlgorithm): IPasswordService;
 }
 
 export class PasswordServiceFactory implements IPasswordServiceFactory {

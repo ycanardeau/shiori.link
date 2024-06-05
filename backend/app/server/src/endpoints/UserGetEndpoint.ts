@@ -2,7 +2,7 @@ import { Endpoint } from '@/endpoints/Endpoint';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
-import { ICurrentUserService } from '@/services/CurrentUserService';
+import { ICurrentUserService } from '@shiori.link/server.monolith.application';
 import {
 	UserGetRequest,
 	UserGetRequestSchema,

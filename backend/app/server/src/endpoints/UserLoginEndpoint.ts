@@ -2,8 +2,8 @@ import { Endpoint } from '@/endpoints/Endpoint';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
-import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { EntityManager } from '@mikro-orm/core';
+import { IPasswordServiceFactory } from '@shiori.link/server.monolith.application';
 import {
 	UserLoginRequest,
 	UserLoginRequestSchema,

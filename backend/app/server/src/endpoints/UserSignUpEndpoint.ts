@@ -1,8 +1,10 @@
 import { Endpoint } from '@/endpoints/Endpoint';
 import { toUserDto } from '@/mappers/UserMapper';
-import { IEmailService } from '@/services/EmailService';
-import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { EntityManager } from '@mikro-orm/core';
+import {
+	IEmailService,
+	IPasswordServiceFactory,
+} from '@shiori.link/server.monolith.application';
 import {
 	UserSignUpRequest,
 	UserSignUpRequestSchema,

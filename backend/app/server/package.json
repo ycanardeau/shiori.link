@@ -29,6 +29,7 @@
 		"@mikro-orm/mysql": "^6.2.4",
 		"@mikro-orm/reflection": "^6.2.4",
 		"@mikro-orm/sql-highlighter": "^1.0.1",
+		"@shiori.link/server.monolith.application": "workspace:*",
 		"@shiori.link/server.monolith.contracts": "workspace:*",
 		"@shiori.link/server.monolith.domain": "workspace:*",
 		"ajv": "^8.12.0",

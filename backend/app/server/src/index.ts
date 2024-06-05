@@ -1,16 +1,15 @@
-import config from '@/mikro-orm.config';
-import { Endpoint } from '@/endpoints/Endpoint';
 import { endpoints } from '@/endpoints';
-import {
-	CurrentUserService,
-	ICurrentUserService,
-} from '@/services/CurrentUserService';
-import { EmailService, IEmailService } from '@/services/EmailService';
-import {
-	IPasswordServiceFactory,
-	PasswordServiceFactory,
-} from '@/services/PasswordServiceFactory';
+import { Endpoint } from '@/endpoints/Endpoint';
+import config from '@/mikro-orm.config';
+import { CurrentUserService } from '@/services/CurrentUserService';
+import { EmailService } from '@/services/EmailService';
+import { PasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { MikroORM } from '@mikro-orm/core';
+import {
+	ICurrentUserService,
+	IEmailService,
+	IPasswordServiceFactory,
+} from '@shiori.link/server.monolith.application';
 import {
 	ActionContext,
 	CookieAuthenticationDefaults,
@@ -107,13 +106,17 @@ async function main(): Promise<void> {
 				);
 
 				if (handleResult.ok) {
-					await handleResult.val.executeResult(new ActionContext(httpContext));
+					await handleResult.val.executeResult(
+						new ActionContext(httpContext),
+					);
 				} else {
-					httpContext.response.statusCode = StatusCodes.Status400BadRequest;
+					httpContext.response.statusCode =
+						StatusCodes.Status400BadRequest;
 					await write(httpContext.response, handleResult.val.message);
 				}
 			} else {
-				httpContext.response.statusCode = StatusCodes.Status400BadRequest;
+				httpContext.response.statusCode =
+					StatusCodes.Status400BadRequest;
 				await write(httpContext.response, '' /* TODO */);
 			}
 		};
