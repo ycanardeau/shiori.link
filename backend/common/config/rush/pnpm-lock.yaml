@@ -33,6 +33,9 @@ importers:
       '@shiori.link/server.monolith.domain':
         specifier: workspace:*
         version: link:../../modules/monolith/domain
+      '@shiori.link/server.monolith.endpoints':
+        specifier: workspace:*
+        version: link:../../modules/monolith/endpoints
       ajv:
         specifier: ^8.12.0
         version: 8.16.0
@@ -261,10 +264,35 @@ importers:
         version: 1.6.0(@types/node@20.12.14)
 
   ../../modules/monolith/endpoints:
+    dependencies:
+      '@mikro-orm/core':
+        specifier: ~6.2.9
+        version: 6.2.9
+      '@shiori.link/server.monolith.application':
+        specifier: workspace:*
+        version: link:../application
+      '@shiori.link/server.monolith.contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@shiori.link/server.monolith.domain':
+        specifier: workspace:*
+        version: link:../domain
+      ajv:
+        specifier: ~8.16.0
+        version: 8.16.0
+      bcryptjs:
+        specifier: ~2.4.3
+        version: 2.4.3
+      yohira:
+        specifier: ~0.0.0-alpha.53
+        version: 0.0.0-alpha.53
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(prettier@3.3.1)
+      '@types/bcryptjs':
+        specifier: ~2.4.6
+        version: 2.4.6
       '@types/node':
         specifier: ~20.12.12
         version: 20.12.14

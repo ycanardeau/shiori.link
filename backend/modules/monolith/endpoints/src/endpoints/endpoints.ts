@@ -1,9 +1,10 @@
-import { Endpoint } from '@/endpoints/Endpoint';
-import { UserGetEndpoint } from '@/endpoints/UserGetEndpoint';
-import { UserLoginEndpoint } from '@/endpoints/UserLoginEndpoint';
-import { UserLogoutEndpoint } from '@/endpoints/UserLogoutEndpoint';
-import { UserSignUpEndpoint } from '@/endpoints/UserSignUpEndpoint';
 import { Ctor } from 'yohira';
+
+import { Endpoint } from './Endpoint';
+import { UserGetEndpoint } from './UserGetEndpoint';
+import { UserLoginEndpoint } from './UserLoginEndpoint';
+import { UserLogoutEndpoint } from './UserLogoutEndpoint';
+import { UserSignUpEndpoint } from './UserSignUpEndpoint';
 
 export interface EndpointDescriptor {
 	method: 'GET' | 'POST';

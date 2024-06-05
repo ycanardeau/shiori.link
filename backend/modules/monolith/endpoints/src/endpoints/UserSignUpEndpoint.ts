@@ -1,5 +1,3 @@
-import { Endpoint } from '@/endpoints/Endpoint';
-import { toUserDto } from '@/mappers/UserMapper';
 import { EntityManager } from '@mikro-orm/core';
 import {
 	IEmailService,
@@ -12,6 +10,9 @@ import {
 } from '@shiori.link/server.monolith.contracts';
 import { User } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
+
+import { toUserDto } from '../mappers/UserMapper';
+import { Endpoint } from './Endpoint';
 
 export class UserSignUpEndpoint extends Endpoint<
 	UserSignUpRequest,

@@ -1,4 +1,3 @@
-import { Endpoint } from '@/endpoints/Endpoint';
 import {
 	UserLogoutRequest,
 	UserLogoutRequestSchema,
@@ -12,6 +11,8 @@ import {
 	Result,
 	signOut,
 } from 'yohira';
+
+import { Endpoint } from './Endpoint';
 
 export class UserLogoutEndpoint extends Endpoint<
 	UserLogoutRequest,

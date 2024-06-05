@@ -1,7 +1,3 @@
-import { Endpoint } from '@/endpoints/Endpoint';
-import { DataNotFoundError } from '@/errors/DataNotFoundError';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { toUserDto } from '@/mappers/UserMapper';
 import { EntityManager } from '@mikro-orm/core';
 import { IPasswordServiceFactory } from '@shiori.link/server.monolith.application';
 import {
@@ -25,6 +21,11 @@ import {
 	inject,
 	signIn,
 } from 'yohira';
+
+import { DataNotFoundError } from '../errors/DataNotFoundError';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
+import { toUserDto } from '../mappers/UserMapper';
+import { Endpoint } from './Endpoint';
 
 export class UserLoginEndpoint extends Endpoint<
 	UserLoginRequest,

@@ -1,7 +1,3 @@
-import { Endpoint } from '@/endpoints/Endpoint';
-import { DataNotFoundError } from '@/errors/DataNotFoundError';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { toUserDto } from '@/mappers/UserMapper';
 import { ICurrentUserService } from '@shiori.link/server.monolith.application';
 import {
 	UserGetRequest,
@@ -9,6 +5,11 @@ import {
 	UserGetResponse,
 } from '@shiori.link/server.monolith.contracts';
 import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
+
+import { DataNotFoundError } from '../errors/DataNotFoundError';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
+import { toUserDto } from '../mappers/UserMapper';
+import { Endpoint } from './Endpoint';
 
 export class UserGetEndpoint extends Endpoint<UserGetRequest, UserGetResponse> {
 	constructor(

@@ -1,15 +1,17 @@
-import { endpoints } from '@/endpoints';
-import { Endpoint } from '@/endpoints/Endpoint';
 import config from '@/mikro-orm.config';
-import { CurrentUserService } from '@/services/CurrentUserService';
-import { EmailService } from '@/services/EmailService';
-import { PasswordServiceFactory } from '@/services/PasswordServiceFactory';
 import { MikroORM } from '@mikro-orm/core';
 import {
 	ICurrentUserService,
 	IEmailService,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.monolith.application';
+import {
+	CurrentUserService,
+	EmailService,
+	Endpoint,
+	PasswordServiceFactory,
+	endpoints,
+} from '@shiori.link/server.monolith.endpoints';
 import {
 	ActionContext,
 	CookieAuthenticationDefaults,
