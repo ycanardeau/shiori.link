@@ -1,5 +1,5 @@
-import { User } from '@/entities/User';
 import { EntityManager } from '@mikro-orm/core';
+import { User } from '@shiori.link/server.monolith.domain';
 import { ClaimsIdentity, IHttpContext, inject } from 'yohira';
 
 export const ICurrentUserService = Symbol.for('ICurrentUserService');

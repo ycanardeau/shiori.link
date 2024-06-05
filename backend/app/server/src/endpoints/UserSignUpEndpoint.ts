@@ -1,5 +1,4 @@
 import { Endpoint } from '@/endpoints/Endpoint';
-import { User } from '@/entities/User';
 import { toUserDto } from '@/mappers/UserMapper';
 import { IEmailService } from '@/services/EmailService';
 import { IPasswordServiceFactory } from '@/services/PasswordServiceFactory';
@@ -9,6 +8,7 @@ import {
 	UserSignUpRequestSchema,
 	UserSignUpResponse,
 } from '@shiori.link/server.monolith.contracts';
+import { User } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
 export class UserSignUpEndpoint extends Endpoint<

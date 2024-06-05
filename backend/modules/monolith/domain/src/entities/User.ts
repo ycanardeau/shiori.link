@@ -1,4 +1,3 @@
-import { Login } from '@/entities/Login';
 import {
 	Collection,
 	Entity,
@@ -9,6 +8,8 @@ import {
 	Ref,
 } from '@mikro-orm/core';
 import { createHash } from 'node:crypto';
+
+import { Login } from './Login';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',

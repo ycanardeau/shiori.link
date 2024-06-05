@@ -1,4 +1,4 @@
-import { PasswordHashAlgorithm } from '@/entities/User';
+import { PasswordHashAlgorithm } from '@shiori.link/server.monolith.domain';
 import { genSalt, hash } from 'bcryptjs';
 
 interface IPasswordService {

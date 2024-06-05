@@ -1,6 +1,4 @@
 import { Endpoint } from '@/endpoints/Endpoint';
-import { Login } from '@/entities/Login';
-import { User } from '@/entities/User';
 import { DataNotFoundError } from '@/errors/DataNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { toUserDto } from '@/mappers/UserMapper';
@@ -11,6 +9,7 @@ import {
 	UserLoginRequestSchema,
 	UserLoginResponse,
 } from '@shiori.link/server.monolith.contracts';
+import { Login, User } from '@shiori.link/server.monolith.domain';
 import {
 	AuthenticationProperties,
 	Claim,

@@ -1,4 +1,3 @@
-import { IUserOwnedEntity, User } from '@/entities/User';
 import {
 	Entity,
 	ManyToOne,
@@ -7,6 +6,8 @@ import {
 	Ref,
 	ref,
 } from '@mikro-orm/core';
+
+import { IUserOwnedEntity, User } from './User';
 
 @Entity({ tableName: 'logins' })
 export class Login implements IUserOwnedEntity {
