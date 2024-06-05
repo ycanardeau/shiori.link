@@ -18,7 +18,11 @@
 		"typescript": "^5.4.5",
 		"vitest": "~1.6.0"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@shiori.link/server.monolith.endpoints": "workspace:*",
+		"@shiori.link/server.monolith.infrastructure": "workspace:*",
+		"yohira": "~0.0.0-alpha.53"
+	},
 	"scripts": {
 		"build": "rimraf ./dist && tsc"
 	}

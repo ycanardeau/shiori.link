@@ -1,40 +1,25 @@
 import { MikroORM } from '@mikro-orm/core';
 import {
-	ICurrentUserService,
-	IEmailService,
-	IPasswordServiceFactory,
-} from '@shiori.link/server.monolith.application';
-import { Endpoint, endpoints } from '@shiori.link/server.monolith.endpoints';
+	addModule as addMonolithModule,
+	useModule as useMonolithModule,
+} from '@shiori.link/server.monolith.module';
 import {
-	CurrentUserService,
-	EmailService,
-	PasswordServiceFactory,
-} from '@shiori.link/server.monolith.infrastructure';
-import {
-	ActionContext,
 	CookieAuthenticationDefaults,
 	Envs,
-	IHttpContext,
-	StatusCodes,
 	WebAppOptions,
 	addAuthentication,
 	addCookie,
 	addMvcCoreServices,
 	addRouting,
 	addScopedFactory,
-	addSingletonCtor,
 	addSingletonFactory,
-	addTransientCtor,
 	createWebAppBuilder,
 	getRequiredService,
 	isDevelopment,
-	mapGet,
-	mapPost,
 	useAuthentication,
 	useEndpoints,
 	useErrorHandler,
 	useRouting,
-	write,
 } from 'yohira';
 
 import config from './mikro-orm.config';
@@ -67,14 +52,7 @@ async function main(): Promise<void> {
 		).em.fork(),
 	);
 
-	addSingletonCtor(services, IEmailService, EmailService);
-	addSingletonCtor(services, IPasswordServiceFactory, PasswordServiceFactory);
-
-	addTransientCtor(services, ICurrentUserService, CurrentUserService);
-
-	for (const { serviceType, implType } of endpoints) {
-		addTransientCtor(services, serviceType, implType);
-	}
+	addMonolithModule(services);
 
 	addMvcCoreServices(services);
 
@@ -88,51 +66,7 @@ async function main(): Promise<void> {
 
 	useRouting(app);
 
-	for (const descriptor of endpoints) {
-		const requestDelegate = async (
-			httpContext: IHttpContext,
-		): Promise<void> => {
-			const endpoint = getRequiredService<Endpoint<unknown, unknown>>(
-				httpContext.requestServices,
-				descriptor.serviceType,
-			);
-
-			const parseHttpRequestResult = endpoint.parseHttpRequest(
-				httpContext.request,
-			);
-
-			if (parseHttpRequestResult.ok) {
-				const handleResult = await endpoint.handle(
-					httpContext,
-					parseHttpRequestResult.val,
-				);
-
-				if (handleResult.ok) {
-					await handleResult.val.executeResult(
-						new ActionContext(httpContext),
-					);
-				} else {
-					httpContext.response.statusCode =
-						StatusCodes.Status400BadRequest;
-					await write(httpContext.response, handleResult.val.message);
-				}
-			} else {
-				httpContext.response.statusCode =
-					StatusCodes.Status400BadRequest;
-				await write(httpContext.response, '' /* TODO */);
-			}
-		};
-
-		switch (descriptor.method) {
-			case 'GET':
-				mapGet(app, descriptor.endpoint, requestDelegate);
-				break;
-
-			case 'POST':
-				mapPost(app, descriptor.endpoint, requestDelegate);
-				break;
-		}
-	}
+	useMonolithModule(app);
 
 	useEndpoints(app, () => {});
 

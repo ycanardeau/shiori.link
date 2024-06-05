@@ -15,11 +15,11 @@ export default defineConfig({
 	},
 	entities: [
 		// FIXME: Replace domain with infrastructure.
-		'./node_modules/@shiori.link/server.monolith.domain/dist/entities',
+		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/node_modules/@shiori.link/server.monolith.domain/dist/entities',
 	],
 	entitiesTs: [
 		// FIXME: Replace domain with infrastructure.
-		'./node_modules/@shiori.link/server.monolith.domain/src/entities',
+		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/node_modules/@shiori.link/server.monolith.domain/src/entities',
 	],
 	forceUndefined: true,
 	forceUtcTimezone: true,

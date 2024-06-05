@@ -25,11 +25,7 @@
 		"@mikro-orm/mysql": "^6.2.4",
 		"@mikro-orm/reflection": "^6.2.4",
 		"@mikro-orm/sql-highlighter": "^1.0.1",
-		"@shiori.link/server.monolith.application": "workspace:*",
-		"@shiori.link/server.monolith.contracts": "workspace:*",
-		"@shiori.link/server.monolith.domain": "workspace:*",
-		"@shiori.link/server.monolith.endpoints": "workspace:*",
-		"@shiori.link/server.monolith.infrastructure": "workspace:*",
+		"@shiori.link/server.monolith.module": "workspace:*",
 		"yohira": "latest"
 	},
 	"scripts": {

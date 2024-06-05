@@ -24,21 +24,9 @@ importers:
       '@mikro-orm/sql-highlighter':
         specifier: ^1.0.1
         version: 1.0.1
-      '@shiori.link/server.monolith.application':
+      '@shiori.link/server.monolith.module':
         specifier: workspace:*
-        version: link:../../modules/monolith/application
-      '@shiori.link/server.monolith.contracts':
-        specifier: workspace:*
-        version: link:../../modules/monolith/contracts
-      '@shiori.link/server.monolith.domain':
-        specifier: workspace:*
-        version: link:../../modules/monolith/domain
-      '@shiori.link/server.monolith.endpoints':
-        specifier: workspace:*
-        version: link:../../modules/monolith/endpoints
-      '@shiori.link/server.monolith.infrastructure':
-        specifier: workspace:*
-        version: link:../../modules/monolith/infrastructure
+        version: link:../../modules/monolith/module
       yohira:
         specifier: latest
         version: 0.0.0-alpha.53
@@ -356,6 +344,16 @@ importers:
         version: 1.6.0(@types/node@20.12.14)
 
   ../../modules/monolith/module:
+    dependencies:
+      '@shiori.link/server.monolith.endpoints':
+        specifier: workspace:*
+        version: link:../endpoints
+      '@shiori.link/server.monolith.infrastructure':
+        specifier: workspace:*
+        version: link:../infrastructure
+      yohira:
+        specifier: ~0.0.0-alpha.53
+        version: 0.0.0-alpha.53
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0

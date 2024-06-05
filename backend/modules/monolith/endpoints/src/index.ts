@@ -1,2 +1,1 @@
-export * from './endpoints/Endpoint';
-export * from './endpoints/endpoints';
+export * from './ServiceExtensions';
