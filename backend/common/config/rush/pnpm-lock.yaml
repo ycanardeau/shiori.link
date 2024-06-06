@@ -10,7 +10,7 @@ importers:
 
   .: {}
 
-  ../../app/server:
+  ../../apps/server:
     dependencies:
       '@mikro-orm/core':
         specifier: ^6.2.4

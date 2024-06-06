@@ -411,7 +411,7 @@
     // }
     {
       "packageName": "@shiori.link/server",
-      "projectFolder": "app/server"
+      "projectFolder": "apps/server"
     },
     {
       "packageName": "@shiori.link/server.monolith.application",
