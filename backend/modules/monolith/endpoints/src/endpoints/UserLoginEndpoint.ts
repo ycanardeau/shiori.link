@@ -75,9 +75,7 @@ export class UserLoginEndpoint extends Endpoint<
 
 			const success = passwordHash === user.passwordHash;
 
-			const login = new Login(user, realIp, success);
-
-			em.persist(login);
+			user.logins.add(new Login(user, realIp, success));
 
 			return success ? new Ok(user) : new Err(new UnauthorizedError());
 		});

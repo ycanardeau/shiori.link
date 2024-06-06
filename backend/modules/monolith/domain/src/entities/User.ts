@@ -1,48 +1,20 @@
-import {
-	Collection,
-	Entity,
-	Enum,
-	OneToMany,
-	PrimaryKey,
-	Property,
-	Ref,
-} from '@mikro-orm/core';
-import { createHash } from 'node:crypto';
-
-import { Login } from './Login';
+import { Collection, Ref } from '@mikro-orm/core';
+import { Login } from 'src/entities/Login';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',
 }
 
-@Entity({ tableName: 'users' })
 export class User {
-	@PrimaryKey()
 	id!: number;
-
-	@Property()
 	createdAt = new Date();
-
-	@Property()
 	username: string;
-
-	@Property()
 	email: string;
-
-	@Property()
 	normalizedEmail: string;
-
-	@Enum(() => PasswordHashAlgorithm)
 	passwordHashAlgorithm: PasswordHashAlgorithm;
-
-	@Property()
 	salt: string;
-
-	@Property()
 	passwordHash: string;
-
-	@OneToMany(() => Login, (login) => login.user)
-	logins = new Collection(this);
+	logins = new Collection<Login>(this);
 
 	constructor({
 		username,
@@ -65,13 +37,6 @@ export class User {
 		this.passwordHashAlgorithm = passwordHashAlgorithm;
 		this.salt = salt;
 		this.passwordHash = passwordHash;
-	}
-
-	get avatarUrl(): string {
-		const hash = createHash('md5')
-			.update(this.email.trim().toLowerCase())
-			.digest('hex');
-		return `https://www.gravatar.com/avatar/${hash}`;
 	}
 }
 

@@ -1,8 +1,17 @@
 import { UserDto } from '@shiori.link/server.monolith.contracts';
 import { User } from '@shiori.link/server.monolith.domain';
+import { createHash } from 'node:crypto';
 import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
+
+function getAvatarUrl(email: string): string {
+	const hash = createHash('md5')
+		.update(email.trim().toLowerCase())
+		.digest('hex');
+
+	return `https://www.gravatar.com/avatar/${hash}`;
+}
 
 export function toUserDto(user: User): Result<UserDto, DataNotFoundError> {
 	return new Ok({
@@ -10,6 +19,6 @@ export function toUserDto(user: User): Result<UserDto, DataNotFoundError> {
 		id: user.id,
 		createdAt: user.createdAt.toISOString(),
 		username: user.username,
-		avatarUrl: user.avatarUrl,
+		avatarUrl: getAvatarUrl(user.email),
 	});
 }

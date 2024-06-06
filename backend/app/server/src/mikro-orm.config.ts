@@ -14,12 +14,10 @@ export default defineConfig({
 		disableForeignKeys: false,
 	},
 	entities: [
-		// FIXME: Replace domain with infrastructure.
-		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/node_modules/@shiori.link/server.monolith.domain/dist/entities',
+		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/dist/persistence/schemas',
 	],
 	entitiesTs: [
-		// FIXME: Replace domain with infrastructure.
-		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/node_modules/@shiori.link/server.monolith.domain/src/entities',
+		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/src/persistence/schemas',
 	],
 	forceUndefined: true,
 	forceUtcTimezone: true,
