@@ -3,6 +3,7 @@ import { Login, User } from '@shiori.link/server.monolith.domain';
 
 export const LoginSchema = new EntitySchema<Login>({
 	class: Login,
+	schema: 'monolith',
 	tableName: 'logins',
 	properties: {
 		id: {

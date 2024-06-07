@@ -7,6 +7,7 @@ import {
 
 export const UserSchema = new EntitySchema<User>({
 	class: User,
+	schema: 'monolith',
 	tableName: 'users',
 	properties: {
 		id: {
