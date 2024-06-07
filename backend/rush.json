@@ -414,6 +414,30 @@
       "projectFolder": "apps/server"
     },
     {
+      "packageName": "@shiori.link/server.module1.application",
+      "projectFolder": "modules/module1/application"
+    },
+    {
+      "packageName": "@shiori.link/server.module1.contracts",
+      "projectFolder": "modules/module1/contracts"
+    },
+    {
+      "packageName": "@shiori.link/server.module1.domain",
+      "projectFolder": "modules/module1/domain"
+    },
+    {
+      "packageName": "@shiori.link/server.module1.endpoints",
+      "projectFolder": "modules/module1/endpoints"
+    },
+    {
+      "packageName": "@shiori.link/server.module1.infrastructure",
+      "projectFolder": "modules/module1/infrastructure"
+    },
+    {
+      "packageName": "@shiori.link/server.module1.module",
+      "projectFolder": "modules/module1/module"
+    },
+    {
       "packageName": "@shiori.link/server.monolith.application",
       "projectFolder": "modules/monolith/application"
     },
