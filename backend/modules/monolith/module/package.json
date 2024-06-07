@@ -21,7 +21,7 @@
 	"dependencies": {
 		"@shiori.link/server.monolith.endpoints": "workspace:*",
 		"@shiori.link/server.monolith.infrastructure": "workspace:*",
-		"yohira": "~0.0.0-alpha.53"
+		"@yohira/app": "~0.0.0-alpha.56"
 	},
 	"scripts": {
 		"build": "rimraf ./dist && tsc"

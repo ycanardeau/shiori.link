@@ -1,5 +1,5 @@
 import { User } from '@shiori.link/server.monolith.domain';
-import { IHttpContext } from 'yohira';
+import { IHttpContext } from '@yohira/app';
 
 export const ICurrentUserService = Symbol.for('ICurrentUserService');
 export interface ICurrentUserService {

@@ -3,7 +3,11 @@ import {
 	IEmailService,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.monolith.application';
-import { IServiceCollection, addSingletonCtor, addTransientCtor } from 'yohira';
+import {
+	IServiceCollection,
+	addSingletonCtor,
+	addTransientCtor,
+} from '@yohira/app';
 
 import { CurrentUserService } from './services/CurrentUserService';
 import { EmailService } from './services/EmailService';

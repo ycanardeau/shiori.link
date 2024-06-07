@@ -1,5 +1,3 @@
-import { JSONSchemaType, ValidateFunction } from 'ajv';
-import Ajv from 'ajv';
 import {
 	Err,
 	IActionResult,
@@ -7,7 +5,9 @@ import {
 	IHttpRequest,
 	Ok,
 	Result,
-} from 'yohira';
+} from '@yohira/app';
+import { JSONSchemaType, ValidateFunction } from 'ajv';
+import Ajv from 'ajv';
 
 const ajv = new Ajv({
 	coerceTypes: true,
@@ -62,7 +62,9 @@ export abstract class Endpoint<TRequest, TResponse> {
 				case 'GET':
 					return JSON.stringify(
 						Object.fromEntries(
-							new URLSearchParams(httpRequest.queryString.toString()),
+							new URLSearchParams(
+								httpRequest.queryString.toString(),
+							),
 						),
 					);
 

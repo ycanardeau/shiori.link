@@ -20,7 +20,7 @@ import {
 	useEndpoints,
 	useErrorHandler,
 	useRouting,
-} from 'yohira';
+} from '@yohira/app';
 
 import config from './mikro-orm.config';
 

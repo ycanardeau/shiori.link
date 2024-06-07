@@ -27,9 +27,9 @@ importers:
       '@shiori.link/server.monolith.module':
         specifier: workspace:*
         version: link:../../modules/monolith/module
-      yohira:
-        specifier: latest
-        version: 0.0.0-alpha.53
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
     devDependencies:
       '@mikro-orm/cli':
         specifier: ^6.2.4
@@ -85,9 +85,9 @@ importers:
       '@shiori.link/server.monolith.domain':
         specifier: workspace:*
         version: link:../domain
-      yohira:
-        specifier: ~0.0.0-alpha.53
-        version: 0.0.0-alpha.53
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
@@ -235,12 +235,12 @@ importers:
       '@shiori.link/server.monolith.domain':
         specifier: workspace:*
         version: link:../domain
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
       ajv:
         specifier: ~8.16.0
         version: 8.16.0
-      yohira:
-        specifier: ~0.0.0-alpha.53
-        version: 0.0.0-alpha.53
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
@@ -293,12 +293,12 @@ importers:
       '@shiori.link/server.monolith.domain':
         specifier: workspace:*
         version: link:../domain
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
       bcryptjs:
         specifier: ~2.4.3
         version: 2.4.3
-      yohira:
-        specifier: ~0.0.0-alpha.53
-        version: 0.0.0-alpha.53
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
@@ -351,9 +351,9 @@ importers:
       '@shiori.link/server.monolith.infrastructure':
         specifier: workspace:*
         version: link:../infrastructure
-      yohira:
-        specifier: ~0.0.0-alpha.53
-        version: 0.0.0-alpha.53
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
@@ -964,6 +964,171 @@ packages:
 
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
+
+  '@yohira/antiforgery@0.0.0-alpha.56':
+    resolution: {integrity: sha512-y4bgwR1kNUI/bG4VzHMS8Ufbs2mILV10ZyxVeH8PW8A09qbu4VGx30hcuTCsSgaimmyvDlqEKsh5EV84fdvs7w==}
+
+  '@yohira/app@0.0.0-alpha.56':
+    resolution: {integrity: sha512-TCVsurW0QJXsq+d0U/E2tbD5Nnr4srRfj5W7NQfV6NUnNcjEO9yMA7qUMy9WsFplR/4O47sBIVmUpBj5dmQBQg==}
+
+  '@yohira/authentication.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-FHcDRxWEql7AE8Ps6VwUFFqNTEriOaVwnb2etFAGeRv2n2GpcykQadNDBSuHAFrWrOF7ePfAqlwDMyL3A5KVKw==}
+
+  '@yohira/authentication.cookies@0.0.0-alpha.56':
+    resolution: {integrity: sha512-luJX2AoLLXo6OEacwQjDUB45iahp8g/5/q9021JNuANzkCQRm40Y8ko9qZyOLfDCOCboGA/lrv4RALW++ySbEQ==}
+
+  '@yohira/authentication.core@0.0.0-alpha.56':
+    resolution: {integrity: sha512-uvxJG0Vg2Kjti93o2lyf/0CjIhq2ayTP4wh0WZSiapKtyVh5xuJQNvrHIEYTlbkZYtPFD4F70fPU6qDAdmTQ5Q==}
+
+  '@yohira/authentication@0.0.0-alpha.56':
+    resolution: {integrity: sha512-7iyHd/jNugT830qcvAbdMgFOvzMTdvfeU+HXPyK6L1Y2SieVE+7sMwFe99ppB3IndNPdhN4SkBjQyLQspsbPPg==}
+
+  '@yohira/base@0.0.0-alpha.56':
+    resolution: {integrity: sha512-ZRMMoiyRS4IMgFEro5UQGjhVpjGr5CoBzZN18T3PCcAc1bgx7xti3b6TBC0kRafnk/d5XdHmXOLkKditVCa2cA==}
+
+  '@yohira/core@0.0.0-alpha.56':
+    resolution: {integrity: sha512-oxyL3mc9liIUAwkpHmldl5feqgijnjJ3Ypf2MAoFS1kl/Udx8A+CB647l7Z1nvJax6DSf2Q7+XHwYJwSp8S7uQ==}
+
+  '@yohira/cryptography@0.0.0-alpha.56':
+    resolution: {integrity: sha512-PY04seVGKfDCfRZlfjxIRJmMknKpsVcGn3RXQWcFN5Tq7H1Bta0lYj7kCyLq0xpXm/0N3suIP2C89M9A1B1DYg==}
+
+  '@yohira/data-protection.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-wxfQxLEScofF/64c8wluuaV+sQFm4WClubCzCtz+tuR0kdpptFqnruiZHAhz/pGNCSVpS+XtWFKLQJPmfwCgJA==}
+
+  '@yohira/data-protection@0.0.0-alpha.56':
+    resolution: {integrity: sha512-w72fYZQ3KWXLqIdjLsWit6Al8eikbCiqPTMl35DeaAAMiicR/xXWuzz6ekNZ4CQUXeSS7a1tDNHC/dHyBu2HVw==}
+
+  '@yohira/diagnostics@0.0.0-alpha.56':
+    resolution: {integrity: sha512-OYfT66uYdzYE/wx09l4RDf1ba1xYPxAv7xLEFzuoZyzKdTzlh5QHXpJ0DmDOBVnmiZQpqOKJsZILkfvqay4XIw==}
+
+  '@yohira/extensions.caching.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-7gZHLNgSUYpLJlHy8smJ39J7iAA8kzIDcYmqv2/6xy16r59jNknqc5EhRaIE5h33a9yTrL4Uzg+ZSxVMJ6Qb0Q==}
+
+  '@yohira/extensions.caching.memory@0.0.0-alpha.56':
+    resolution: {integrity: sha512-XL3MYDKmeV8JqJmnaerHfv/a2+Tj9zpTqvGOxvUD11SUwTDmOVq0PuI5uqYERq67BB7bh2QvWzDQ5RIroKtxCQ==}
+
+  '@yohira/extensions.config.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-poodePDYUIQvbsJxqs+5TeC4LMbG/U/KC15cPMA/wbU9NXzpDN/ZKNEzsMXQ+4OyusRnRQi019tMdlk2aDZ2XQ==}
+
+  '@yohira/extensions.config.binder@0.0.0-alpha.56':
+    resolution: {integrity: sha512-7ZBWOu9o6tagf/r/vdrdXYgTu3f5xn1nFbpeedw77czqAfxxdzrLfXTkwVBQDleEa6PvVu9R5T4OqzGczGgpjw==}
+
+  '@yohira/extensions.config.env-variables@0.0.0-alpha.56':
+    resolution: {integrity: sha512-E8xjR/bWIuXbGjsRot6Gnz3R21nREeC5qIxyGTxKIKeuLAOpai+qKLVuuUKo3cVox5WRYugmMNdsBaqLc/hKeQ==}
+
+  '@yohira/extensions.config.file-extensions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-/kNE+DJX6rCNuWCjgUF8F0f66eoTp6C0Q2D5g6M9KcDQ6M5rcv1a2KwP+LYHYwSEx0AqPJeEOEU+47zAFUjteA==}
+
+  '@yohira/extensions.config.json@0.0.0-alpha.56':
+    resolution: {integrity: sha512-ZCZlzHK7owNHvQKq1tcyzNcceDhDK+Dp9uY9JzbzyPD0MPc4avc7z9dIgswVAJAkcIjYoWgqB2UdtEhOvaVfrw==}
+
+  '@yohira/extensions.config@0.0.0-alpha.56':
+    resolution: {integrity: sha512-mmDLu8gaoES+FTgFpzlHBqf3zCJC8S9cdAZPAbRkQJWOMGrtNraEkzj9acZtllGiVxSTds7+hJUIr487EEW08A==}
+
+  '@yohira/extensions.dependency-injection.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-zzLmSFPip8JpsqMBLbkB4+yxrmIZzqxwzNwDeY/sJZ3PAdM3rNSOq2BnfYPGKAoeubBmDimLfyQPCxODQcMYwQ==}
+
+  '@yohira/extensions.dependency-injection.specification.tests@0.0.0-alpha.56':
+    resolution: {integrity: sha512-uIc++0HSxHj7l7xXLWUq+zPjaZj9+m1uBqT4p25S3cwEssd0j7jDpdNI3SLiaEhN6b9uHARc7I7EBAsHA6K5Qg==}
+
+  '@yohira/extensions.dependency-injection@0.0.0-alpha.56':
+    resolution: {integrity: sha512-UtLZ+rKnXaDhrpic9DdgyBEiGkZHF78LTGJnKycdOaatTrj9zVg9B/A+XwUQxQ8duzhbTmgjcdhFVBrJeWoZ1w==}
+
+  '@yohira/extensions.features@0.0.0-alpha.56':
+    resolution: {integrity: sha512-udwznd9D7GAPGZuZo6TwJsWfgJkTK/Lx96d5Nx5/rYD0F8Roo5G1Ti47Z/t/d/fbDjgnMFmR6cLOWTO1RVLkOg==}
+
+  '@yohira/extensions.file-providers@0.0.0-alpha.56':
+    resolution: {integrity: sha512-I4EUBLcP8mLS8NqqnVuZxbra2s2k49e5F6/bDzP/CEY2AvqQX7icIP84ZvXfhgCHps5GrlsOhspAD22LVdC33g==}
+
+  '@yohira/extensions.hosting.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-pFCWfC7R4aJrnROC6xvZKQ0Rtw918pTdDpNEz6hErxJBPhTxzaPVMHQbl2TUD8pkYdN9OH3uU4BAR3dfYOJiGQ==}
+
+  '@yohira/extensions.hosting@0.0.0-alpha.56':
+    resolution: {integrity: sha512-Y7l9BHoNUFbSjlV5niUYfbviukrToGo1SQAn+34zzdFCIGnvOAZGeIpQB9wXOWWP03KWdOdiE/D/HXUo1jEyUw==}
+
+  '@yohira/extensions.logging.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-DQroRgdBX8xgOVthXFYdkY97Jb2dgdcTTNUNsbRKA8PxOjYg0PUaF+CtWtdSI2zPX1LNnwvCf0TQ56YV55QpfA==}
+
+  '@yohira/extensions.logging@0.0.0-alpha.56':
+    resolution: {integrity: sha512-j0EwguhBs0Er2JJlA1vvyEckPmqmqBYyZ9sy7m+VCyBM+iDtmBGRpSeSm8HFgtGevpG3uLHS7wEuHDRUrXkZIg==}
+
+  '@yohira/extensions.options.config-extensions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-KZ+FqwanPkGSXlt9e+zaMh+DzjR9feNnr3wbmdyMrwUDZK9zcLYdGVNjfFtlbmvp1f7clKgFzV6fA3POxn0jjw==}
+
+  '@yohira/extensions.options@0.0.0-alpha.56':
+    resolution: {integrity: sha512-uAXXzGG9wKkxOYgZsBtqlWDqfWAcDtNlbR+9B2hAXayI+G933zH+9i/YFntGabcg8vaj0CZ9pc4Tykz5APyfSA==}
+
+  '@yohira/extensions.primitives@0.0.0-alpha.56':
+    resolution: {integrity: sha512-3kV1PgpMfzC5Z8Lok+Bo+d57EeBBgz5q0myzIKhca+LQxqeTJCjgb4PtPqu+oDdt2WzYuMZO+Lf0vIaznogw/w==}
+
+  '@yohira/extensions.web-encoders@0.0.0-alpha.56':
+    resolution: {integrity: sha512-h4G4P9GlI6CEh2Mcdx4JQyAycjcfkFfysqk/icpAT8Su8KpwLNHf00lq5vlWzRYy7RG7kympIgfSudIEELXGhQ==}
+
+  '@yohira/hosting.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-xHasJNN32zY0fwAuGw/XwyiPXarHw0t/4HrhdctSgO4u87C9fHneLYMMPWh38Inw1WOZSN1qubxQ/kUevllwBA==}
+
+  '@yohira/hosting.server.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-94dWpwOB1hZIxEfwIAT8FXjc7YPZ5XsCvIrbG/cLONogEaiwXcZEucRA7I0TTWytmbPCHPhNIrzXw8bnfx01UA==}
+
+  '@yohira/hosting@0.0.0-alpha.56':
+    resolution: {integrity: sha512-86g1IWCrG359mVVLiJr6Du4p7NZ/4A79JSIcPnXThcO78jCAcT6ZFN+yCWCRcninvcxAE6YLHCGNXqop/ykKuA==}
+
+  '@yohira/http-logging@0.0.0-alpha.56':
+    resolution: {integrity: sha512-1Qu4lphGaUlR6jEpWV9x3za5lyCOZMRdb2SJv9XAgJ4AclRLgAHwhqTJgXSReuMKnHGNtNzHOcGzblNm3N+7Yw==}
+
+  '@yohira/http.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-ILV/8XeBWB++0Yn5LB3vtZPzLBxZbfQmlGbE0cVuwHDlsXuYXvpEgJBaPDuyL8VWEr5TRQ0NlkIUWithMm/qzg==}
+
+  '@yohira/http.extensions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-L+/BuD3xQNxmBVXI8N8gknrg8ov7psifjg4My2wqKBFhYupht3c2/F/CW20ikq1zqmNC6Hb+DxIRFIlxkzZexA==}
+
+  '@yohira/http.features@0.0.0-alpha.56':
+    resolution: {integrity: sha512-re/M16WRcJNTicmAkJ1/R0qkmJPMLtLPc+ClsroBFc2rNG1zTQlp0Mt7bv35NLdj90MCLTxubKWboc0XiHN0jw==}
+
+  '@yohira/http.headers@0.0.0-alpha.56':
+    resolution: {integrity: sha512-aPRuVj046nYTc5w/W0yx5JiNcOGRIkcM6cxv49jVayVTh8ecp206iH7Bhq3fw9bNmJzwjJ/o8POwcl4irdmUTw==}
+
+  '@yohira/http.shared@0.0.0-alpha.56':
+    resolution: {integrity: sha512-PwEqoTQ/Cigykz+YepLeI1fsWEFlMssyyAugR9OAHfhoTuLFMwTPHsGOBjYIoF2HTrbd3QV8g/JjVGnIvFN/qw==}
+
+  '@yohira/http@0.0.0-alpha.56':
+    resolution: {integrity: sha512-Lt7MG9K3XdC17GvS8W0WWMTH/YmQ1B5Sh6fHqRLl/CXpgVk4lf3As8vpSvDtxcMKTsYKHHu4djkRfct3YCe/KA==}
+
+  '@yohira/https-policy@0.0.0-alpha.56':
+    resolution: {integrity: sha512-gfDlsE10xBLjANuIKMSM2AC/zX38kKRZn5EAY8ROUABwzPwbd4ZCz/S26qe4Yjqu4I9GIX1AsnKfDfH9OlqSpQ==}
+
+  '@yohira/mvc.abstractions@0.0.0-alpha.56':
+    resolution: {integrity: sha512-zyBAPrjQSxAfSMJ0B4e/Pmd+TFMZFX6GTv96UwpOlcVUdm0ikVxG6f2yvRKS3J27NEZT9jvHA/7Xzzm3pu2LCg==}
+
+  '@yohira/mvc.core@0.0.0-alpha.56':
+    resolution: {integrity: sha512-bz8xnm7gzqLD96fUP2v/b1Ii6E2myw9te/oponOrBRjjYVWABHTZPCTjwcgmpr6Q02ySVk6pwOq75WjNbV0eSA==}
+
+  '@yohira/routing@0.0.0-alpha.56':
+    resolution: {integrity: sha512-rDoC3GuGLlCqSO2Jv0eBPV+yoNusMTVlMFBoueAlnxJrZEPgpAjNXblMaESBh/pFC1b6E9DND03yFwH5BYgrMQ==}
+
+  '@yohira/server.node.core@0.0.0-alpha.56':
+    resolution: {integrity: sha512-u7kmMA23nxTLzi0i4UvpshcrDjx2HufpRpFnnAhICJvNY/0mRpCukXfR/shxLazUp1TPNMigJQ2kIk0W0/inDA==}
+
+  '@yohira/server.node@0.0.0-alpha.56':
+    resolution: {integrity: sha512-25JjhIoQ5JFoXs3/VbZFzvHAIUdQfxj/3wm8X/fCxRk3ZmWL8ngbn8yDca7gOlgrXu/Y1JysBi0yB+uNQvElrg==}
+
+  '@yohira/session@0.0.0-alpha.56':
+    resolution: {integrity: sha512-B5DYsdKFgncvQo0bLQ/rEVdd8NeIukiZqVCzHHsa+1PtmjnT5A+G+BJYNWlvzA9es3++mp0DSdKtikiDhtgM0w==}
+
+  '@yohira/shared@0.0.0-alpha.56':
+    resolution: {integrity: sha512-Z084C3tlpJieVlvhAKJSn9JNzPi7Htbgli/00RJYiVI4+ml1cacUxi2piWROHs0pnbDDdaaYnKwfoNtbQ7i2tA==}
+
+  '@yohira/static-files@0.0.0-alpha.56':
+    resolution: {integrity: sha512-CDSTvKCIL8k88s0Y2ur7PH9L3/dVho7XJAVUvXAl1zD69YRLxbYo4rJFJn652gJwdy8L83pkwuhJvSea55OmDw==}
+
+  '@yohira/third-party.inversify@0.0.0-alpha.56':
+    resolution: {integrity: sha512-R5haJjNdt35E2xKf0JLP6HoQMubJFdKbpcb6oF+a8PkUpATqdGCwQlJsmfaGOBluROCKVJYWAuVlk34a4PBT0w==}
+
+  '@yohira/third-party.ts-results@0.0.0-alpha.56':
+    resolution: {integrity: sha512-vTDqpFVoyfMEC1CufZweu5qMafzNSQdLqQy6iXrp0RerKz3pI4ub8NQBRjzJ5Stqt8NToNVlxa/mPNW4oddg5A==}
+
+  '@yohira/xml@0.0.0-alpha.56':
+    resolution: {integrity: sha512-PgG8cg/1LUoULeg4voUh8I+oUDhpe8yb1R9tbsHFOhPoBQVHmG5uBnUVy56NYJqlYeWh0F4fOXgvzYHiBARSQA==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2065,9 +2230,6 @@ packages:
     resolution: {integrity: sha512-/vxpCXddiX8NGfGO/mTafwjq4aFa/71pvamip0++IQk3zG8cbCj0fifNPrjjF1XMXUne91jL9OoxmdykoEtifQ==}
     engines: {node: '>= 10.13.0'}
 
-  reflect-metadata@0.1.14:
-    resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
-
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
@@ -2526,9 +2688,6 @@ packages:
   yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
-
-  yohira@0.0.0-alpha.53:
-    resolution: {integrity: sha512-dPByWHQD0wKzZIDyfuKybOuZEdvaO8HINIg5gvcOOgWBkdhncGBtMTJwh0huy0s+efzv5AWHtKTXaEAdWCdWMw==}
 
 snapshots:
 
@@ -3127,6 +3286,471 @@ snapshots:
       estree-walker: 3.0.3
       loupe: 2.3.7
       pretty-format: 29.7.0
+
+  '@yohira/antiforgery@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/cryptography': 0.0.0-alpha.56
+      '@yohira/data-protection': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+
+  '@yohira/app@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/antiforgery': 0.0.0-alpha.56
+      '@yohira/authentication': 0.0.0-alpha.56
+      '@yohira/authentication.abstractions': 0.0.0-alpha.56
+      '@yohira/authentication.cookies': 0.0.0-alpha.56
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/core': 0.0.0-alpha.56
+      '@yohira/diagnostics': 0.0.0-alpha.56
+      '@yohira/extensions.caching.memory': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.binder': 0.0.0-alpha.56
+      '@yohira/extensions.config.env-variables': 0.0.0-alpha.56
+      '@yohira/extensions.config.file-extensions': 0.0.0-alpha.56
+      '@yohira/extensions.config.json': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.specification.tests': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/extensions.hosting': 0.0.0-alpha.56
+      '@yohira/extensions.hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/extensions.options.config-extensions': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/hosting': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting.server.abstractions': 0.0.0-alpha.56
+      '@yohira/http': 0.0.0-alpha.56
+      '@yohira/http-logging': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.extensions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+      '@yohira/https-policy': 0.0.0-alpha.56
+      '@yohira/mvc.abstractions': 0.0.0-alpha.56
+      '@yohira/mvc.core': 0.0.0-alpha.56
+      '@yohira/routing': 0.0.0-alpha.56
+      '@yohira/server.node': 0.0.0-alpha.56
+      '@yohira/server.node.core': 0.0.0-alpha.56
+      '@yohira/session': 0.0.0-alpha.56
+      '@yohira/static-files': 0.0.0-alpha.56
+      '@yohira/third-party.inversify': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/authentication.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/authentication.cookies@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/authentication': 0.0.0-alpha.56
+      '@yohira/authentication.abstractions': 0.0.0-alpha.56
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/data-protection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+
+  '@yohira/authentication.core@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/authentication.abstractions': 0.0.0-alpha.56
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/authentication@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/authentication.abstractions': 0.0.0-alpha.56
+      '@yohira/authentication.core': 0.0.0-alpha.56
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/data-protection': 0.0.0-alpha.56
+      '@yohira/data-protection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/extensions.web-encoders': 0.0.0-alpha.56
+      '@yohira/http': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/shared': 0.0.0-alpha.56
+
+  '@yohira/base@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/core@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.env-variables': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.hosting': 0.0.0-alpha.56
+      '@yohira/extensions.hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/http': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/routing': 0.0.0-alpha.56
+      '@yohira/server.node': 0.0.0-alpha.56
+
+  '@yohira/cryptography@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/data-protection.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/cryptography': 0.0.0-alpha.56
+
+  '@yohira/data-protection@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/cryptography': 0.0.0-alpha.56
+      '@yohira/data-protection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/xml': 0.0.0-alpha.56
+
+  '@yohira/diagnostics@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/extensions.caching.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.caching.memory@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.caching.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.config.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.config.binder@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.config.env-variables@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+
+  '@yohira/extensions.config.file-extensions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+
+  '@yohira/extensions.config.json@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.file-extensions': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+
+  '@yohira/extensions.config@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.dependency-injection.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/third-party.inversify': 0.0.0-alpha.56
+
+  '@yohira/extensions.dependency-injection.specification.tests@0.0.0-alpha.56': {}
+
+  '@yohira/extensions.dependency-injection@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/third-party.inversify': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.features@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/extensions.file-providers@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+
+  '@yohira/extensions.hosting.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+
+  '@yohira/extensions.hosting@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.env-variables': 0.0.0-alpha.56
+      '@yohira/extensions.config.file-extensions': 0.0.0-alpha.56
+      '@yohira/extensions.config.json': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting': 0.0.0-alpha.56
+
+  '@yohira/extensions.logging.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+
+  '@yohira/extensions.logging@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+
+  '@yohira/extensions.options.config-extensions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.binder': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+
+  '@yohira/extensions.options@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+
+  '@yohira/extensions.primitives@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+
+  '@yohira/extensions.web-encoders@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+
+  '@yohira/hosting.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/extensions.hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/hosting.server.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+
+  '@yohira/hosting@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.config': 0.0.0-alpha.56
+      '@yohira/extensions.config.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.config.env-variables': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/extensions.hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting.server.abstractions': 0.0.0-alpha.56
+      '@yohira/http': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/http-logging@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+
+  '@yohira/http.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+
+  '@yohira/http.extensions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+
+  '@yohira/http.features@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+
+  '@yohira/http.headers@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+      '@yohira/shared': 0.0.0-alpha.56
+
+  '@yohira/http.shared@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/shared': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/http@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+
+  '@yohira/https-policy@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.extensions': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+
+  '@yohira/mvc.abstractions@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+
+  '@yohira/mvc.core@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/authentication.abstractions': 0.0.0-alpha.56
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.extensions': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/mvc.abstractions': 0.0.0-alpha.56
+
+  '@yohira/routing@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/server.node.core@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.features': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting': 0.0.0-alpha.56
+      '@yohira/hosting.server.abstractions': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+
+  '@yohira/server.node@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/hosting.server.abstractions': 0.0.0-alpha.56
+      '@yohira/server.node.core': 0.0.0-alpha.56
+
+  '@yohira/session@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/data-protection': 0.0.0-alpha.56
+      '@yohira/data-protection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.caching.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.features': 0.0.0-alpha.56
+      '@yohira/http.headers': 0.0.0-alpha.56
+      '@yohira/http.shared': 0.0.0-alpha.56
+
+  '@yohira/shared@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
+      '@yohira/extensions.primitives': 0.0.0-alpha.56
+
+  '@yohira/static-files@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/extensions.dependency-injection.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.file-providers': 0.0.0-alpha.56
+      '@yohira/extensions.logging.abstractions': 0.0.0-alpha.56
+      '@yohira/extensions.options': 0.0.0-alpha.56
+      '@yohira/hosting.abstractions': 0.0.0-alpha.56
+      '@yohira/http.abstractions': 0.0.0-alpha.56
+      '@yohira/http.extensions': 0.0.0-alpha.56
+      '@yohira/third-party.ts-results': 0.0.0-alpha.56
+
+  '@yohira/third-party.inversify@0.0.0-alpha.56':
+    dependencies:
+      reflect-metadata: 0.2.2
+
+  '@yohira/third-party.ts-results@0.0.0-alpha.56': {}
+
+  '@yohira/xml@0.0.0-alpha.56':
+    dependencies:
+      '@yohira/base': 0.0.0-alpha.56
 
   acorn-jsx@5.3.2(acorn@8.11.3):
     dependencies:
@@ -4307,8 +4931,6 @@ snapshots:
     dependencies:
       resolve: 1.22.8
 
-  reflect-metadata@0.1.14: {}
-
   reflect-metadata@0.2.2: {}
 
   regenerator-runtime@0.14.1: {}
@@ -4784,7 +5406,3 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yocto-queue@1.0.0: {}
-
-  yohira@0.0.0-alpha.53:
-    dependencies:
-      reflect-metadata: 0.1.14

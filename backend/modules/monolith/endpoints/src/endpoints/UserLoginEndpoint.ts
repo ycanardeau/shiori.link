@@ -20,7 +20,7 @@ import {
 	Result,
 	inject,
 	signIn,
-} from 'yohira';
+} from '@yohira/app';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';

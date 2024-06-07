@@ -1,4 +1,4 @@
-import { Ctor } from 'yohira';
+import { Ctor } from '@yohira/app';
 
 import { Endpoint } from './Endpoint';
 import { UserGetEndpoint } from './UserGetEndpoint';

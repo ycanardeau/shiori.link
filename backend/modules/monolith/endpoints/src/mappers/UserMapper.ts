@@ -1,7 +1,7 @@
 import { UserDto } from '@shiori.link/server.monolith.contracts';
 import { User } from '@shiori.link/server.monolith.domain';
+import { Ok, Result } from '@yohira/app';
 import { createHash } from 'node:crypto';
-import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 

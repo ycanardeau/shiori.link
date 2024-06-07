@@ -23,8 +23,8 @@
 		"@shiori.link/server.monolith.application": "workspace:*",
 		"@shiori.link/server.monolith.contracts": "workspace:*",
 		"@shiori.link/server.monolith.domain": "workspace:*",
-		"ajv": "~8.16.0",
-		"yohira": "~0.0.0-alpha.53"
+		"@yohira/app": "~0.0.0-alpha.56",
+		"ajv": "~8.16.0"
 	},
 	"scripts": {
 		"build": "rimraf ./dist && tsc"
