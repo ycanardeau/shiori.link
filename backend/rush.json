@@ -414,6 +414,30 @@
       "projectFolder": "apps/server"
     },
     {
+      "packageName": "@shiori.link/server.user.application",
+      "projectFolder": "modules/user/application"
+    },
+    {
+      "packageName": "@shiori.link/server.user.contracts",
+      "projectFolder": "modules/user/contracts"
+    },
+    {
+      "packageName": "@shiori.link/server.user.domain",
+      "projectFolder": "modules/user/domain"
+    },
+    {
+      "packageName": "@shiori.link/server.user.endpoints",
+      "projectFolder": "modules/user/endpoints"
+    },
+    {
+      "packageName": "@shiori.link/server.user.infrastructure",
+      "projectFolder": "modules/user/infrastructure"
+    },
+    {
+      "packageName": "@shiori.link/server.user.module",
+      "projectFolder": "modules/user/module"
+    },
+    {
       "packageName": "@shiori.link/server.module1.application",
       "projectFolder": "modules/module1/application"
     },

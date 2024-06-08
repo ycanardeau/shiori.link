@@ -4,6 +4,10 @@ import {
 	useModule as useMonolithModule,
 } from '@shiori.link/server.monolith.module';
 import {
+	addModule as addUserModule,
+	useModule as useUserModule,
+} from '@shiori.link/server.user.module';
+import {
 	CookieAuthenticationDefaults,
 	Envs,
 	WebAppOptions,
@@ -52,6 +56,7 @@ async function main(): Promise<void> {
 		).em.fork(),
 	);
 
+	addUserModule(services);
 	addMonolithModule(services);
 
 	addMvcCoreServices(services);
@@ -66,6 +71,7 @@ async function main(): Promise<void> {
 
 	useRouting(app);
 
+	useUserModule(app);
 	useMonolithModule(app);
 
 	useEndpoints(app, () => {});

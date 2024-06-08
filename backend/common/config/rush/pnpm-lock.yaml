@@ -27,6 +27,9 @@ importers:
       '@shiori.link/server.monolith.module':
         specifier: workspace:*
         version: link:../../modules/monolith/module
+      '@shiori.link/server.user.module':
+        specifier: workspace:*
+        version: link:../../modules/user/module
       '@yohira/app':
         specifier: ~0.0.0-alpha.56
         version: 0.0.0-alpha.56
@@ -664,6 +667,321 @@ importers:
         specifier: workspace:*
         version: link:../endpoints
       '@shiori.link/server.monolith.infrastructure':
+        specifier: workspace:*
+        version: link:../infrastructure
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/application:
+    dependencies:
+      '@shiori.link/server.user.domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/contracts:
+    dependencies:
+      ajv:
+        specifier: ~8.16.0
+        version: 8.16.0
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/domain:
+    dependencies:
+      '@mikro-orm/core':
+        specifier: ~6.2.9
+        version: 6.2.9
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/endpoints:
+    dependencies:
+      '@mikro-orm/core':
+        specifier: ~6.2.9
+        version: 6.2.9
+      '@shiori.link/server.user.application':
+        specifier: workspace:*
+        version: link:../application
+      '@shiori.link/server.user.contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@shiori.link/server.user.domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
+      ajv:
+        specifier: ~8.16.0
+        version: 8.16.0
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/infrastructure:
+    dependencies:
+      '@mikro-orm/core':
+        specifier: ~6.2.9
+        version: 6.2.9
+      '@shiori.link/server.user.application':
+        specifier: workspace:*
+        version: link:../application
+      '@shiori.link/server.user.domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@yohira/app':
+        specifier: ~0.0.0-alpha.56
+        version: 0.0.0-alpha.56
+      bcryptjs:
+        specifier: ~2.4.3
+        version: 2.4.3
+    devDependencies:
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^4.3.0
+        version: 4.3.0(prettier@3.3.1)
+      '@types/bcryptjs':
+        specifier: ~2.4.6
+        version: 2.4.6
+      '@types/node':
+        specifier: ~20.12.12
+        version: 20.12.14
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.6.0
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.6.0
+        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitest/coverage-v8':
+        specifier: ~1.6.0
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.14))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-import:
+        specifier: ^2.29.1
+        version: 2.29.1(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.1)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.3.1
+      rimraf:
+        specifier: ~5.0.7
+        version: 5.0.7
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ~1.6.0
+        version: 1.6.0(@types/node@20.12.14)
+
+  ../../modules/user/module:
+    dependencies:
+      '@shiori.link/server.user.endpoints':
+        specifier: workspace:*
+        version: link:../endpoints
+      '@shiori.link/server.user.infrastructure':
         specifier: workspace:*
         version: link:../infrastructure
       '@yohira/app':

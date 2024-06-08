@@ -14,9 +14,11 @@ export default defineConfig({
 		disableForeignKeys: false,
 	},
 	entities: [
+		'./node_modules/@shiori.link/server.user.module/node_modules/@shiori.link/server.user.infrastructure/dist/persistence/schemas',
 		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/dist/persistence/schemas',
 	],
 	entitiesTs: [
+		'./node_modules/@shiori.link/server.user.module/node_modules/@shiori.link/server.user.infrastructure/src/persistence/schemas',
 		'./node_modules/@shiori.link/server.monolith.module/node_modules/@shiori.link/server.monolith.infrastructure/src/persistence/schemas',
 	],
 	forceUndefined: true,
