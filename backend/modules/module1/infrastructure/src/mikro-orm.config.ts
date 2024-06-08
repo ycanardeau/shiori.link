@@ -2,9 +2,6 @@ import { Migrator } from '@mikro-orm/migrations';
 import { defineConfig } from '@mikro-orm/mysql';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
-import { LoginSchema } from './persistence/schemas/LoginSchema';
-import { UserSchema } from './persistence/schemas/UserSchema';
-
 export default defineConfig({
 	highlighter: new SqlHighlighter(),
 	migrations: {
@@ -16,7 +13,7 @@ export default defineConfig({
 	schemaGenerator: {
 		disableForeignKeys: false,
 	},
-	entities: [LoginSchema, UserSchema],
+	entities: [],
 	forceUndefined: true,
 	forceUtcTimezone: true,
 	allowGlobalContext: false,

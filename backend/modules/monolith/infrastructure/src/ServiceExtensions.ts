@@ -1,10 +1,5 @@
 import { MikroORM } from '@mikro-orm/core';
 import {
-	ICurrentUserService,
-	IEmailService,
-	IPasswordServiceFactory,
-} from '@shiori.link/server.monolith.application';
-import {
 	IServiceCollection,
 	addScopedFactory,
 	addSingletonCtor,
@@ -14,9 +9,6 @@ import {
 } from '@yohira/app';
 
 import config from './mikro-orm.config';
-import { CurrentUserService } from './services/CurrentUserService';
-import { EmailService } from './services/EmailService';
-import { PasswordServiceFactory } from './services/PasswordServiceFactory';
 
 const orm = MikroORM.initSync(config);
 
@@ -37,11 +29,6 @@ export function addInfrastructure(
 	services: IServiceCollection,
 ): IServiceCollection {
 	addMikroORM(services);
-
-	addSingletonCtor(services, IEmailService, EmailService);
-	addSingletonCtor(services, IPasswordServiceFactory, PasswordServiceFactory);
-
-	addTransientCtor(services, ICurrentUserService, CurrentUserService);
 
 	return services;
 }

@@ -40,7 +40,7 @@ async function main(): Promise<void> {
 	);
 
 	addUserModule(services);
-	addMonolithModule(services);
+	//addMonolithModule(services);
 
 	addMvcCoreServices(services);
 
@@ -55,7 +55,7 @@ async function main(): Promise<void> {
 	useRouting(app);
 
 	useUserModule(app);
-	useMonolithModule(app);
+	//useMonolithModule(app);
 
 	useEndpoints(app, () => {});
 
