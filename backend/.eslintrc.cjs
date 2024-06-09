@@ -5,10 +5,11 @@ module.exports = {
 		sourceType: 'module',
 		tsconfigRootDir: __dirname,
 	},
-	plugins: ['@typescript-eslint/eslint-plugin'],
+	plugins: ['@typescript-eslint/eslint-plugin', 'boundaries'],
 	extends: [
 		'plugin:@typescript-eslint/recommended',
 		'plugin:prettier/recommended',
+		'plugin:boundaries/recommended',
 	],
 	root: true,
 	env: {
@@ -16,6 +17,13 @@ module.exports = {
 		jest: true,
 	},
 	ignorePatterns: ['.eslintrc.cjs'],
+	settings: {
+		'import/resolver': {
+			typescript: {
+				alwaysTryTypes: true,
+			},
+		},
+	},
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'error',
