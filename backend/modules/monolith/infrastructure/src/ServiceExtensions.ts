@@ -1,10 +1,12 @@
 import { MikroORM } from '@mikro-orm/core';
 import {
+	IEntityManager,
+	IMikroORM,
+} from '@shiori.link/server.monolith.application';
+import {
 	IServiceCollection,
 	addScopedFactory,
-	addSingletonCtor,
 	addSingletonFactory,
-	addTransientCtor,
 	getRequiredService,
 } from '@yohira/app';
 
@@ -13,13 +15,10 @@ import config from './mikro-orm.config';
 const orm = MikroORM.initSync(config);
 
 function addMikroORM(services: IServiceCollection): IServiceCollection {
-	addSingletonFactory(services, Symbol.for('MikroORM'), () => orm);
+	addSingletonFactory(services, IMikroORM, () => orm);
 
-	addScopedFactory(services, Symbol.for('EntityManager'), (serviceProvider) =>
-		getRequiredService<MikroORM>(
-			serviceProvider,
-			Symbol.for('MikroORM'),
-		).em.fork(),
+	addScopedFactory(services, IEntityManager, (serviceProvider) =>
+		getRequiredService<MikroORM>(serviceProvider, IMikroORM).em.fork(),
 	);
 
 	return services;

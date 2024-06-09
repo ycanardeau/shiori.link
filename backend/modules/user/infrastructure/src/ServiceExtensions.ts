@@ -2,6 +2,8 @@ import { MikroORM } from '@mikro-orm/core';
 import {
 	ICurrentUserService,
 	IEmailService,
+	IEntityManager,
+	IMikroORM,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.user.application';
 import {
@@ -21,13 +23,10 @@ import { PasswordServiceFactory } from './services/PasswordServiceFactory';
 const orm = MikroORM.initSync(config);
 
 function addMikroORM(services: IServiceCollection): IServiceCollection {
-	addSingletonFactory(services, Symbol.for('MikroORM'), () => orm);
+	addSingletonFactory(services, IMikroORM, () => orm);
 
-	addScopedFactory(services, Symbol.for('EntityManager'), (serviceProvider) =>
-		getRequiredService<MikroORM>(
-			serviceProvider,
-			Symbol.for('MikroORM'),
-		).em.fork(),
+	addScopedFactory(services, IEntityManager, (serviceProvider) =>
+		getRequiredService<MikroORM>(serviceProvider, IMikroORM).em.fork(),
 	);
 
 	return services;

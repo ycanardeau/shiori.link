@@ -1,6 +1,7 @@
 import { EntityManager } from '@mikro-orm/core';
 import {
 	IEmailService,
+	IEntityManager,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.user.application';
 import {
@@ -19,7 +20,7 @@ export class UserSignUpEndpoint extends Endpoint<
 	UserSignUpResponse
 > {
 	constructor(
-		@inject(Symbol.for('EntityManager')) private readonly em: EntityManager,
+		@inject(IEntityManager) private readonly em: EntityManager,
 		@inject(IEmailService) private readonly emailService: IEmailService,
 		@inject(IPasswordServiceFactory)
 		private readonly passwordServiceFactory: IPasswordServiceFactory,
