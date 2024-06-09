@@ -1,4 +1,4 @@
-import { EntitySchema } from '@mikro-orm/core';
+import { Collection, EntitySchema } from '@mikro-orm/core';
 import { Login, User } from '@shiori.link/server.user.domain';
 
 export const LoginSchema = new EntitySchema<Login>({
@@ -7,7 +7,7 @@ export const LoginSchema = new EntitySchema<Login>({
 	tableName: 'logins',
 	properties: {
 		id: {
-			type: 'numeric',
+			type: 'number',
 			primary: true,
 		},
 		createdAt: {
@@ -15,8 +15,8 @@ export const LoginSchema = new EntitySchema<Login>({
 		},
 		user: {
 			kind: 'm:1',
-			entity: () => User,
-			inversedBy: (user) => user.logins,
+			entity: (): typeof User => User,
+			inversedBy: (user): Collection<Login> => user.logins,
 		},
 		ip: {
 			type: 'string',

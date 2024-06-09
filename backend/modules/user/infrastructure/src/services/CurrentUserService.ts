@@ -1,8 +1,6 @@
 import { EntityManager } from '@mikro-orm/core';
-import {
-	ICurrentUserService,
-	IEntityManager,
-} from '@shiori.link/server.user.application';
+import { IEntityManager } from '@shiori.link/server.mikro-orm.shared';
+import { ICurrentUserService } from '@shiori.link/server.user.application';
 import { User } from '@shiori.link/server.user.domain';
 import { ClaimsIdentity, IHttpContext, inject } from 'yohira';
 

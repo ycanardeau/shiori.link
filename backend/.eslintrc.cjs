@@ -29,6 +29,10 @@ module.exports = {
 				pattern: 'apps/server/*',
 			},
 			{
+				type: '@shiori.link/server.mikro-orm.shared',
+				pattern: 'libs/mikro-orm.shared/*',
+			},
+			{
 				type: '@shiori.link/server.module1.application',
 				pattern: 'modules/module1/application/*',
 			},
@@ -116,9 +120,14 @@ module.exports = {
 					{
 						from: '@shiori.link/server',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared',
 							'@shiori.link/server.monolith.module',
 							'@shiori.link/server.user.module',
 						],
+					},
+					{
+						from: '@shiori.link/server.mikro-orm.shared',
+						allow: [],
 					},
 					{
 						from: '@shiori.link/server.module1.application',
@@ -131,6 +140,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.module1.endpoints',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared' /* TODO: remove */,
 							'@shiori.link/server.module1.application',
 							'@shiori.link/server.module1.contracts',
 							'@shiori.link/server.module1.domain',
@@ -161,6 +171,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.monolith.endpoints',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared' /* TODO: remove */,
 							'@shiori.link/server.monolith.application',
 							'@shiori.link/server.monolith.contracts',
 							'@shiori.link/server.monolith.domain',
@@ -191,6 +202,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.user.endpoints',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared' /* TODO: remove */,
 							'@shiori.link/server.user.application',
 							'@shiori.link/server.user.contracts',
 							'@shiori.link/server.user.domain',
@@ -199,6 +211,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.user.infrastructure',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared',
 							'@shiori.link/server.user.application',
 							'@shiori.link/server.user.domain',
 						],

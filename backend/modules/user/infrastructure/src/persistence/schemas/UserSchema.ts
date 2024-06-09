@@ -1,4 +1,4 @@
-import { EntitySchema } from '@mikro-orm/core';
+import { EntitySchema, Ref } from '@mikro-orm/core';
 import {
 	Login,
 	PasswordHashAlgorithm,
@@ -11,7 +11,7 @@ export const UserSchema = new EntitySchema<User>({
 	tableName: 'users',
 	properties: {
 		id: {
-			type: 'numeric',
+			type: 'number',
 			primary: true,
 		},
 		createdAt: {
@@ -24,11 +24,11 @@ export const UserSchema = new EntitySchema<User>({
 			type: 'string',
 		},
 		normalizedEmail: {
-			type: 'normalizedEmail',
+			type: 'string',
 		},
 		passwordHashAlgorithm: {
 			enum: true,
-			items: () => PasswordHashAlgorithm,
+			items: (): typeof PasswordHashAlgorithm => PasswordHashAlgorithm,
 		},
 		salt: {
 			type: 'string',
@@ -38,8 +38,8 @@ export const UserSchema = new EntitySchema<User>({
 		},
 		logins: {
 			kind: '1:m',
-			entity: () => Login,
-			mappedBy: (login) => login.user,
+			entity: (): typeof Login => Login,
+			mappedBy: (login): Ref<User> => login.user,
 		},
 	},
 });

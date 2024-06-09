@@ -1,7 +1,7 @@
 import { EntityManager } from '@mikro-orm/core';
+import { IEntityManager } from '@shiori.link/server.mikro-orm.shared';
 import {
 	IEmailService,
-	IEntityManager,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.user.application';
 import {

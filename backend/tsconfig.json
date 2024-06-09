@@ -9,24 +9,59 @@
 		"skipLibCheck": true,
 		"baseUrl": "./",
 		"paths": {
-			"@shiori.link/server.module1.application": ["modules/module1/application/src"],
-			"@shiori.link/server.module1.contracts": ["modules/module1/contracts/src"],
-			"@shiori.link/server.module1.domain": ["modules/module1/domain/src"],
-			"@shiori.link/server.module1.endpoints": ["modules/module1/endpoints/src"],
-			"@shiori.link/server.module1.infrastructure": ["modules/module1/infrastructure/src"],
-			"@shiori.link/server.module1.module": ["modules/module1/module/src"],
-			"@shiori.link/server.monolith.application": ["modules/monolith/application/src"],
-			"@shiori.link/server.monolith.contracts": ["modules/monolith/contracts/src"],
-			"@shiori.link/server.monolith.domain": ["modules/monolith/domain/src"],
-			"@shiori.link/server.monolith.endpoints": ["modules/monolith/endpoints/src"],
-			"@shiori.link/server.monolith.infrastructure": ["modules/monolith/infrastructure/src"],
-			"@shiori.link/server.monolith.module": ["modules/monolith/module/src"],
-			"@shiori.link/server.user.application": ["modules/user/application/src"],
-			"@shiori.link/server.user.contracts": ["modules/user/contracts/src"],
+			"@shiori.link/server.mikro-orm.shared": [
+				"libs/mikro-orm.shared/src"
+			],
+			"@shiori.link/server.module1.application": [
+				"modules/module1/application/src"
+			],
+			"@shiori.link/server.module1.contracts": [
+				"modules/module1/contracts/src"
+			],
+			"@shiori.link/server.module1.domain": [
+				"modules/module1/domain/src"
+			],
+			"@shiori.link/server.module1.endpoints": [
+				"modules/module1/endpoints/src"
+			],
+			"@shiori.link/server.module1.infrastructure": [
+				"modules/module1/infrastructure/src"
+			],
+			"@shiori.link/server.module1.module": [
+				"modules/module1/module/src"
+			],
+			"@shiori.link/server.monolith.application": [
+				"modules/monolith/application/src"
+			],
+			"@shiori.link/server.monolith.contracts": [
+				"modules/monolith/contracts/src"
+			],
+			"@shiori.link/server.monolith.domain": [
+				"modules/monolith/domain/src"
+			],
+			"@shiori.link/server.monolith.endpoints": [
+				"modules/monolith/endpoints/src"
+			],
+			"@shiori.link/server.monolith.infrastructure": [
+				"modules/monolith/infrastructure/src"
+			],
+			"@shiori.link/server.monolith.module": [
+				"modules/monolith/module/src"
+			],
+			"@shiori.link/server.user.application": [
+				"modules/user/application/src"
+			],
+			"@shiori.link/server.user.contracts": [
+				"modules/user/contracts/src"
+			],
 			"@shiori.link/server.user.domain": ["modules/user/domain/src"],
-			"@shiori.link/server.user.endpoints": ["modules/user/endpoints/src"],
-			"@shiori.link/server.user.infrastructure": ["modules/user/infrastructure/src"],
-			"@shiori.link/server.user.module": ["modules/user/module/src"],
+			"@shiori.link/server.user.endpoints": [
+				"modules/user/endpoints/src"
+			],
+			"@shiori.link/server.user.infrastructure": [
+				"modules/user/infrastructure/src"
+			],
+			"@shiori.link/server.user.module": ["modules/user/module/src"]
 		},
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,

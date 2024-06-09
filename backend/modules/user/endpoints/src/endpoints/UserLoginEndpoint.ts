@@ -1,8 +1,6 @@
 import { EntityManager } from '@mikro-orm/core';
-import {
-	IEntityManager,
-	IPasswordServiceFactory,
-} from '@shiori.link/server.user.application';
+import { IEntityManager } from '@shiori.link/server.mikro-orm.shared';
+import { IPasswordServiceFactory } from '@shiori.link/server.user.application';
 import {
 	UserLoginRequest,
 	UserLoginRequestSchema,

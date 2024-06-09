@@ -1,3 +1,8 @@
+import { MikroORM } from '@mikro-orm/core';
+import {
+	IEntityManager,
+	IMikroORM,
+} from '@shiori.link/server.mikro-orm.shared';
 import {
 	addModule as addMonolithModule,
 	useModule as useMonolithModule,
@@ -14,13 +19,18 @@ import {
 	addCookie,
 	addMvcCoreServices,
 	addRouting,
+	addScopedFactory,
+	addSingletonFactory,
 	createWebAppBuilder,
+	getRequiredService,
 	isDevelopment,
 	useAuthentication,
 	useEndpoints,
 	useErrorHandler,
 	useRouting,
 } from 'yohira';
+
+import config from './mikro-orm.config';
 
 async function main(): Promise<void> {
 	// TODO: remove
@@ -39,8 +49,16 @@ async function main(): Promise<void> {
 		),
 	);
 
+	// TODO: move
+	const orm = await MikroORM.init(config);
+	addSingletonFactory(services, IMikroORM, () => orm);
+
+	addScopedFactory(services, IEntityManager, (serviceProvider) =>
+		getRequiredService<MikroORM>(serviceProvider, IMikroORM).em.fork(),
+	);
+
 	addUserModule(services);
-	//addMonolithModule(services);
+	addMonolithModule(services);
 
 	addMvcCoreServices(services);
 
@@ -55,9 +73,15 @@ async function main(): Promise<void> {
 	useRouting(app);
 
 	useUserModule(app);
-	//useMonolithModule(app);
+	useMonolithModule(app);
 
 	useEndpoints(app, () => {});
+
+	const migrator = getRequiredService<MikroORM>(
+		app.services,
+		IMikroORM,
+	).getMigrator();
+	await migrator.up();
 
 	await app.run();
 }

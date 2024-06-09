@@ -2,21 +2,18 @@ import { Migrator } from '@mikro-orm/migrations';
 import { defineConfig } from '@mikro-orm/mysql';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
-import { LoginSchema } from './persistence/schemas/LoginSchema';
-import { UserSchema } from './persistence/schemas/UserSchema';
-
 export default defineConfig({
 	highlighter: new SqlHighlighter(),
 	migrations: {
 		snapshotName: '.snapshot',
-		path: './dist/migrations',
-		pathTs: './src/migrations',
+		path: './dist/apps/server/src/migrations',
+		pathTs: './apps/server/src/migrations',
 		disableForeignKeys: false,
 	},
 	schemaGenerator: {
 		disableForeignKeys: false,
 	},
-	entities: [LoginSchema, UserSchema],
+	entities: ['./dist/**/infrastructure/src/persistence/schemas/*.js'],
 	forceUndefined: true,
 	forceUtcTimezone: true,
 	allowGlobalContext: false,
