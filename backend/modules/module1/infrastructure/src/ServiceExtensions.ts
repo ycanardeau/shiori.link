@@ -8,7 +8,7 @@ import {
 	addScopedFactory,
 	addSingletonFactory,
 	getRequiredService,
-} from '@yohira/app';
+} from 'yohira';
 
 import config from './mikro-orm.config';
 

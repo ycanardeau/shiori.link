@@ -10,7 +10,7 @@ import {
 	UserSignUpResponse,
 } from '@shiori.link/server.user.contracts';
 import { User } from '@shiori.link/server.user.domain';
-import { Err, IHttpContext, JsonResult, Ok, Result, inject } from '@yohira/app';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
 import { toUserDto } from '../mappers/UserMapper';
 import { Endpoint } from './Endpoint';

@@ -1,4 +1,4 @@
-import { Ctor } from '@yohira/app';
+import { Ctor } from 'yohira';
 
 import { Endpoint } from './Endpoint';
 

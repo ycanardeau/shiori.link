@@ -9,7 +9,7 @@ import {
 	mapGet,
 	mapPost,
 	write,
-} from '@yohira/app';
+} from 'yohira';
 
 import { Endpoint } from './endpoints/Endpoint';
 import { endpoints } from './endpoints/endpoints';

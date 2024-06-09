@@ -13,7 +13,7 @@ import {
 	addSingletonFactory,
 	addTransientCtor,
 	getRequiredService,
-} from '@yohira/app';
+} from 'yohira';
 
 import config from './mikro-orm.config';
 import { CurrentUserService } from './services/CurrentUserService';

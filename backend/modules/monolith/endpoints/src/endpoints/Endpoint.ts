@@ -5,9 +5,8 @@ import {
 	IHttpRequest,
 	Ok,
 	Result,
-} from '@yohira/app';
-import { JSONSchemaType, ValidateFunction } from 'ajv';
-import Ajv from 'ajv';
+} from 'yohira';
+import Ajv, { JSONSchemaType, ValidateFunction } from 'ajv';
 
 const ajv = new Ajv({
 	coerceTypes: true,

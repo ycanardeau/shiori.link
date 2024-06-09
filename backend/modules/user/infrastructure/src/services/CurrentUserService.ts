@@ -4,7 +4,7 @@ import {
 	IEntityManager,
 } from '@shiori.link/server.user.application';
 import { User } from '@shiori.link/server.user.domain';
-import { ClaimsIdentity, IHttpContext, inject } from '@yohira/app';
+import { ClaimsIdentity, IHttpContext, inject } from 'yohira';
 
 export class CurrentUserService implements ICurrentUserService {
 	constructor(@inject(IEntityManager) private readonly em: EntityManager) {}

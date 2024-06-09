@@ -10,7 +10,7 @@ import {
 	Ok,
 	Result,
 	signOut,
-} from '@yohira/app';
+} from 'yohira';
 
 import { Endpoint } from './Endpoint';
 

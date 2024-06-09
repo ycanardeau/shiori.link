@@ -1,5 +1,5 @@
 import { Collection, Ref } from '@mikro-orm/core';
-import { Login } from 'src/entities/Login';
+import { Login } from './Login';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',

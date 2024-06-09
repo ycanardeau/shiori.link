@@ -7,7 +7,7 @@ import {
 	IAppBuilder,
 	IEndpointRouteBuilder,
 	IServiceCollection,
-} from '@yohira/app';
+} from 'yohira';
 
 export function addModule(services: IServiceCollection): IServiceCollection {
 	addEndpoints(services);

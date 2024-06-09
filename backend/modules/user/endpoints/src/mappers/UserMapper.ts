@@ -1,6 +1,6 @@
 import { UserDto } from '@shiori.link/server.user.contracts';
 import { User } from '@shiori.link/server.user.domain';
-import { Ok, Result } from '@yohira/app';
+import { Ok, Result } from 'yohira';
 import { createHash } from 'node:crypto';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';

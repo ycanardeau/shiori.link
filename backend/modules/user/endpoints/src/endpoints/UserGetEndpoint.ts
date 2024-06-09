@@ -4,7 +4,7 @@ import {
 	UserGetRequestSchema,
 	UserGetResponse,
 } from '@shiori.link/server.user.contracts';
-import { Err, IHttpContext, JsonResult, Ok, Result, inject } from '@yohira/app';
+import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';

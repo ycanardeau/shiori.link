@@ -20,7 +20,7 @@ import {
 	useEndpoints,
 	useErrorHandler,
 	useRouting,
-} from '@yohira/app';
+} from 'yohira';
 
 async function main(): Promise<void> {
 	// TODO: remove
