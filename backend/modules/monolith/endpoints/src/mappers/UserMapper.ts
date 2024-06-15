@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
-import { UserDto } from '@shiori.link/server.user.contracts';
-import { User } from '@shiori.link/server.user.domain';
+import { UserDto } from '@shiori.link/server.monolith.contracts';
+import { User } from '@shiori.link/server.monolith.domain';
 import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';

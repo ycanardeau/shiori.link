@@ -13,7 +13,9 @@ export default defineConfig({
 	schemaGenerator: {
 		disableForeignKeys: false,
 	},
-	entities: ['./dist/**/infrastructure/src/persistence/schemas/*.js'],
+	entities: [
+		'./dist/modules/monolith/infrastructure/src/persistence/schemas/*.js',
+	],
 	forceUndefined: true,
 	forceUtcTimezone: true,
 	allowGlobalContext: false,
