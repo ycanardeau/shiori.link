@@ -16,8 +16,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: shiori.link.api
-          - image: shiori.link.frontend
+          - image: backend
+          - image: frontend
 
     permissions:
       contents: read
