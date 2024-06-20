@@ -1,5 +1,8 @@
 {
-  "namespaces": [],
+  "namespaces": [
+    "monolith",
+    "user"
+  ],
   "tables": [
     {
       "columns": {
@@ -81,6 +84,7 @@
         }
       },
       "name": "users",
+      "schema": "monolith",
       "indexes": [
         {
           "keyName": "PRIMARY",
@@ -138,6 +142,7 @@
         }
       },
       "name": "notebooks",
+      "schema": "monolith",
       "indexes": [
         {
           "columnNames": [
@@ -167,11 +172,11 @@
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "notebooks",
+          "localTableName": "monolith.notebooks",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "monolith.users",
           "updateRule": "cascade"
         }
       },
@@ -240,6 +245,7 @@
         }
       },
       "name": "notes",
+      "schema": "monolith",
       "indexes": [
         {
           "columnNames": [
@@ -289,11 +295,11 @@
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "notes",
+          "localTableName": "monolith.notes",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "monolith.users",
           "updateRule": "cascade"
         },
         "notes_notebook_id_foreign": {
@@ -301,11 +307,11 @@
           "columnNames": [
             "notebook_id"
           ],
-          "localTableName": "notes",
+          "localTableName": "monolith.notes",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "notebooks",
+          "referencedTableName": "monolith.notebooks",
           "updateRule": "cascade"
         }
       },
@@ -361,6 +367,7 @@
         }
       },
       "name": "logins",
+      "schema": "monolith",
       "indexes": [
         {
           "columnNames": [
@@ -390,11 +397,11 @@
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "logins",
+          "localTableName": "monolith.logins",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "monolith.users",
           "updateRule": "cascade"
         }
       },
@@ -515,6 +522,7 @@
         }
       },
       "name": "external_links",
+      "schema": "monolith",
       "indexes": [
         {
           "columnNames": [
@@ -564,11 +572,11 @@
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "external_links",
+          "localTableName": "monolith.external_links",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "monolith.users",
           "updateRule": "cascade"
         },
         "external_links_note_id_foreign": {
@@ -576,11 +584,11 @@
           "columnNames": [
             "note_id"
           ],
-          "localTableName": "external_links",
+          "localTableName": "monolith.external_links",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "notes",
+          "referencedTableName": "monolith.notes",
           "deleteRule": "set null",
           "updateRule": "cascade"
         }
@@ -628,6 +636,7 @@
         }
       },
       "name": "contacts",
+      "schema": "monolith",
       "indexes": [
         {
           "columnNames": [
@@ -657,11 +666,198 @@
           "columnNames": [
             "user_id"
           ],
-          "localTableName": "contacts",
+          "localTableName": "monolith.contacts",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "users",
+          "referencedTableName": "monolith.users",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "normalized_email": {
+          "name": "normalized_email",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "password_hash_algorithm": {
+          "name": "password_hash_algorithm",
+          "type": "enum('Bcrypt')",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "Bcrypt"
+          ],
+          "mappedType": "enum"
+        },
+        "salt": {
+          "name": "salt",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "users",
+      "schema": "user",
+      "indexes": [
+        {
+          "keyName": "PRIMARY",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "int",
+          "unsigned": true,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "ip": {
+          "name": "ip",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "success": {
+          "name": "success",
+          "type": "tinyint(1)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "boolean"
+        }
+      },
+      "name": "logins",
+      "schema": "user",
+      "indexes": [
+        {
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "keyName": "logins_user_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "PRIMARY",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "logins_user_id_foreign": {
+          "constraintName": "logins_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "user.logins",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "user.users",
           "updateRule": "cascade"
         }
       },
