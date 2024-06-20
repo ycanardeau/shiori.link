@@ -1,11 +1,11 @@
 import { Ref, ref } from '@mikro-orm/core';
 
-import { Note } from './Note';
-import { IUserOwnedEntity, User } from './User';
+import { MonolithNote } from './MonolithNote';
+import { IUserOwnedEntity, MonolithUser } from './MonolithUser';
 
-export abstract class ExternalLink implements IUserOwnedEntity {
+export abstract class MonolithExternalLink implements IUserOwnedEntity {
 	id!: number;
-	user: Ref<User>;
+	user: Ref<MonolithUser>;
 	url: string;
 	scheme: string;
 	host: string;
@@ -18,7 +18,7 @@ export abstract class ExternalLink implements IUserOwnedEntity {
 	query: string;
 	fragment: string;
 
-	protected constructor(user: User, url: URL) {
+	protected constructor(user: MonolithUser, url: URL) {
 		this.user = ref(user);
 		this.url = url.href;
 		this.scheme = url.protocol.split(':')[0];
@@ -31,10 +31,10 @@ export abstract class ExternalLink implements IUserOwnedEntity {
 	}
 }
 
-export class NoteExternalLink extends ExternalLink {
-	note: Ref<Note>;
+export class MonolithNoteExternalLink extends MonolithExternalLink {
+	note: Ref<MonolithNote>;
 
-	constructor(note: Note, url: URL) {
+	constructor(note: MonolithNote, url: URL) {
 		super(note.user.getEntity(), url);
 
 		this.note = ref(note);

@@ -7,7 +7,7 @@ import {
 	NotebookListResponse,
 	NotebookListSort,
 } from '@shiori.link/server.monolith.contracts';
-import { Notebook } from '@shiori.link/server.monolith.domain';
+import { MonolithNotebook } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -30,7 +30,7 @@ export class NotebookListEndpoint extends Endpoint<
 
 	private orderBy(
 		sort: NotebookListSort | undefined,
-	): QueryOrderMap<Notebook> {
+	): QueryOrderMap<MonolithNotebook> {
 		switch (sort) {
 			case NotebookListSort.CreatedAtDesc:
 			default:
@@ -64,7 +64,7 @@ export class NotebookListEndpoint extends Endpoint<
 				: 10; /* TODO: const */
 
 		const [notebooks, totalCount] = await this.em.findAndCount(
-			Notebook,
+			MonolithNotebook,
 			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),

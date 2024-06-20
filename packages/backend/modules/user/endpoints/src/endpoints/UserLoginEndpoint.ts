@@ -6,20 +6,20 @@ import {
 	UserLoginRequestSchema,
 	UserLoginResponse,
 } from '@shiori.link/server.user.contracts';
-import { Login, User } from '@shiori.link/server.user.domain';
+import { UserLogin, UserUser } from '@shiori.link/server.user.domain';
 import {
 	AuthenticationProperties,
 	Claim,
-	ClaimTypes,
 	ClaimsIdentity,
 	ClaimsPrincipal,
+	ClaimTypes,
 	CookieAuthenticationDefaults,
 	Err,
 	IHttpContext,
+	inject,
 	JsonResult,
 	Ok,
 	Result,
-	inject,
 	signIn,
 } from 'yohira';
 
@@ -57,7 +57,7 @@ export class UserLoginEndpoint extends Endpoint<
 				return new Err(new UnauthorizedError());
 			}
 
-			const user = await this.em.findOne(User, {
+			const user = await this.em.findOne(UserUser, {
 				username: request.username,
 			});
 
@@ -76,7 +76,7 @@ export class UserLoginEndpoint extends Endpoint<
 
 			const success = passwordHash === user.passwordHash;
 
-			user.logins.add(new Login(user, realIp, success));
+			user.logins.add(new UserLogin(user, realIp, success));
 
 			return success ? new Ok(user) : new Err(new UnauthorizedError());
 		});

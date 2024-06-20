@@ -1,2 +1,2 @@
-export * from './entities/Login';
-export * from './entities/User';
+export * from './entities/UserLogin';
+export * from './entities/UserUser';

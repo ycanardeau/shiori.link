@@ -7,7 +7,7 @@ import {
 	ContactListResponse,
 	ContactListSort,
 } from '@shiori.link/server.monolith.contracts';
-import { Contact } from '@shiori.link/server.monolith.domain';
+import { MonolithContact } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -27,7 +27,9 @@ export class ContactListEndpoint extends Endpoint<
 		super(ContactListRequestSchema);
 	}
 
-	private orderBy(sort: ContactListSort | undefined): QueryOrderMap<Contact> {
+	private orderBy(
+		sort: ContactListSort | undefined,
+	): QueryOrderMap<MonolithContact> {
 		switch (sort) {
 			case ContactListSort.NameAsc:
 			case undefined:
@@ -61,7 +63,7 @@ export class ContactListEndpoint extends Endpoint<
 				: 10; /* TODO: const */
 
 		const [contacts, totalCount] = await this.em.findAndCount(
-			Contact,
+			MonolithContact,
 			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),

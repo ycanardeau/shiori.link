@@ -1,8 +1,8 @@
 import { Collection, Ref, ref } from '@mikro-orm/core';
 
-import { NoteExternalLink } from './ExternalLink';
-import { Notebook } from './Notebook';
-import { IUserOwnedEntity, User } from './User';
+import { MonolithNoteExternalLink } from './MonolithExternalLink';
+import { MonolithNotebook } from './MonolithNotebook';
+import { IUserOwnedEntity, MonolithUser } from './MonolithUser';
 
 export enum NoteType {
 	Bookmark = 'Bookmark',
@@ -27,7 +27,7 @@ export interface MarkdownNotePayload
 
 export type NotePayload = BookmarkNotePayload | MarkdownNotePayload;
 
-export abstract class Note<
+export abstract class MonolithNote<
 	TNoteType extends NoteType = NoteType,
 	TNotePayload extends NotePayload = NotePayload,
 > implements IUserOwnedEntity
@@ -35,24 +35,24 @@ export abstract class Note<
 	id!: number;
 	createdAt = new Date();
 	type!: TNoteType;
-	user: Ref<User>;
-	notebook: Ref<Notebook>;
+	user: Ref<MonolithUser>;
+	notebook: Ref<MonolithNotebook>;
 	text: string;
-	externalLinks = new Collection<NoteExternalLink>(this);
+	externalLinks = new Collection<MonolithNoteExternalLink>(this);
 
-	constructor(notebook: Notebook, payload: TNotePayload) {
+	constructor(notebook: MonolithNotebook, payload: TNotePayload) {
 		this.user = notebook.user;
 		this.notebook = ref(notebook);
 		this.text = JSON.stringify(payload);
 	}
 }
 
-export class BookmarkNote extends Note<
+export class MonolithBookmarkNote extends MonolithNote<
 	NoteType.Bookmark,
 	BookmarkNotePayload
 > {}
 
-export class MarkdownNote extends Note<
+export class MonolithMarkdownNote extends MonolithNote<
 	NoteType.Markdown,
 	MarkdownNotePayload
 > {}

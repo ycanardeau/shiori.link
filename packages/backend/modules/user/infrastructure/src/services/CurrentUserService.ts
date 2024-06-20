@@ -1,13 +1,15 @@
 import { EntityManager } from '@mikro-orm/core';
 import { IEntityManager } from '@shiori.link/server.mikro-orm.shared';
 import { ICurrentUserService } from '@shiori.link/server.user.application';
-import { User } from '@shiori.link/server.user.domain';
+import { UserUser } from '@shiori.link/server.user.domain';
 import { ClaimsIdentity, IHttpContext, inject } from 'yohira';
 
 export class CurrentUserService implements ICurrentUserService {
 	constructor(@inject(IEntityManager) private readonly em: EntityManager) {}
 
-	async getCurrentUser(httpContext: IHttpContext): Promise<User | undefined> {
+	async getCurrentUser(
+		httpContext: IHttpContext,
+	): Promise<UserUser | undefined> {
 		const identity = httpContext.user.identity;
 		if (!(identity instanceof ClaimsIdentity)) {
 			return undefined;
@@ -18,7 +20,7 @@ export class CurrentUserService implements ICurrentUserService {
 			return undefined;
 		}
 
-		const user = await this.em.findOne(User, {
+		const user = await this.em.findOne(UserUser, {
 			username: name,
 		});
 

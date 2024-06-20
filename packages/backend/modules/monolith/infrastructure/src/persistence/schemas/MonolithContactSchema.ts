@@ -1,9 +1,12 @@
 import { EntitySchema } from '@mikro-orm/core';
-import { Contact, User } from '@shiori.link/server.monolith.domain';
+import {
+	MonolithContact,
+	MonolithUser,
+} from '@shiori.link/server.monolith.domain';
 
-export const ContactSchema = new EntitySchema<Contact>({
-	class: Contact,
-	// schema: 'monolith',
+export const ContactSchema = new EntitySchema<MonolithContact>({
+	class: MonolithContact,
+	schema: 'monolith',
 	tableName: 'contacts',
 	properties: {
 		id: {
@@ -15,7 +18,7 @@ export const ContactSchema = new EntitySchema<Contact>({
 		},
 		user: {
 			kind: 'm:1',
-			entity: (): typeof User => User,
+			entity: (): typeof MonolithUser => MonolithUser,
 			ref: true,
 		},
 		name: {

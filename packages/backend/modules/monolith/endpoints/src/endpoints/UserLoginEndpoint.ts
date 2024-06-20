@@ -6,7 +6,10 @@ import {
 	UserLoginRequestSchema,
 	UserLoginResponse,
 } from '@shiori.link/server.monolith.contracts';
-import { Login, User } from '@shiori.link/server.monolith.domain';
+import {
+	MonolithLogin,
+	MonolithUser,
+} from '@shiori.link/server.monolith.domain';
 import {
 	AuthenticationProperties,
 	Claim,
@@ -57,7 +60,7 @@ export class UserLoginEndpoint extends Endpoint<
 				return new Err(new UnauthorizedError());
 			}
 
-			const user = await this.em.findOne(User, {
+			const user = await this.em.findOne(MonolithUser, {
 				email: request.email,
 			});
 
@@ -76,7 +79,7 @@ export class UserLoginEndpoint extends Endpoint<
 
 			const success = passwordHash === user.passwordHash;
 
-			const login = new Login(user, realIp, success);
+			const login = new MonolithLogin(user, realIp, success);
 
 			em.persist(login);
 

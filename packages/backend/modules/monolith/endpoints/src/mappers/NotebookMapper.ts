@@ -1,12 +1,12 @@
 import { NotebookDto } from '@shiori.link/server.monolith.contracts';
-import { Notebook } from '@shiori.link/server.monolith.domain';
+import { MonolithNotebook } from '@shiori.link/server.monolith.domain';
 import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 import { toUserDto } from './UserMapper';
 
 export function toNotebookDto(
-	notebook: Notebook,
+	notebook: MonolithNotebook,
 ): Result<NotebookDto, DataNotFoundError> {
 	const userDtoResult = toUserDto(notebook.user.getEntity());
 	if (!userDtoResult.ok) {

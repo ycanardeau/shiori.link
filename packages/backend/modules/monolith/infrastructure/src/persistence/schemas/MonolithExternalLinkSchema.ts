@@ -1,14 +1,14 @@
 import { EntitySchema } from '@mikro-orm/core';
 import {
-	ExternalLink,
-	Note,
-	NoteExternalLink,
-	User,
+	MonolithExternalLink,
+	MonolithNote,
+	MonolithNoteExternalLink,
+	MonolithUser,
 } from '@shiori.link/server.monolith.domain';
 
-export const ExternalLinkSchema = new EntitySchema<ExternalLink>({
-	class: ExternalLink,
-	// schema: 'monolith',
+export const ExternalLinkSchema = new EntitySchema<MonolithExternalLink>({
+	class: MonolithExternalLink,
+	schema: 'monolith',
 	tableName: 'external_links',
 	abstract: true,
 	discriminatorColumn: 'discr',
@@ -19,7 +19,7 @@ export const ExternalLinkSchema = new EntitySchema<ExternalLink>({
 		},
 		user: {
 			kind: 'm:1',
-			entity: (): typeof User => User,
+			entity: (): typeof MonolithUser => MonolithUser,
 			ref: true,
 		},
 		url: {
@@ -50,10 +50,10 @@ export const ExternalLinkSchema = new EntitySchema<ExternalLink>({
 });
 
 export const NoteExternalLinkSchema = new EntitySchema<
-	NoteExternalLink,
-	ExternalLink
+	MonolithNoteExternalLink,
+	MonolithExternalLink
 >({
-	class: NoteExternalLink,
+	class: MonolithNoteExternalLink,
 	extends: ExternalLinkSchema,
 	// schema: 'monolith',
 	tableName: 'external_links',
@@ -61,7 +61,7 @@ export const NoteExternalLinkSchema = new EntitySchema<
 	properties: {
 		note: {
 			kind: 'm:1',
-			entity: (): typeof Note => Note,
+			entity: (): typeof MonolithNote => MonolithNote,
 		},
 	},
 });

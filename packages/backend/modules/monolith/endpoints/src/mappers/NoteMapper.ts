@@ -2,17 +2,19 @@ import {
 	NoteDto,
 	NotePayloadDto,
 } from '@shiori.link/server.monolith.contracts';
-import { Note } from '@shiori.link/server.monolith.domain';
+import { MonolithNote } from '@shiori.link/server.monolith.domain';
 import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 import { toUserDto } from './UserMapper';
 
-function getPayload(note: Note): NotePayloadDto {
+function getPayload(note: MonolithNote): NotePayloadDto {
 	return JSON.parse(note.text);
 }
 
-export function toNoteDto(note: Note): Result<NoteDto, DataNotFoundError> {
+export function toNoteDto(
+	note: MonolithNote,
+): Result<NoteDto, DataNotFoundError> {
 	const userDtoResult = toUserDto(note.user.getEntity());
 	if (!userDtoResult.ok) {
 		return userDtoResult;

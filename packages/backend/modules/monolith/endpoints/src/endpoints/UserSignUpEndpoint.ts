@@ -9,7 +9,7 @@ import {
 	UserSignUpRequestSchema,
 	UserSignUpResponse,
 } from '@shiori.link/server.monolith.contracts';
-import { User } from '@shiori.link/server.monolith.domain';
+import { MonolithUser } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { toUserDto } from '../mappers/UserMapper';
@@ -37,7 +37,7 @@ export class UserSignUpEndpoint extends Endpoint<
 		);
 
 		const userResult = await this.em.transactional(async (em) => {
-			const existingUser = await this.em.findOne(User, {
+			const existingUser = await this.em.findOne(MonolithUser, {
 				normalizedEmail: normalizedEmail,
 			});
 			if (existingUser) {
@@ -52,7 +52,7 @@ export class UserSignUpEndpoint extends Endpoint<
 				salt,
 			);
 
-			const user = new User({
+			const user = new MonolithUser({
 				username: request.email.trim(),
 				email: request.email.trim(),
 				normalizedEmail: normalizedEmail,

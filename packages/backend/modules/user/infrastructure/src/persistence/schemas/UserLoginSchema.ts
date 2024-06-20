@@ -1,9 +1,9 @@
 import { Collection, EntitySchema } from '@mikro-orm/core';
-import { Login, User } from '@shiori.link/server.monolith.domain';
+import { UserLogin, UserUser } from '@shiori.link/server.user.domain';
 
-export const LoginSchema = new EntitySchema<Login>({
-	class: Login,
-	// schema: 'monolith',
+export const UserLoginSchema = new EntitySchema<UserLogin>({
+	class: UserLogin,
+	schema: 'user',
 	tableName: 'logins',
 	properties: {
 		id: {
@@ -15,9 +15,9 @@ export const LoginSchema = new EntitySchema<Login>({
 		},
 		user: {
 			kind: 'm:1',
-			entity: (): typeof User => User,
+			entity: (): typeof UserUser => UserUser,
 			ref: true,
-			inversedBy: (user): Collection<Login> => user.logins,
+			inversedBy: (user): Collection<UserLogin> => user.logins,
 		},
 		ip: {
 			type: 'string',

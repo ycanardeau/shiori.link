@@ -191,6 +191,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.monolith.infrastructure',
 						allow: [
+							'@shiori.link/server.mikro-orm.shared',
 							'@shiori.link/server.monolith.application',
 							'@shiori.link/server.monolith.domain',
 						],

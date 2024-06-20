@@ -7,7 +7,7 @@ import {
 	NotebookCreateResponse,
 	NotebookDto,
 } from '@shiori.link/server.monolith.contracts';
-import { Notebook } from '@shiori.link/server.monolith.domain';
+import { MonolithNotebook } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -43,7 +43,7 @@ export class NotebookCreateEndpoint extends Endpoint<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const notebook = new Notebook(currentUser, request.name);
+			const notebook = new MonolithNotebook(currentUser, request.name);
 			em.persist(notebook);
 
 			return new Ok(notebook);

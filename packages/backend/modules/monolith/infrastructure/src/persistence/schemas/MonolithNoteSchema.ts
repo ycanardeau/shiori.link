@@ -1,17 +1,17 @@
 import { EntitySchema, Ref } from '@mikro-orm/core';
 import {
-	BookmarkNote,
-	MarkdownNote,
-	Note,
-	Notebook,
-	NoteExternalLink,
+	MonolithBookmarkNote,
+	MonolithMarkdownNote,
+	MonolithNote,
+	MonolithNotebook,
+	MonolithNoteExternalLink,
+	MonolithUser,
 	NoteType,
-	User,
 } from '@shiori.link/server.monolith.domain';
 
-export const NoteSchema = new EntitySchema<Note>({
-	class: Note,
-	// schema: 'monolith',
+export const NoteSchema = new EntitySchema<MonolithNote>({
+	class: MonolithNote,
+	schema: 'monolith',
 	tableName: 'notes',
 	abstract: true,
 	discriminatorColumn: 'type',
@@ -29,12 +29,12 @@ export const NoteSchema = new EntitySchema<Note>({
 		},
 		user: {
 			kind: 'm:1',
-			entity: (): typeof User => User,
+			entity: (): typeof MonolithUser => MonolithUser,
 			ref: true,
 		},
 		notebook: {
 			kind: 'm:1',
-			entity: (): typeof Notebook => Notebook,
+			entity: (): typeof MonolithNotebook => MonolithNotebook,
 			ref: true,
 		},
 		text: {
@@ -42,14 +42,18 @@ export const NoteSchema = new EntitySchema<Note>({
 		},
 		externalLinks: {
 			kind: '1:m',
-			entity: (): typeof NoteExternalLink => NoteExternalLink,
-			mappedBy: (externalLink): Ref<Note> => externalLink.note,
+			entity: (): typeof MonolithNoteExternalLink =>
+				MonolithNoteExternalLink,
+			mappedBy: (externalLink): Ref<MonolithNote> => externalLink.note,
 		},
 	},
 });
 
-export const BookmarkNoteSchema = new EntitySchema<BookmarkNote, Note>({
-	class: BookmarkNote,
+export const BookmarkNoteSchema = new EntitySchema<
+	MonolithBookmarkNote,
+	MonolithNote
+>({
+	class: MonolithBookmarkNote,
 	extends: NoteSchema,
 	// schema: 'monolith',
 	tableName: 'notes',
@@ -57,8 +61,11 @@ export const BookmarkNoteSchema = new EntitySchema<BookmarkNote, Note>({
 	properties: {},
 });
 
-export const MarkdownNoteSchema = new EntitySchema<MarkdownNote, Note>({
-	class: MarkdownNote,
+export const MarkdownNoteSchema = new EntitySchema<
+	MonolithMarkdownNote,
+	MonolithNote
+>({
+	class: MonolithMarkdownNote,
 	extends: NoteSchema,
 	// schema: 'monolith',
 	tableName: 'notes',

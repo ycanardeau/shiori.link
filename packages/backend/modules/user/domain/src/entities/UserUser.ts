@@ -1,12 +1,12 @@
 import { Collection, Ref } from '@mikro-orm/core';
 
-import { Login } from './Login';
+import { UserLogin } from './UserLogin';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',
 }
 
-export class User {
+export class UserUser {
 	id!: number;
 	createdAt = new Date();
 	username: string;
@@ -15,7 +15,7 @@ export class User {
 	passwordHashAlgorithm: PasswordHashAlgorithm;
 	salt: string;
 	passwordHash: string;
-	logins = new Collection<Login>(this);
+	logins = new Collection<UserLogin>(this);
 
 	constructor({
 		username,
@@ -42,5 +42,5 @@ export class User {
 }
 
 export interface IUserOwnedEntity {
-	user: Ref<User>;
+	user: Ref<UserUser>;
 }

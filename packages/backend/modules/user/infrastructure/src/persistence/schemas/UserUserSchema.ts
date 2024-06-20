@@ -1,12 +1,12 @@
 import { EntitySchema, Ref } from '@mikro-orm/core';
 import {
-	Login,
 	PasswordHashAlgorithm,
-	User,
+	UserLogin,
+	UserUser,
 } from '@shiori.link/server.user.domain';
 
-export const UserSchema = new EntitySchema<User>({
-	class: User,
+export const UserUserSchema = new EntitySchema<UserUser>({
+	class: UserUser,
 	schema: 'user',
 	tableName: 'users',
 	properties: {
@@ -38,8 +38,8 @@ export const UserSchema = new EntitySchema<User>({
 		},
 		logins: {
 			kind: '1:m',
-			entity: (): typeof Login => Login,
-			mappedBy: (login): Ref<User> => login.user,
+			entity: (): typeof UserLogin => UserLogin,
+			mappedBy: (login): Ref<UserUser> => login.user,
 		},
 	},
 });

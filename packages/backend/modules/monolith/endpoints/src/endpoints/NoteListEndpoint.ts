@@ -7,7 +7,7 @@ import {
 	NoteListResponse,
 	NoteListSort,
 } from '@shiori.link/server.monolith.contracts';
-import { Note } from '@shiori.link/server.monolith.domain';
+import { MonolithNote } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -27,7 +27,9 @@ export class NoteListEndpoint extends Endpoint<
 		super(NoteListRequestSchema);
 	}
 
-	private orderBy(sort: NoteListSort | undefined): QueryOrderMap<Note<any>> {
+	private orderBy(
+		sort: NoteListSort | undefined,
+	): QueryOrderMap<MonolithNote<any>> {
 		switch (sort) {
 			case NoteListSort.CreatedAtAsc:
 				return { createdAt: 'asc' };
@@ -64,7 +66,7 @@ export class NoteListEndpoint extends Endpoint<
 				: 10; /* TODO: const */
 
 		const [notes, totalCount] = await this.em.findAndCount(
-			Note,
+			MonolithNote,
 			{ user: currentUser /* TODO: Use global filter */ },
 			{
 				orderBy: this.orderBy(request.sort),

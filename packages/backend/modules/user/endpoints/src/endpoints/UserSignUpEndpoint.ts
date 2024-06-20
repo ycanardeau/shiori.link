@@ -9,8 +9,8 @@ import {
 	UserSignUpRequestSchema,
 	UserSignUpResponse,
 } from '@shiori.link/server.user.contracts';
-import { User } from '@shiori.link/server.user.domain';
-import { Err, IHttpContext, JsonResult, Ok, Result, inject } from 'yohira';
+import { UserUser } from '@shiori.link/server.user.domain';
+import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { toUserDto } from '../mappers/UserMapper';
 import { Endpoint } from './Endpoint';
@@ -37,7 +37,7 @@ export class UserSignUpEndpoint extends Endpoint<
 		);
 
 		const userResult = await this.em.transactional(async (em) => {
-			const existingUser = await this.em.findOne(User, {
+			const existingUser = await this.em.findOne(UserUser, {
 				normalizedEmail: normalizedEmail,
 			});
 			if (existingUser) {
@@ -52,7 +52,7 @@ export class UserSignUpEndpoint extends Endpoint<
 				salt,
 			);
 
-			const user = new User({
+			const user = new UserUser({
 				username: request.username.trim(),
 				email: request.email,
 				normalizedEmail: normalizedEmail,

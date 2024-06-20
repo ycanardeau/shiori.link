@@ -7,7 +7,7 @@ import {
 	ContactCreateResponse,
 	ContactDto,
 } from '@shiori.link/server.monolith.contracts';
-import { Contact } from '@shiori.link/server.monolith.domain';
+import { MonolithContact } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -43,7 +43,7 @@ export class ContactCreateEndpoint extends Endpoint<
 		// TODO: check permissions
 
 		const result = await this.em.transactional(async (em) => {
-			const contact = new Contact(currentUser, request.name);
+			const contact = new MonolithContact(currentUser, request.name);
 			em.persist(contact);
 
 			return new Ok(contact);

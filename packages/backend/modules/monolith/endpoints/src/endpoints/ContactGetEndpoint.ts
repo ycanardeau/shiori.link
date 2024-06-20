@@ -6,7 +6,7 @@ import {
 	ContactGetRequestSchema,
 	ContactGetResponse,
 } from '@shiori.link/server.monolith.contracts';
-import { Contact } from '@shiori.link/server.monolith.domain';
+import { MonolithContact } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -44,7 +44,7 @@ export class ContactGetEndpoint extends Endpoint<
 		// TODO: check permissions
 
 		const contact = await this.em.findOne(
-			Contact,
+			MonolithContact,
 			{ id: request.id, user: currentUser /* TODO: Use global filter */ },
 			{ populate: ['user'] },
 		);

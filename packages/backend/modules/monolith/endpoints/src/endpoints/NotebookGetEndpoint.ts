@@ -6,7 +6,7 @@ import {
 	NotebookGetRequestSchema,
 	NotebookGetResponse,
 } from '@shiori.link/server.monolith.contracts';
-import { Notebook } from '@shiori.link/server.monolith.domain';
+import { MonolithNotebook } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -44,7 +44,7 @@ export class NotebookGetEndpoint extends Endpoint<
 		// TODO: check permissions
 
 		const notebook = await this.em.findOne(
-			Notebook,
+			MonolithNotebook,
 			{ id: request.id, user: currentUser /* TODO: Use global filter */ },
 			{ populate: ['user'] },
 		);

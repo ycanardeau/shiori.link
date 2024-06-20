@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto';
 
 import { UserDto } from '@shiori.link/server.monolith.contracts';
-import { User } from '@shiori.link/server.monolith.domain';
+import { MonolithUser } from '@shiori.link/server.monolith.domain';
 import { Ok, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
 
-function getAvatarUrl(user: User): string {
+function getAvatarUrl(user: MonolithUser): string {
 	const hash = createHash('md5')
 		.update(user.email.trim().toLowerCase())
 		.digest('hex');
@@ -14,7 +14,9 @@ function getAvatarUrl(user: User): string {
 	return `https://www.gravatar.com/avatar/${hash}`;
 }
 
-export function toUserDto(user: User): Result<UserDto, DataNotFoundError> {
+export function toUserDto(
+	user: MonolithUser,
+): Result<UserDto, DataNotFoundError> {
 	return new Ok({
 		_UserDtoBrand: undefined,
 		id: user.id,

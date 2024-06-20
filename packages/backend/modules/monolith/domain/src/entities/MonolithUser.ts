@@ -1,12 +1,12 @@
 import { Collection, Ref } from '@mikro-orm/core';
 
-import { Login } from './Login';
+import { MonolithLogin } from './MonolithLogin';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',
 }
 
-export class User {
+export class MonolithUser {
 	id!: number;
 	createdAt = new Date();
 	username: string;
@@ -15,7 +15,7 @@ export class User {
 	passwordHashAlgorithm: PasswordHashAlgorithm;
 	salt: string;
 	passwordHash: string;
-	logins = new Collection<Login>(this);
+	logins = new Collection<MonolithLogin>(this);
 
 	constructor({
 		username,
@@ -42,5 +42,5 @@ export class User {
 }
 
 export interface IUserOwnedEntity {
-	user: Ref<User>;
+	user: Ref<MonolithUser>;
 }

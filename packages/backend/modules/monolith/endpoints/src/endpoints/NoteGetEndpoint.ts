@@ -6,7 +6,7 @@ import {
 	NoteGetRequestSchema,
 	NoteGetResponse,
 } from '@shiori.link/server.monolith.contracts';
-import { Note } from '@shiori.link/server.monolith.domain';
+import { MonolithNote } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Result } from 'yohira';
 
 import { DataNotFoundError } from '../errors/DataNotFoundError';
@@ -41,7 +41,7 @@ export class NoteGetEndpoint extends Endpoint<NoteGetRequest, NoteGetResponse> {
 		// TODO: check permissions
 
 		const note = await this.em.findOne(
-			Note,
+			MonolithNote,
 			{ id: request.id, user: currentUser /* TODO: Use global filter */ },
 			{ populate: ['user'] },
 		);

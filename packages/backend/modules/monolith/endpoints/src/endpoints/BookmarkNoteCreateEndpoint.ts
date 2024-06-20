@@ -7,9 +7,9 @@ import {
 	NoteCreateResponse,
 } from '@shiori.link/server.monolith.contracts';
 import {
-	BookmarkNote,
-	Notebook,
-	NoteExternalLink,
+	MonolithBookmarkNote,
+	MonolithNotebook,
+	MonolithNoteExternalLink,
 	NoteType,
 } from '@shiori.link/server.monolith.domain';
 import { Err, IHttpContext, inject, JsonResult, Ok, Result } from 'yohira';
@@ -51,13 +51,13 @@ export class BookmarkNoteCreateEndpoint extends Endpoint<
 
 		const result = await this.em.transactional(async (em) => {
 			// TODO: remove
-			const notebooks = await em.find(Notebook, {});
+			const notebooks = await em.find(MonolithNotebook, {});
 			if (notebooks.length === 0) {
 				return new Err(new DataNotFoundError());
 			}
 			const notebook = notebooks[0];
 
-			const note = new BookmarkNote(notebook, {
+			const note = new MonolithBookmarkNote(notebook, {
 				_NotePayloadBrand: undefined,
 				type: NoteType.Bookmark,
 				url: request.url,
@@ -66,7 +66,7 @@ export class BookmarkNoteCreateEndpoint extends Endpoint<
 			em.persist(note);
 
 			// TODO: validate and restrict URLs
-			const externalLink = new NoteExternalLink(
+			const externalLink = new MonolithNoteExternalLink(
 				note,
 				new URL(request.url),
 			);
