@@ -1,4 +1,4 @@
-import { PasswordHashAlgorithm } from '@shiori.link/server.user.domain';
+import { PasswordHashAlgorithm } from '@shiori.link/server.monolith.domain';
 
 export interface IPasswordService {
 	readonly algorithm: PasswordHashAlgorithm;

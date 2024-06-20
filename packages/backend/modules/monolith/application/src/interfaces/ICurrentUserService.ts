@@ -1,4 +1,4 @@
-import { User } from '@shiori.link/server.user.domain';
+import { User } from '@shiori.link/server.monolith.domain';
 import { IHttpContext } from 'yohira';
 
 export const ICurrentUserService = Symbol.for('ICurrentUserService');
