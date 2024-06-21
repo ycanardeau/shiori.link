@@ -7,7 +7,7 @@ export default defineConfig({
 	migrations: {
 		snapshotName: '.snapshot',
 		path: './dist/apps/server/src/migrations',
-		pathTs: './apps/server/src/migrations',
+		pathTs: './src/apps/server/src/migrations',
 		disableForeignKeys: false,
 	},
 	schemaGenerator: {

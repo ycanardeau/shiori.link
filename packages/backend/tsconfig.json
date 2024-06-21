@@ -10,58 +10,58 @@
 		"baseUrl": "./",
 		"paths": {
 			"@shiori.link/server.mikro-orm.shared": [
-				"libs/mikro-orm.shared/src"
+				"src/libs/mikro-orm.shared/src"
 			],
 			"@shiori.link/server.module1.application": [
-				"modules/module1/application/src"
+				"src/modules/module1/application/src"
 			],
 			"@shiori.link/server.module1.contracts": [
-				"modules/module1/contracts/src"
+				"src/modules/module1/contracts/src"
 			],
 			"@shiori.link/server.module1.domain": [
-				"modules/module1/domain/src"
+				"src/modules/module1/domain/src"
 			],
 			"@shiori.link/server.module1.endpoints": [
-				"modules/module1/endpoints/src"
+				"src/modules/module1/endpoints/src"
 			],
 			"@shiori.link/server.module1.infrastructure": [
-				"modules/module1/infrastructure/src"
+				"src/modules/module1/infrastructure/src"
 			],
 			"@shiori.link/server.module1.module": [
-				"modules/module1/module/src"
+				"src/modules/module1/module/src"
 			],
 			"@shiori.link/server.monolith.application": [
-				"modules/monolith/application/src"
+				"src/modules/monolith/application/src"
 			],
 			"@shiori.link/server.monolith.contracts": [
-				"modules/monolith/contracts/src"
+				"src/modules/monolith/contracts/src"
 			],
 			"@shiori.link/server.monolith.domain": [
-				"modules/monolith/domain/src"
+				"src/modules/monolith/domain/src"
 			],
 			"@shiori.link/server.monolith.endpoints": [
-				"modules/monolith/endpoints/src"
+				"src/modules/monolith/endpoints/src"
 			],
 			"@shiori.link/server.monolith.infrastructure": [
-				"modules/monolith/infrastructure/src"
+				"src/modules/monolith/infrastructure/src"
 			],
 			"@shiori.link/server.monolith.module": [
-				"modules/monolith/module/src"
+				"src/modules/monolith/module/src"
 			],
 			"@shiori.link/server.user.application": [
-				"modules/user/application/src"
+				"src/modules/user/application/src"
 			],
 			"@shiori.link/server.user.contracts": [
-				"modules/user/contracts/src"
+				"src/modules/user/contracts/src"
 			],
-			"@shiori.link/server.user.domain": ["modules/user/domain/src"],
+			"@shiori.link/server.user.domain": ["src/modules/user/domain/src"],
 			"@shiori.link/server.user.endpoints": [
-				"modules/user/endpoints/src"
+				"src/modules/user/endpoints/src"
 			],
 			"@shiori.link/server.user.infrastructure": [
-				"modules/user/infrastructure/src"
+				"src/modules/user/infrastructure/src"
 			],
-			"@shiori.link/server.user.module": ["modules/user/module/src"]
+			"@shiori.link/server.user.module": ["src/modules/user/module/src"]
 		},
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
