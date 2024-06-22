@@ -3,7 +3,7 @@ import {
 	IEmailService,
 	IPasswordServiceFactory,
 } from '@shiori.link/server.user.application';
-import { IServiceCollection, addSingletonCtor, addTransientCtor } from 'yohira';
+import { addSingletonCtor, addTransientCtor, IServiceCollection } from 'yohira';
 
 import { CurrentUserService } from './services/CurrentUserService';
 import { EmailService } from './services/EmailService';

@@ -1,3 +1,4 @@
+import Ajv, { JSONSchemaType, ValidateFunction } from 'ajv';
 import {
 	Err,
 	IActionResult,
@@ -6,7 +7,6 @@ import {
 	Ok,
 	Result,
 } from 'yohira';
-import Ajv, { JSONSchemaType, ValidateFunction } from 'ajv';
 
 const ajv = new Ajv({
 	coerceTypes: true,
