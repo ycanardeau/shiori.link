@@ -1,8 +1,10 @@
 import { EntityManager } from '@mikro-orm/core';
 import { IEntityManager } from '@shiori.link/server.mikro-orm.shared';
+import { IEventDispatcher } from '@shiori.link/server.shared';
 import {
 	IEmailService,
 	IPasswordServiceFactory,
+	UserCreatedEvent,
 } from '@shiori.link/server.user.application';
 import {
 	UserSignUpRequest,
@@ -24,6 +26,9 @@ export class UserSignUpEndpoint extends Endpoint<
 		@inject(IEmailService) private readonly emailService: IEmailService,
 		@inject(IPasswordServiceFactory)
 		private readonly passwordServiceFactory: IPasswordServiceFactory,
+		//@inject(IMessageBroker) private readonly messageBroker: IMessageBroker,
+		@inject(IEventDispatcher)
+		private readonly eventDispatcher: IEventDispatcher,
 	) {
 		super(UserSignUpRequestSchema);
 	}
@@ -64,6 +69,25 @@ export class UserSignUpEndpoint extends Endpoint<
 
 			return new Ok(user);
 		});
+
+		if (userResult.ok) {
+			const user = userResult.val;
+
+			/*await this.messageBroker.publish(
+				new UserCreatedEvent({
+					id: user.id,
+					username: user.username,
+					email: user.email,
+				}),
+			);*/
+			await this.eventDispatcher.dispatch(
+				new UserCreatedEvent({
+					id: user.id,
+					username: user.username,
+					email: user.email,
+				}),
+			);
+		}
 
 		return userResult
 			.andThen((user) => toUserDto(user))

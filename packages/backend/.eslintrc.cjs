@@ -35,6 +35,10 @@ module.exports = {
 				pattern: 'apps/server/*',
 			},
 			{
+				type: '@shiori.link/server.shared',
+				pattern: 'libs/shared/*',
+			},
+			{
 				type: '@shiori.link/server.mikro-orm.shared',
 				pattern: 'libs/mikro-orm.shared/*',
 			},
@@ -131,6 +135,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server',
 						allow: [
+							'@shiori.link/server.shared',
 							'@shiori.link/server.mikro-orm.shared',
 							'@shiori.link/server.monolith.module',
 							'@shiori.link/server.user.module',
@@ -191,6 +196,7 @@ module.exports = {
 					{
 						from: '@shiori.link/server.monolith.infrastructure',
 						allow: [
+							'@shiori.link/server.shared',
 							'@shiori.link/server.mikro-orm.shared',
 							'@shiori.link/server.monolith.application',
 							'@shiori.link/server.monolith.domain',

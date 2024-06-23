@@ -8,26 +8,41 @@ import {
 	useModule as useMonolithModule,
 } from '@shiori.link/server.monolith.module';
 import {
+	IEventDispatcher,
+	IMessageBroker,
+	IMessageDispatcher,
+	InMemoryEventDispatcher,
+	IQueueClient,
+	MessageBroker,
+	RedisClient,
+	RedisMessageDispatcher,
+} from '@shiori.link/server.shared';
+import {
 	addModule as addUserModule,
 	useModule as useUserModule,
 } from '@shiori.link/server.user.module';
+import { Worker } from 'bullmq';
+import IORedis from 'ioredis';
 import {
-	CookieAuthenticationDefaults,
-	Envs,
-	WebAppOptions,
 	addAuthentication,
 	addCookie,
 	addMvcCoreServices,
 	addRouting,
 	addScopedFactory,
+	addSingletonCtor,
 	addSingletonFactory,
+	CookieAuthenticationDefaults,
 	createWebAppBuilder,
+	Envs,
 	getRequiredService,
+	ILoggerFactory,
 	isDevelopment,
+	LogLevel,
 	useAuthentication,
 	useEndpoints,
 	useErrorHandler,
 	useRouting,
+	WebAppOptions,
 } from 'yohira';
 
 import config from './mikro-orm.config';
@@ -57,6 +72,12 @@ async function main(): Promise<void> {
 		getRequiredService<MikroORM>(serviceProvider, IMikroORM).em.fork(),
 	);
 
+	addSingletonCtor(services, IEventDispatcher, InMemoryEventDispatcher);
+
+	addSingletonCtor(services, IQueueClient, RedisClient);
+	addSingletonCtor(services, IMessageDispatcher, RedisMessageDispatcher);
+	addSingletonCtor(services, IMessageBroker, MessageBroker);
+
 	addUserModule(services);
 	addMonolithModule(services);
 
@@ -82,6 +103,30 @@ async function main(): Promise<void> {
 		IMikroORM,
 	).getMigrator();
 	await migrator.up();
+
+	const connection = new IORedis({
+		maxRetriesPerRequest: null,
+	});
+
+	new Worker(
+		'async-queue',
+		async (job) => {
+			const loggerFactory = getRequiredService<ILoggerFactory>(
+				app.services,
+				ILoggerFactory,
+			);
+			const logger = loggerFactory.createLogger('');
+			logger.log(
+				LogLevel.Information,
+				`Processing message with id: ${job.id} and payload ${job.data}`,
+			);
+
+			const message = JSON.parse(job.data);
+
+			// TODO
+		},
+		{ connection: connection },
+	);
 
 	await app.run();
 }

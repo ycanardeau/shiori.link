@@ -1,6 +1,4 @@
-import { Collection, Ref } from '@mikro-orm/core';
-
-import { MonolithLogin } from './MonolithLogin';
+import { Ref } from '@mikro-orm/core';
 
 export enum PasswordHashAlgorithm {
 	Bcrypt = 'Bcrypt',
@@ -9,35 +7,22 @@ export enum PasswordHashAlgorithm {
 export class MonolithUser {
 	id!: number;
 	createdAt = new Date();
+	userId: number;
 	username: string;
 	email: string;
-	normalizedEmail: string;
-	passwordHashAlgorithm: PasswordHashAlgorithm;
-	salt: string;
-	passwordHash: string;
-	logins = new Collection<MonolithLogin>(this);
 
 	constructor({
+		userId,
 		username,
 		email,
-		normalizedEmail,
-		passwordHashAlgorithm,
-		salt,
-		passwordHash,
 	}: {
+		userId: number;
 		username: string;
 		email: string;
-		normalizedEmail: string;
-		passwordHashAlgorithm: PasswordHashAlgorithm;
-		salt: string;
-		passwordHash: string;
 	}) {
+		this.userId = userId;
 		this.username = username;
 		this.email = email;
-		this.normalizedEmail = normalizedEmail;
-		this.passwordHashAlgorithm = passwordHashAlgorithm;
-		this.salt = salt;
-		this.passwordHash = passwordHash;
 	}
 }
 

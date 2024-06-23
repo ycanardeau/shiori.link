@@ -1,9 +1,5 @@
-import { EntitySchema, Ref } from '@mikro-orm/core';
-import {
-	MonolithLogin,
-	MonolithUser,
-	PasswordHashAlgorithm,
-} from '@shiori.link/server.monolith.domain';
+import { EntitySchema } from '@mikro-orm/core';
+import { MonolithUser } from '@shiori.link/server.monolith.domain';
 
 export const UserSchema = new EntitySchema<MonolithUser>({
 	class: MonolithUser,
@@ -17,29 +13,14 @@ export const UserSchema = new EntitySchema<MonolithUser>({
 		createdAt: {
 			type: 'datetime',
 		},
+		userId: {
+			type: 'number',
+		},
 		username: {
 			type: 'string',
 		},
 		email: {
 			type: 'string',
-		},
-		normalizedEmail: {
-			type: 'string',
-		},
-		passwordHashAlgorithm: {
-			enum: true,
-			items: (): typeof PasswordHashAlgorithm => PasswordHashAlgorithm,
-		},
-		salt: {
-			type: 'string',
-		},
-		passwordHash: {
-			type: 'string',
-		},
-		logins: {
-			kind: '1:m',
-			entity: (): typeof MonolithLogin => MonolithLogin,
-			mappedBy: (login): Ref<MonolithUser> => login.user,
 		},
 	},
 });

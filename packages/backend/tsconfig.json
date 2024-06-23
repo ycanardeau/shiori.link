@@ -9,6 +9,7 @@
 		"skipLibCheck": true,
 		"baseUrl": "./",
 		"paths": {
+			"@shiori.link/server.shared": ["src/libs/shared/src"],
 			"@shiori.link/server.mikro-orm.shared": [
 				"src/libs/mikro-orm.shared/src"
 			],
