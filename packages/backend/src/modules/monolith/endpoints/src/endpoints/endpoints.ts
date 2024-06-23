@@ -10,10 +10,6 @@ import {
 	NoteGetEndpoint,
 	NoteListEndpoint,
 	UrlFetchEndpoint,
-	UserGetEndpoint,
-	UserLoginEndpoint,
-	UserLogoutEndpoint,
-	UserSignUpEndpoint,
 } from '@shiori.link/server.monolith.endpoints';
 import { Ctor } from 'yohira';
 
@@ -92,29 +88,5 @@ export const endpoints: EndpointDescriptor[] = [
 		endpoint: '/url/fetch',
 		serviceType: Symbol.for('UrlFetchEndpoint'),
 		implType: UrlFetchEndpoint,
-	},
-	{
-		method: 'GET',
-		endpoint: '/user/get',
-		serviceType: Symbol.for('UserGetEndpoint'),
-		implType: UserGetEndpoint,
-	},
-	{
-		method: 'POST',
-		endpoint: '/user/login',
-		serviceType: Symbol.for('UserLoginEndpoint'),
-		implType: UserLoginEndpoint,
-	},
-	{
-		method: 'POST',
-		endpoint: '/user/logout',
-		serviceType: Symbol.for('UserLogoutEndpoint'),
-		implType: UserLogoutEndpoint,
-	},
-	{
-		method: 'POST',
-		endpoint: '/user/signup',
-		serviceType: Symbol.for('UserSignUpEndpoint'),
-		implType: UserSignUpEndpoint,
 	},
 ];

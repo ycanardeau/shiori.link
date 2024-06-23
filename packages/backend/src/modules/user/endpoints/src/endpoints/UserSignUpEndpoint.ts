@@ -53,8 +53,8 @@ export class UserSignUpEndpoint extends Endpoint<
 			);
 
 			const user = new UserUser({
-				username: request.username.trim(),
-				email: request.email,
+				username: request.email.trim(),
+				email: request.email.trim(),
 				normalizedEmail: normalizedEmail,
 				salt: salt,
 				passwordHashAlgorithm: passwordService.algorithm,

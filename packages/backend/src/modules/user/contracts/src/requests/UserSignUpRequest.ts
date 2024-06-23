@@ -1,7 +1,6 @@
 import { JSONSchemaType } from 'ajv';
 
 export interface UserSignUpRequest {
-	username: string;
 	email: string;
 	password: string;
 }
@@ -9,9 +8,6 @@ export interface UserSignUpRequest {
 export const UserSignUpRequestSchema: JSONSchemaType<UserSignUpRequest> = {
 	type: 'object',
 	properties: {
-		username: {
-			type: 'string',
-		},
 		email: {
 			type: 'string',
 		},
@@ -19,5 +15,5 @@ export const UserSignUpRequestSchema: JSONSchemaType<UserSignUpRequest> = {
 			type: 'string',
 		},
 	},
-	required: ['username', 'email', 'password'],
+	required: ['email', 'password'],
 };

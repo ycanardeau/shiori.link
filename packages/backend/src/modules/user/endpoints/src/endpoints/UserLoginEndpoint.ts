@@ -58,7 +58,7 @@ export class UserLoginEndpoint extends Endpoint<
 			}
 
 			const user = await this.em.findOne(UserUser, {
-				username: request.username,
+				email: request.email,
 			});
 
 			if (!user) {

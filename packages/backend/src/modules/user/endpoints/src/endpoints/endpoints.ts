@@ -16,25 +16,25 @@ export interface EndpointDescriptor {
 export const endpoints: EndpointDescriptor[] = [
 	{
 		method: 'GET',
-		endpoint: '/users/get',
+		endpoint: '/user/get',
 		serviceType: Symbol.for('UserGetEndpoint'),
 		implType: UserGetEndpoint,
 	},
 	{
 		method: 'POST',
-		endpoint: '/users/login',
+		endpoint: '/user/login',
 		serviceType: Symbol.for('UserLoginEndpoint'),
 		implType: UserLoginEndpoint,
 	},
 	{
 		method: 'POST',
-		endpoint: '/users/logout',
+		endpoint: '/user/logout',
 		serviceType: Symbol.for('UserLogoutEndpoint'),
 		implType: UserLogoutEndpoint,
 	},
 	{
 		method: 'POST',
-		endpoint: '/users/signup',
+		endpoint: '/user/signup',
 		serviceType: Symbol.for('UserSignUpEndpoint'),
 		implType: UserSignUpEndpoint,
 	},

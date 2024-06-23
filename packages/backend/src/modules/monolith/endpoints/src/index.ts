@@ -10,8 +10,4 @@ export * from './endpoints/NotebookListEndpoint';
 export * from './endpoints/NoteGetEndpoint';
 export * from './endpoints/NoteListEndpoint';
 export * from './endpoints/UrlFetchEndpoint';
-export * from './endpoints/UserGetEndpoint';
-export * from './endpoints/UserLoginEndpoint';
-export * from './endpoints/UserLogoutEndpoint';
-export * from './endpoints/UserSignUpEndpoint';
 export * from './ServiceExtensions';
