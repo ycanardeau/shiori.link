@@ -4,7 +4,7 @@ import {
 	MonolithUser,
 } from '@shiori.link/server.monolith.domain';
 
-export const ContactSchema = new EntitySchema<MonolithContact>({
+export const MonolithContactSchema = new EntitySchema<MonolithContact>({
 	class: MonolithContact,
 	schema: 'monolith',
 	tableName: 'contacts',

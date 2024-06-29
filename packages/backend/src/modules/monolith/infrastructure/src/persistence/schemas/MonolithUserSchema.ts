@@ -1,7 +1,7 @@
 import { EntitySchema } from '@mikro-orm/core';
 import { MonolithUser } from '@shiori.link/server.monolith.domain';
 
-export const UserSchema = new EntitySchema<MonolithUser>({
+export const MonolithUserSchema = new EntitySchema<MonolithUser>({
 	class: MonolithUser,
 	schema: 'monolith',
 	tableName: 'users',

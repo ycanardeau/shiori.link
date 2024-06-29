@@ -9,7 +9,7 @@ import {
 	NoteType,
 } from '@shiori.link/server.monolith.domain';
 
-export const NoteSchema = new EntitySchema<MonolithNote>({
+export const MonolithNoteSchema = new EntitySchema<MonolithNote>({
 	class: MonolithNote,
 	schema: 'monolith',
 	tableName: 'notes',
@@ -49,24 +49,24 @@ export const NoteSchema = new EntitySchema<MonolithNote>({
 	},
 });
 
-export const BookmarkNoteSchema = new EntitySchema<
+export const MonolithBookmarkNoteSchema = new EntitySchema<
 	MonolithBookmarkNote,
 	MonolithNote
 >({
 	class: MonolithBookmarkNote,
-	extends: NoteSchema,
+	extends: MonolithNoteSchema,
 	// schema: 'monolith',
 	tableName: 'notes',
 	discriminatorValue: NoteType.Bookmark,
 	properties: {},
 });
 
-export const MarkdownNoteSchema = new EntitySchema<
+export const MonolithMarkdownNoteSchema = new EntitySchema<
 	MonolithMarkdownNote,
 	MonolithNote
 >({
 	class: MonolithMarkdownNote,
-	extends: NoteSchema,
+	extends: MonolithNoteSchema,
 	// schema: 'monolith',
 	tableName: 'notes',
 	discriminatorValue: NoteType.Markdown,
